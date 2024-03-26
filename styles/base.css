@@ -1,0 +1,97 @@
+:root {
+	/* fonts */
+	--header-font-family: sans-serif;
+	--body-font-family: sans-serif;
+
+	/* ENTIRE task list */
+	--task-list-height: 100vh;
+	--task-list-background-color: rgba(0, 0, 0, 0.5);
+
+	--task-list-border-color: black;
+	--task-list-border-width: 1px;
+	--task-list-border-radius: 10px;
+
+	--task-list-padding: 10px;
+
+	/* header */
+	--header-border-color: black;
+	--header-border-width: 1px;
+	--header-border-radius: 0px;
+	--header-height: 30px;
+	--header-font-size: 20px;
+	--header-font-color: white;
+	--header-background-color: rgba(0, 0, 0, 0.5);
+	--header-padding: 10px;
+
+	/* tasks number */
+	--tasks-number-font-size: 20px;
+
+	/* body */
+	--body-border-color: black;
+	--body-border-width: 1px;
+	--body-border-radius: 0px;
+	--body-background-color: rgba(0, 0, 0, 0.5);
+	--body-vertical-padding: 10px;
+	--body-horizontal-padding: 10px;
+
+	/* task */
+	--task-font-size: 16px;
+	--task-font-color: white;
+	--task-background-color: rgba(0, 0, 0, 0.5);
+	--task-border-color: black;
+	--task-border-width: 0px;
+	--task-border-radius: 0px;
+	--task-margin-bottom: 10px;
+	--task-padding: 10px;
+	--task-max-width: 70%;
+	--task-direction: row;
+
+	--number-of-lines: 1; /* number of lines to show */
+
+	/* check box */
+	--check-box-size: 15px;
+	--check-box-color: white;
+	--check-box-margin-top: 3px;
+	--check-box-margin-left: 2px;
+	--check-box-margin-right: 2px;
+	--check-box-border-width: 1px;
+	--check-box-border-radius: 0px;
+	--check-box-border-color: white;
+	--tick-character: "✓";
+	--tick-color: white;
+	--tick-size: 10px;
+	--tick-translate-y: 2px;
+
+	/* bullet point */
+	--bullet-point-color: white;
+	--bullet-point-size: 15px;
+	--bullet-point-margin-top: 3px;
+	--bullet-point-margin-left: 2px;
+	--bullet-point-margin-right: 2px;
+
+	/* done task */
+	--done-task-font-color: gray;
+	--done-task-background-color: rgba(0, 0, 0, 0.5);
+
+	/* username */
+	--username-color: white;
+	--username-max-width: 10px;
+
+	/* colon */
+	--colon-margin-right: 2px;
+	--colon-margin-left: 2px;
+}
+
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 16px;
+
+	background-color: gray;
+	color: white;
+}
