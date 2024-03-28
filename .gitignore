@@ -12,5 +12,8 @@ jspm_packages/
 .env.production.local
 .env.local
 
+# config and auths
+auth.js
+
 # Misc files
 .DS_Store
