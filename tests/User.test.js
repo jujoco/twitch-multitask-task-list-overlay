@@ -1,4 +1,4 @@
-const User = require("../scripts/User");
+const User = require("../src/User");
 
 describe("User", () => {
 	/** @type User */
@@ -66,6 +66,16 @@ describe("User", () => {
 			user.addTask("test task 1");
 			user.deleteTask(0);
 			expect(user.getTasks().length).toBe(0);
+		});
+
+		it("should delete the 2nd task accurately", () => {
+			user.addTask("test task 0");
+			user.addTask("test task 1");
+			user.addTask("test task 2");
+			user.deleteTask(1);
+			expect(user.getTask(0).getDescription()).toBe("test task 0");
+			expect(user.getTask(1).getDescription()).toBe("test task 2");
+			expect(user.getTasks().length).toBe(2);
 		});
 
 		it("should throw an error if the index is out of bounds", () => {

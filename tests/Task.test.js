@@ -1,4 +1,4 @@
-const Task = require("../scripts/Task");
+const Task = require("../src/Task");
 
 describe("Task", () => {
 	/** @type Task */

@@ -4,13 +4,14 @@ const Task = require("./Task");
  * @class User
  * @property {string} username - The username of the user
  * @property {Task[]} tasks - The tasks of the user
- * @function addTask - Add a task to the user
- * @function getTasks - Get the tasks of the user
- * @function updateTask - Update the task at the specified index
- * @function completeTask - Mark the task at the specified index as complete
- * @function deleteTask - Delete the task at the specified index
- * @function getTaskCount - Get the number of tasks the user has
- * @function validateTaskIndex - Validates the task index
+ * @method addTask - Add a task to the user
+ * @method getTask - Get the task at the specified index
+ * @method getTasks - Get the tasks of the user
+ * @method updateTask - Update the task at the specified index
+ * @method completeTask - Mark the task at the specified index as complete
+ * @method deleteTask - Delete the task at the specified index
+ * @method getTaskCount - Get the number of tasks the user has
+ * @method validateTaskIndex - Validates the task index
  */
 class User {
 	/**
@@ -33,6 +34,17 @@ class User {
 	}
 
 	/**
+	 * Get the task at the specified index
+	 * @param {number} index - The index of the task to get
+	 * @throws {Error} If the index is out of bounds
+	 * @returns {Task} - The task at the specified index
+	 */
+	getTask(index) {
+		this.validateTaskIndex(index);
+		return this.tasks[index];
+	}
+
+	/**
 	 * Get the tasks of the user
 	 * @returns {Task[]} - The tasks of the user
 	 */
@@ -43,13 +55,14 @@ class User {
 	/**
 	 * Update the task at the specified index
 	 * @param {number} index - The index of the task to get
+	 * @param {string} message - The new message for the task
 	 * @throws {Error} If the index is out of bounds
 	 * @returns {void}
 	 */
-	updateTask(index, task) {
+	updateTask(index, message) {
 		this.validateTaskIndex(index);
-		let tasks = this.getTasks();
-		tasks[index].setDescription(task);
+		let task = this.getTask(index);
+		task.setDescription(message);
 	}
 
 	/**
@@ -60,8 +73,8 @@ class User {
 	 */
 	completeTask(index) {
 		this.validateTaskIndex(index);
-		let tasks = this.getTasks();
-		tasks[index].setCompletionStatus(true);
+		let task = this.getTask(index);
+		task.setCompletionStatus(true);
 	}
 
 	/**
@@ -95,5 +108,4 @@ class User {
 		}
 	}
 }
-
 module.exports = User;
