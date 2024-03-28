@@ -2,10 +2,10 @@
  * @class Task
  * @property {string} description - The description of the task.
  * @property {boolean} completionStatus - Indicates whether the task is complete or not.
- * @function getDescription - Get the description of the task.
- * @function setDescription - Set the description of the task.
- * @function isComplete - Get the completion status of the task.
- * @function setCompletionStatus - Set the status of the task.
+ * @method getDescription - Get the description of the task.
+ * @method setDescription - Set the description of the task.
+ * @method isComplete - Get the completion status of the task.
+ * @method setCompletionStatus - Set the status of the task.
  */
 class Task {
 	/**
@@ -55,5 +55,4 @@ class Task {
 		this.completionStatus = status;
 	}
 }
-
 module.exports = Task;
