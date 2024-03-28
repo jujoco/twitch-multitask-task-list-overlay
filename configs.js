@@ -2,6 +2,7 @@ const configs = (function () {
 	"use strict";
 
 	// settings
+	const maxTasksPerUser = 3; // default 3
 	const showDoneTasks = true; // default true
 	const showTasksNumber = true; // default true
 	const crossTasksOnDone = true; // default true
@@ -213,6 +214,8 @@ const configs = (function () {
 	const taskAdded = 'The task "{task}" has been added, {user}!';
 	const noTaskAdded =
 		"Looks like you already have a task up there {user}, use !check to check your last task!";
+	const maxTasksAdded =
+		"Looks like you've reached the max tasks {user}, use !delete to delete and remove old tasks";
 	const noTaskContent = "Try using !add the-task-you-are-working-on {user}";
 	const noTaskToEdit = "No task to edit {user}";
 	const taskEdited = 'Task edited to "{task}" {user}';
@@ -350,6 +353,7 @@ const configs = (function () {
 	};
 
 	const settings = {
+		maxTasksPerUser,
 		enableTests,
 		showDoneTasks,
 		showTasksNumber,
