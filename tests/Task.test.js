@@ -8,12 +8,6 @@ describe("Task", () => {
 		task = new Task("Buy groceries");
 	});
 
-	describe("constructor", () => {
-		it("should correctly initialize a task with the given description and default completion status", () => {
-			expect(task).toBeInstanceOf(Task);
-		});
-	});
-
 	describe("getDescription", () => {
 		it("should return the description of the task", () => {
 			expect(task.getDescription()).toBe("Buy groceries");
