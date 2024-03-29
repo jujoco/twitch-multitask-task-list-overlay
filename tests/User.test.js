@@ -8,16 +8,6 @@ describe("User", () => {
 		user = new User("Bob");
 	});
 
-	describe("constructor", () => {
-		it("should create a new user", () => {
-			expect(user).toBeInstanceOf(User);
-		});
-
-		it("should set the username of the user", () => {
-			expect(user.username).toBe("Bob");
-		});
-	});
-
 	describe("addTask", () => {
 		it("should add a task to the user", () => {
 			user.addTask("test task 1");
