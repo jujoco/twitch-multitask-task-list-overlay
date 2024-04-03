@@ -10,11 +10,14 @@ files.forEach((file) => {
 	const lines = fileContent.split("\n");
 	const modifiedContent = lines
 		.filter(
-			(line) => !line.includes("require") && !line.includes("module.exports")
+			(line) =>
+				!line.includes("require") &&
+				!line.includes("module.exports") &&
+				!line.includes("@typedef {import(")
 		)
 		.join("\n");
 
 	contents += modifiedContent;
 });
 
-fs.writeFileSync("public/index.js", contents);
+fs.writeFileSync("public/bundle.js", contents);
