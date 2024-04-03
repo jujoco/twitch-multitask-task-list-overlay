@@ -8,6 +8,18 @@ describe("User", () => {
 		user = new User("Bob");
 	});
 
+	describe("validateUsername", () => {
+		it("should return the username if it is valid", () => {
+			expect(user.validateUsername("Bob")).toBe("Bob");
+		});
+
+		it("should throw an error if the username is invalid", () => {
+			expect(() => user.validateUsername("")).toThrow(
+				"Invalid username format"
+			);
+		});
+	});
+
 	describe("addTask", () => {
 		it("should add a task to the user", () => {
 			user.addTask("test task 1");
@@ -19,23 +31,15 @@ describe("User", () => {
 		});
 	});
 
-	describe("getTasks", () => {
-		it("should return the tasks of the user", () => {
-			user.addTask("test task 1");
-			user.addTask("test task 2");
-			expect(user.getTasks().length).toBe(2);
-		});
-	});
-
-	describe("updateTask", () => {
+	describe("editTask", () => {
 		it("should update the task at the specified index", () => {
 			user.addTask("test task 1");
-			user.updateTask(0, "updated task");
+			user.editTask(0, "updated task");
 			expect(user.getTasks()[0].getDescription()).toBe("updated task");
 		});
 
 		it("should throw an error if the index is out of bounds", () => {
-			expect(() => user.updateTask(0, "updated task")).toThrow(Error);
+			expect(() => user.editTask(0, "updated task")).toThrow(Error);
 		});
 	});
 
@@ -73,12 +77,31 @@ describe("User", () => {
 		});
 	});
 
-	describe("getTaskCount", () => {
-		it("should return the number of tasks the user has", () => {
+	describe("getTasks", () => {
+		it("should return the tasks of the user", () => {
 			user.addTask("test task 1");
 			user.addTask("test task 2");
-			user.addTask("test task 3");
-			expect(user.getTaskCount()).toBe(3);
+			expect(user.getTasks().length).toBe(2);
+		});
+	});
+
+	describe("validateTaskIndex", () => {
+		it("should throw an error if the index is not a number", () => {
+			expect(() => user.validateTaskIndex("0")).toThrow(
+				"Task index must be a number"
+			);
+		});
+
+		it("should throw an error if the index is out of bounds", () => {
+			expect(() => user.validateTaskIndex(4)).toThrow(
+				"Task index out of bounds"
+			);
+		});
+
+		it("should Not throw an error if the index is within bounds", () => {
+			user.addTask("test task 1");
+			expect(() => user.validateTaskIndex(0)).not.toThrow(Error);
+			expect(user.validateTaskIndex(0)).toBe(true);
 		});
 	});
 });

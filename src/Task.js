@@ -2,6 +2,7 @@
  * @class Task
  * @property {string} description - The description of the task.
  * @property {boolean} completionStatus - Indicates whether the task is complete or not.
+ * @method validateDescription - Validate the description of the task.
  * @method getDescription - Get the description of the task.
  * @method setDescription - Set the description of the task.
  * @method isComplete - Get the completion status of the task.
@@ -13,8 +14,21 @@ class Task {
 	 * @param {string} description - The description of the task.
 	 */
 	constructor(description) {
-		this.description = description;
+		this.description = this.validateDescription(description);
 		this.completionStatus = false;
+	}
+
+	/**
+	 * Validate the description of the task.
+	 * @param {string} description - The description of the task.
+	 * @returns {string} The description of the task.
+	 * @throws {Error} If the description is invalid.
+	 */
+	validateDescription(description) {
+		if (typeof description !== "string" || description === "") {
+			throw new Error("Task description invalid");
+		}
+		return description;
 	}
 
 	/**
@@ -30,10 +44,7 @@ class Task {
 	 * @param {string} description - The new description of the task.
 	 */
 	setDescription(description) {
-		if (typeof description !== "string") {
-			throw new Error("Description must be a string");
-		}
-		this.description = description;
+		this.description = this.validateDescription(description);
 	}
 
 	/**
@@ -50,7 +61,7 @@ class Task {
 	 */
 	setCompletionStatus(status) {
 		if (typeof status !== "boolean") {
-			throw new Error("Status must be a boolean");
+			throw new Error("Completion status must be a boolean");
 		}
 		this.completionStatus = status;
 	}

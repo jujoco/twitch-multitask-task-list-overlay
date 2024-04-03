@@ -8,6 +8,18 @@ describe("Task", () => {
 		task = new Task("Buy groceries");
 	});
 
+	describe("validateDescription", () => {
+		it("should return the description if it is valid", () => {
+			expect(task.validateDescription("Buy groceries")).toBe("Buy groceries");
+		});
+
+		it("should throw an error if the description is invalid", () => {
+			expect(() => task.validateDescription("")).toThrow(
+				"Task description invalid"
+			);
+		});
+	});
+
 	describe("getDescription", () => {
 		it("should return the description of the task", () => {
 			expect(task.getDescription()).toBe("Buy groceries");
@@ -22,7 +34,7 @@ describe("Task", () => {
 
 		it("should return Error if description is not a string", () => {
 			expect(() => task.setDescription(123)).toThrow(
-				"Description must be a string"
+				"Task description invalid"
 			);
 		});
 	});
@@ -41,7 +53,7 @@ describe("Task", () => {
 
 		it("should return Error if status is not a boolean", () => {
 			expect(() => task.setCompletionStatus("true")).toThrow(
-				"Status must be a boolean"
+				"Completion status must be a boolean"
 			);
 		});
 	});
