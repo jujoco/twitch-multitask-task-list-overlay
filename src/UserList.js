@@ -54,17 +54,17 @@ class UserList {
 
 	/**
 	 * Dispatch an action to the user list
-	 * @typedef Response
+	 * @typedef DispatchResponse
 	 * @property {string[]} taskDescriptions - list of task descriptions
 	 * @property {string | null} error - The error message
 	 *
 	 * @param {ActionType} type - The action type
 	 * @param {{ username: string, taskIndex?: number, taskDescription?: string}} payload - The action payload
-	 * @returns {Response} - The response from the action
+	 * @returns {DispatchResponse} - The response from the action
 	 */
 	dispatch(type, payload) {
 		const { username, taskDescription = "", taskIndex = -1 } = payload;
-		/** @type Response */
+		/** @type DispatchResponse */
 		let response = {
 			taskDescriptions: [],
 			error: null,
