@@ -1,6 +1,4 @@
-/**
- * @typedef {import('./UserList').UserList} UserList
- */
+/** @typedef {import('./UserList').UserList} UserList */
 
 /**
  * @class TaskBot
