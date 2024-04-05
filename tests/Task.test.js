@@ -14,7 +14,7 @@ describe("Task", () => {
 		});
 
 		it("should throw an error if the description is invalid", () => {
-			expect(() => task.validateDescription("")).toThrow(
+			expect(() => task.validateDescription("  ")).toThrow(
 				"Task description invalid"
 			);
 		});
@@ -34,7 +34,7 @@ describe("Task", () => {
 
 		it("should return Error if description is not a string", () => {
 			expect(() => task.setDescription(123)).toThrow(
-				"Task description invalid"
+				"Task description is not a string"
 			);
 		});
 	});

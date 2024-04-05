@@ -73,7 +73,7 @@ describe("User", () => {
 		});
 
 		it("should throw an error if the index is out of bounds", () => {
-			expect(() => user.deleteTask(0)).toThrow(Error);
+			expect(() => user.deleteTask(10)).toThrow("Task index out of bounds");
 		});
 	});
 

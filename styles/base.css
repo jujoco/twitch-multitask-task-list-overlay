@@ -4,18 +4,21 @@
 	--body-font-family: Inconsolata;
 
 	/* App Styles */
-	--app-background-color: #00000000;
+	--app-background-color: #9a9a9a00;
+
 	--app-border-color: #00000000;
 	--app-border-width: 10px;
-	--app-border-radius: 4px;
+	--app-border-radius: 8px;
+
 	--app-padding: 0px;
 
 	/* Header */
-	--header-border-width: 0px;
 	--header-border-color: black;
+	--header-border-width: 0px;
 	--header-border-radius: 4px;
 	--header-background-color: rgba(0, 0, 0, 0.8);
-	--header-font-size: 20px;
+	--header-font-size: 30px;
+	--header-height: 60px;
 	--header-font-color: white;
 	--header-margin-bottom: 10px;
 	--header-padding: 10px;
@@ -42,16 +45,4 @@
 	/* Username */
 	--username-color: #ffffff;
 	--username-max-width: 80%;
-}
-
-*,
-*:before,
-*:after {
-	margin: 0;
-	box-sizing: border-box;
-}
-
-body {
-	font-size: 16px;
-	color: white;
 }

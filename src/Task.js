@@ -25,7 +25,10 @@ class Task {
 	 * @throws {Error} If the description is invalid.
 	 */
 	validateDescription(description) {
-		if (typeof description !== "string" || description === "") {
+		if (typeof description !== "string") {
+			throw new Error("Task description is not a string");
+		}
+		if (description.trim().length === 0) {
 			throw new Error("Task description invalid");
 		}
 		return description;

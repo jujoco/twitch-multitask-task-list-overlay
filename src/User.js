@@ -80,9 +80,14 @@ class User {
 	 * @returns {Task}	The task that was removed
 	 */
 	deleteTask(index) {
-		let tasks = this.getTasks();
-		const taskRemoved = tasks.splice(index, 1)[0];
-		return taskRemoved;
+		let taskToDelete = this.getTask(index);
+		const userTasks = this.getTasks().filter((task, i) => {
+			if (task.description !== taskToDelete.description) {
+				return task;
+			}
+		});
+		this.tasks = userTasks;
+		return taskToDelete;
 	}
 
 	/**

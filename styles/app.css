@@ -16,7 +16,7 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: var(--header-margin-bottom);
-	font-family: var(--header-font-family);
+	font-family: var(--header-font-family, "serif");
 	color: var(--header-font-color);
 	font-size: var(--header-font-size);
 	border-style: solid;
