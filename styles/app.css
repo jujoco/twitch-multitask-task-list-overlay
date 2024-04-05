@@ -1,0 +1,91 @@
+#app {
+	display: flex;
+	flex-direction: column;
+	border: solid;
+	border-color: var(--app-border-color);
+	border-width: var(--app-border-width);
+	border-radius: var(--app-border-radius);
+	padding: var(--app-padding);
+	height: 100vh;
+	background-color: var(--app-background-color);
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: var(--header-margin-bottom);
+	font-family: var(--header-font-family);
+	color: var(--header-font-color);
+	font-size: var(--header-font-size);
+	border-style: solid;
+	border-color: var(--header-border-color);
+	border-width: var(--header-border-width);
+	border-radius: var(--header-border-radius);
+	padding: var(--header-padding);
+	height: var(--header-height);
+	background-color: var(--header-background-color);
+}
+
+.task-wrapper {
+	display: flex;
+	z-index: 1;
+	position: relative;
+	overflow: hidden;
+	border: solid;
+	border-color: var(--body-border-color);
+	border-width: var(--body-border-width);
+	border-radius: var(--body-border-radius);
+	height: 100%;
+	background-color: var(--body-background-color);
+	font-family: var(--body-font-family);
+}
+
+.task-container {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+.card {
+	border-style: solid;
+	border-color: var(--card-border-color);
+	border-width: var(--card-border-width);
+	border-radius: var(--card-border-radius);
+	padding: var(--card-padding);
+	background-color: var(--card-background-color);
+	font-size: var(--card-font-size);
+	color: var(--card-font-color);
+}
+
+.card:not(:last-child) {
+	margin-bottom: var(--card-margin-bottom);
+}
+
+.secondary {
+	display: none;
+}
+
+.fade {
+	opacity: 0;
+}
+
+.username {
+	overflow: hidden;
+	width: fit-content;
+	max-width: var(--username-max-width);
+	color: var(--username-color);
+	font-weight: bold;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.done {
+	color: var(--done-task-font-color);
+	text-decoration-line: line-through;
+}

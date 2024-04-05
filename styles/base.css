@@ -1,97 +1,57 @@
 :root {
-	/* fonts */
-	--header-font-family: sans-serif;
-	--body-font-family: sans-serif;
+	/* fonts available @ https://fonts.google.com */
+	--header-font-family: Inconsolata;
+	--body-font-family: Inconsolata;
 
-	/* ENTIRE task list */
-	--task-list-height: 100vh;
-	--task-list-background-color: rgba(0, 0, 0, 0.5);
+	/* App Styles */
+	--app-background-color: #00000000;
+	--app-border-color: #00000000;
+	--app-border-width: 10px;
+	--app-border-radius: 4px;
+	--app-padding: 0px;
 
-	--task-list-border-color: black;
-	--task-list-border-width: 1px;
-	--task-list-border-radius: 10px;
-
-	--task-list-padding: 10px;
-
-	/* header */
+	/* Header */
+	--header-border-width: 0px;
 	--header-border-color: black;
-	--header-border-width: 1px;
-	--header-border-radius: 0px;
-	--header-height: 30px;
+	--header-border-radius: 4px;
+	--header-background-color: rgba(0, 0, 0, 0.8);
 	--header-font-size: 20px;
 	--header-font-color: white;
-	--header-background-color: rgba(0, 0, 0, 0.5);
+	--header-margin-bottom: 10px;
 	--header-padding: 10px;
 
-	/* tasks number */
-	--tasks-number-font-size: 20px;
-
-	/* body */
-	--body-border-color: black;
+	/* Body */
+	--body-border-color: #00000000;
 	--body-border-width: 1px;
-	--body-border-radius: 0px;
-	--body-background-color: rgba(0, 0, 0, 0.5);
-	--body-vertical-padding: 10px;
-	--body-horizontal-padding: 10px;
+	--body-border-radius: 4px;
+	--body-background-color: #00000000;
 
-	/* task */
-	--task-font-size: 16px;
-	--task-font-color: white;
-	--task-background-color: rgba(0, 0, 0, 0.5);
-	--task-border-color: black;
-	--task-border-width: 0px;
-	--task-border-radius: 0px;
-	--task-margin-bottom: 10px;
-	--task-padding: 10px;
-	--task-max-width: 70%;
-	--task-direction: row;
+	/* Card */
+	--card-font-size: 18px;
+	--card-font-color: #ffffff;
+	--card-background-color: rgba(0, 0, 0, 0.6);
+	--card-border-color: #1f6900;
+	--card-border-width: 0px;
+	--card-border-radius: 4px;
+	--card-margin-bottom: 10px;
+	--card-padding: 10px;
 
-	--number-of-lines: 1; /* number of lines to show */
+	/* Done task */
+	--done-task-font-color: #2e2e2ecf;
 
-	/* check box */
-	--check-box-size: 15px;
-	--check-box-color: white;
-	--check-box-margin-top: 3px;
-	--check-box-margin-left: 2px;
-	--check-box-margin-right: 2px;
-	--check-box-border-width: 1px;
-	--check-box-border-radius: 0px;
-	--check-box-border-color: white;
-	--tick-character: "✓";
-	--tick-color: white;
-	--tick-size: 10px;
-	--tick-translate-y: 2px;
-
-	/* bullet point */
-	--bullet-point-color: white;
-	--bullet-point-size: 15px;
-	--bullet-point-margin-top: 3px;
-	--bullet-point-margin-left: 2px;
-	--bullet-point-margin-right: 2px;
-
-	/* done task */
-	--done-task-font-color: gray;
-	--done-task-background-color: rgba(0, 0, 0, 0.5);
-
-	/* username */
-	--username-color: white;
-	--username-max-width: 10px;
-
-	/* colon */
-	--colon-margin-right: 2px;
-	--colon-margin-left: 2px;
+	/* Username */
+	--username-color: #ffffff;
+	--username-max-width: 80%;
 }
 
 *,
 *:before,
 *:after {
 	margin: 0;
-	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
 	font-size: 16px;
-
-	background-color: gray;
 	color: white;
 }
