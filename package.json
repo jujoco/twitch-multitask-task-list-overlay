@@ -10,7 +10,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
-		"test:dev": "jest --watch",
+		"test:watch": "jest --watch",
 		"test:coverage": "jest --coverage",
 		"build": "node ./scripts/build.js"
 	},
