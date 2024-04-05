@@ -42,6 +42,7 @@ class User {
 	 * @returns {Task}
 	 */
 	addTask(description) {
+		description = description.trim();
 		const task = new Task(description);
 		this.tasks.push(task);
 		return task;
@@ -55,7 +56,6 @@ class User {
 	 * @returns {Task} - The task that was edited
 	 */
 	editTask(index, description) {
-		this.validateTaskIndex(index);
 		let task = this.getTask(index);
 		task.setDescription(description);
 		return task;
@@ -68,7 +68,6 @@ class User {
 	 * @returns {Task} - The task that was completed
 	 */
 	completeTask(index) {
-		this.validateTaskIndex(index);
 		let task = this.getTask(index);
 		task.setCompletionStatus(true);
 		return task;
@@ -81,7 +80,6 @@ class User {
 	 * @returns {Task}	The task that was removed
 	 */
 	deleteTask(index) {
-		this.validateTaskIndex(index);
 		let tasks = this.getTasks();
 		const taskRemoved = tasks.splice(index, 1)[0];
 		return taskRemoved;
