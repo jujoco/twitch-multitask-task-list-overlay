@@ -5,11 +5,10 @@ const configs = (function () {
 		languageCode: "EN", // "EN", "ES", "FR", "JP"
 		crossTasksOnDone: true, // true or false
 		maxTasksPerUser: 5, // number between 1 and 10
-		scrollSpeed: 4, // number between 1 and 10
 	};
 
 	const admin = {
-		list: {
+		commands: {
 			adminClearAllTasksCommands: ["!adminclearall"],
 			adminClearDoneTasksCommands: ["!admincleardone"],
 			adminClearUserCommands: ["!adminclearuser"],
@@ -137,7 +136,7 @@ const configs = (function () {
 		},
 	};
 
-	let module = {
+	const module = {
 		admin,
 		user,
 		settings,

@@ -1,5 +1,32 @@
 let scrolling = false;
 let primaryAnimation, secondaryAnimation;
+let userList;
+
+window.addEventListener("load", () => {
+	userList = new UserList();
+	loadCustomFont();
+	// renderTaskBot();
+});
+
+function loadCustomFont() {
+	const headerFontFamily = getComputedStyle(document.documentElement)
+		.getPropertyValue("--header-font-family")
+		.trim();
+	loadGoogleFont(headerFontFamily);
+
+	const bodyFontFamily = getComputedStyle(document.documentElement)
+		.getPropertyValue("--body-font-family")
+		.trim();
+	loadGoogleFont(bodyFontFamily);
+}
+
+function loadGoogleFont(font) {
+	WebFont.load({
+		google: {
+			families: [font],
+		},
+	});
+}
 
 function renderTaskBot() {
 	const users = userList.getAllUsers();
@@ -113,32 +140,3 @@ function animationFinished() {
 	renderTaskBot();
 	animateScroll();
 }
-
-function cancelAnimation() {}
-
-function loadCustomFont() {
-	const headerFontFamilyValue = getComputedStyle(
-		document.documentElement
-	).getPropertyValue("--header-font-family");
-	loadGoogleFont(headerFontFamilyValue);
-
-	const bodyFontFamily = getComputedStyle(
-		document.documentElement
-	).getPropertyValue("--body-font-family");
-	loadGoogleFont(bodyFontFamily);
-}
-
-function loadGoogleFont(font) {
-	WebFont.load({
-		google: {
-			families: [font],
-		},
-	});
-}
-
-/** @typedef {import('./UserList')} @type UserList */
-const userList = new UserList();
-window.onload = function () {
-	loadCustomFont();
-	renderTaskBot();
-};
