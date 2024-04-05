@@ -5,8 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
-			rel="alternate icon"
-			class="js-site-favicon"
+			rel="icon"
 			type="image/png"
 			href="https://github.githubassets.com/favicons/favicon-dark.png"
 		/>
@@ -14,39 +13,36 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0-beta/jquery.min.js"></script>
-		<script src="./configs.js"></script>
 		<script src="./auth.js"></script>
-		<script src="./scripts/index.js"></script>
-		<script src="./scripts/taskList.js"></script>
+		<script src="./configs.js"></script>
+
+		<script src="./public/bundle.js"></script>
+		<script src="./public/comfyExec.js"></script>
 		<title>Multi Task List</title>
 	</head>
 
 	<body>
-		<main id="main-container">
+		<main id="app">
 			<div class="header">
-				<div id="command-title">
-					<span id="command-code">!taskhelp</span>
+				<div class="command-title">
+					<span class="command-code">!taskhelp</span>
 				</div>
-				<div id="task-title">
-					<span id="task-count">0/0</span>
+				<div class="task-title">
+					<span class="task-count">0/0</span>
 				</div>
 			</div>
 			<div class="task-wrapper">
 				<div class="task-container primary">
 					<!-- TASK TEMPLATE -->
-					<!-- 
-					<div class="task-div done-task-div">
-						<div class="username-div">
-							<div class="checkbox">
-								<input type="checkbox" aria-labelledby="checkbox" />
-								<label>::after</label>
-							</div>
-							<div class="username">userFromChat23</div>
-							<div class="colon">:</div>
-						</div>
-						<div class="task crossed done">test task 0</div>
-					</div>
-					 -->
+
+					<!-- <div class="card">
+						<div class="username">UserFromChat23</div>
+						<ol class="user-task-list">
+							<li class="task done">cooking food</li>
+							<li class="task">wash clothes</li>
+						</ol>
+					</div> -->
+
 					<!-- END TASK TEMPLATE -->
 				</div>
 				<div class="task-container secondary"></div>
