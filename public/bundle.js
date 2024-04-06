@@ -211,9 +211,8 @@ class User {
 /**
  * @class UserList
  * @property {User[]} users
- * @method loadUserListFromLocalStorage - Load the user list from local storage
- * @method commitToLocalStorage - Save the user list to local storage
- * @method #createUser - Create a new user
+ * @method #loadUserListFromLocalStorage - Load the user list from local storage
+ * @method #commitToLocalStorage - Save the user list to local storage
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
  * @method deleteUser - Delete the user at the specified index
@@ -227,28 +226,27 @@ class User {
  */
 class UserList {
 	constructor() {
-		this.users = this.loadUserListFromLocalStorage();
+		this.users = this.#loadUserListFromLocalStorage();
 	}
 
 	/**
 	 * Load the user list from local storage
+	 * @private
 	 * @returns {User[]} - The user list
 	 */
-	loadUserListFromLocalStorage() {
+	#loadUserListFromLocalStorage() {
 		let userList = localStorage.getItem("userList");
-		if (userList === null) {
-			localStorage.setItem("userList", "[]");
+		if (!userList) {
 			userList = [];
+			localStorage.setItem("userList", JSON.stringify(userList));
 			return userList;
 		}
 		userList = JSON.parse(userList);
 		const users = userList.map((oldUser) => {
-			const newUser = this.#createUser(
-				oldUser.username,
-				oldUser.tasks.map((task) => task.description)
-			);
-			newUser.tasks.forEach((task, index) => {
-				task.completionStatus = oldUser.tasks[index].completionStatus;
+			const newUser = new User(oldUser.username);
+			oldUser.tasks.map((task) => {
+				const newTask = newUser.addTask(task.description);
+				newTask.completionStatus = task.completionStatus;
 			});
 			return newUser;
 		});
@@ -258,30 +256,11 @@ class UserList {
 
 	/**
 	 * Commit userList changes to local storage
+	 * @private
 	 * @returns {void}
 	 */
-	commitToLocalStorage() {
+	#commitToLocalStorage() {
 		localStorage.setItem("userList", JSON.stringify(this.users));
-	}
-
-	/**
-	 * Create a new user
-	 * @param {string} username - The username of the user
-	 * @param {string[]} [taskDescriptions] - The task descriptions of the user
-	 * @returns {User} - The created user
-	 * @throws {Error} - If the username already exists
-	 */
-	#createUser(username, taskDescriptions = []) {
-		if (this.getUser(username)) {
-			throw new Error("Username already exists");
-		}
-		const newUser = new User(username);
-		if (taskDescriptions.length > 0) {
-			newUser.addTask(taskDescriptions);
-		}
-		this.users.push(newUser);
-		this.commitToLocalStorage();
-		return newUser;
 	}
 
 	/**
@@ -314,7 +293,7 @@ class UserList {
 			throw new Error("User not found");
 		}
 		const deletedUser = this.users.splice(index, 1)[0];
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 		return deletedUser;
 	}
 
@@ -330,11 +309,13 @@ class UserList {
 		}
 		let user = this.getUser(username);
 		if (!user) {
-			user = this.#createUser(username, taskDescriptions);
+			user = new User(username);
+			user.addTask(taskDescriptions);
+			this.users.push(user);
 		} else {
 			user.addTask(taskDescriptions);
 		}
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 		return taskDescriptions.join(", ");
 	}
 
@@ -352,7 +333,7 @@ class UserList {
 			throw new Error(`${username} has no tasks`);
 		}
 		user.editTask(taskIndex, taskDescription);
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 		return taskDescription;
 	}
 
@@ -369,7 +350,7 @@ class UserList {
 			throw new Error(`${username} has no tasks`);
 		}
 		const task = user.completeTask(taskIndex);
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 		return task.getDescription();
 	}
 
@@ -386,7 +367,7 @@ class UserList {
 			throw new Error(`${username} has no tasks`);
 		}
 		const task = user.deleteTask(taskIndex);
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 		return task.getDescription();
 	}
 
@@ -413,7 +394,7 @@ class UserList {
 	 */
 	clearUserList() {
 		this.users = [];
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 	}
 
 	/**
@@ -424,7 +405,7 @@ class UserList {
 		this.users.forEach((user) => {
 			user.clearDoneTasks();
 		});
-		this.commitToLocalStorage();
+		this.#commitToLocalStorage();
 	}
 }
 const adminConfig = configs.admin;

@@ -1,4 +1,5 @@
 const UserList = require("../src/UserList");
+const User = require("../src/User");
 
 describe("UserList", () => {
 	/** @type UserList */
@@ -9,36 +10,31 @@ describe("UserList", () => {
 		userList = new UserList();
 	});
 
-	describe("Interacting with LocalStorage", () => {
-		it("should load an empty userList from localStorage", () => {
-			expect(localStorage.getItem("userList")).toEqual("[]");
-			expect(userList.loadUserListFromLocalStorage()).toEqual([]);
+	describe("constructor", () => {
+		beforeEach(() => {
+			localStorage.clear();
 		});
 
-		it("should load a userList from localStorage", () => {
+		it("should load an empty user list if localStorage dose not contain userList", () => {
+			userList = new UserList();
+			expect(userList.users).toEqual([]);
+		});
+
+		it("should load user list if localStorage contains userList", () => {
 			localStorage.setItem(
 				"userList",
-				'[{"username":"user1","tasks":[{"description":"Task 1","completionStatus":false}]}]'
+				JSON.stringify([
+					{
+						username: "user1",
+						tasks: [{ description: "Task 1", completionStatus: false }],
+					},
+				])
 			);
-			expect(userList.loadUserListFromLocalStorage()).toEqual([
-				{
-					username: "user1",
-					tasks: [
-						{
-							description: "Task 1",
-							completionStatus: false,
-						},
-					],
-				},
-			]);
-		});
-
-		it("should commit user list to local storage", () => {
-			userList.users = [{ username: "literalUserName", tasks: [] }];
-			userList.commitToLocalStorage();
-			expect(localStorage.getItem("userList")).toEqual(
-				'[{"username":"literalUserName","tasks":[]}]'
-			);
+			userList = new UserList();
+			let user = userList.users[0];
+			expect(user.username).toEqual("user1");
+			expect(user.tasks[0].description).toEqual("Task 1");
+			expect(user.tasks[0].completionStatus).toEqual(false);
 		});
 	});
 
