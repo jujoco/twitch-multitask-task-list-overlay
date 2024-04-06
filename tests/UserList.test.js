@@ -1,4 +1,4 @@
-const { UserList, ActionType } = require("../src/UserList");
+const UserList = require("../src/UserList");
 
 describe("UserList", () => {
 	/** @type UserList */
@@ -10,117 +10,35 @@ describe("UserList", () => {
 	});
 
 	describe("Interacting with LocalStorage", () => {
-		it("should load user list from local storage", () => {
-			expect(userList.loadFromLocalStorage()).toEqual([]);
+		it("should load an empty userList from localStorage", () => {
+			expect(localStorage.getItem("userList")).toEqual("[]");
+			expect(userList.loadUserListFromLocalStorage()).toEqual([]);
 		});
 
-		it("should save user list to local storage", () => {
-			userList.addUserTask("user1", "Task 1");
-			expect(localStorage.getItem("userList")).toEqual(
+		it("should load a userList from localStorage", () => {
+			localStorage.setItem(
+				"userList",
 				'[{"username":"user1","tasks":[{"description":"Task 1","completionStatus":false}]}]'
 			);
-		});
-	});
-
-	describe("Dispatching Actions", () => {
-		const username = "user1";
-		const taskDescription = "Task 1";
-		it("should dispatch ADD_USER_TASK", () => {
-			const response = userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription,
-			});
-			expect(response.taskDescriptions).toEqual(["Task 1"]);
-			expect(response.error).toBeNull();
-
-			const response2 = userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription: "Task 2",
-			});
-			expect(response2).toEqual({ error: null, taskDescriptions: ["Task 2"] });
-			expect(response2.error).toBeNull();
+			expect(userList.loadUserListFromLocalStorage()).toEqual([
+				{
+					username: "user1",
+					tasks: [
+						{
+							description: "Task 1",
+							completionStatus: false,
+						},
+					],
+				},
+			]);
 		});
 
-		it("should dispatch EDIT_USER_TASK", () => {
-			userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription,
-			});
-			const taskIndex = 0;
-			const response = userList.dispatch(ActionType.EDIT_USER_TASK, {
-				username,
-				taskIndex,
-				taskDescription: "Updated Task 1",
-			});
-			expect(response.taskDescriptions).toEqual(["Updated Task 1"]);
-			expect(response.error).toBeNull();
-
-			const response2 = userList.dispatch(ActionType.EDIT_USER_TASK, {
-				username: "nonExistentUser",
-				taskIndex,
-				taskDescription: "Updated Task 2",
-			});
-			expect(response2.taskDescriptions).toEqual([]);
-			expect(response2.error).toEqual("nonExistentUser has no tasks");
-		});
-
-		it("should dispatch COMPLETE_USER_TASK", () => {
-			userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription,
-			});
-			const taskIndex = 0;
-			const response = userList.dispatch(ActionType.COMPLETE_USER_TASK, {
-				username,
-				taskIndex,
-			});
-			expect(response.taskDescriptions).toEqual(["Task 1"]);
-			expect(response.error).toBeNull();
-
-			const response2 = userList.dispatch(ActionType.COMPLETE_USER_TASK, {
-				username: "nonExistentUser",
-				taskIndex,
-			});
-			expect(response2.taskDescriptions).toEqual([]);
-			expect(response2.error).toEqual("nonExistentUser has no tasks");
-		});
-
-		it("should dispatch DELETE_USER_TASK", () => {
-			userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription,
-			});
-
-			const response = userList.dispatch(ActionType.DELETE_USER_TASK, {
-				username,
-				taskIndex: 0,
-			});
-			expect(response.taskDescriptions).toEqual(["Task 1"]);
-			expect(response.error).toBeNull();
-
-			const response2 = userList.dispatch(ActionType.DELETE_USER_TASK, {
-				username: "nonExistentUser",
-				taskIndex: 0,
-			});
-			expect(response2.taskDescriptions).toEqual([]);
-			expect(response2.error).toEqual("nonExistentUser has no tasks");
-		});
-
-		it("should dispatch CHECK_USER_TASK", () => {
-			userList.dispatch(ActionType.ADD_USER_TASK, {
-				username,
-				taskDescription,
-			});
-
-			const response = userList.dispatch(ActionType.CHECK_USER_TASKS, {
-				username,
-			});
-			expect(response.taskDescriptions).toEqual(["Task 1"]);
-		});
-
-		it("should throw an error for invalid action type", () => {
-			const response = userList.dispatch("INVALID_ACTION", { username });
-			expect(response.error).toBe("Invalid action type");
+		it("should commit user list to local storage", () => {
+			userList.users = [{ username: "literalUserName", tasks: [] }];
+			userList.commitToLocalStorage();
+			expect(localStorage.getItem("userList")).toEqual(
+				'[{"username":"literalUserName","tasks":[]}]'
+			);
 		});
 	});
 
@@ -140,6 +58,37 @@ describe("UserList", () => {
 
 		it("should return undefined if user does not exist", () => {
 			expect(userList.getUser("nonExistentUser")).toBeUndefined();
+		});
+	});
+
+	describe("getAllUsers", () => {
+		it("should return all users", () => {
+			userList.addUserTask("user1", "user1 task 1");
+			userList.addUserTask("user2", "user2 task 1");
+			expect(userList.getAllUsers()).toEqual([
+				{
+					username: "user1",
+					tasks: [
+						{
+							completionStatus: false,
+							description: "user1 task 1",
+						},
+					],
+				},
+				{
+					username: "user2",
+					tasks: [
+						{
+							completionStatus: false,
+							description: "user2 task 1",
+						},
+					],
+				},
+			]);
+		});
+
+		it("should return an empty array if there are no users", () => {
+			expect(userList.getAllUsers()).toEqual([]);
 		});
 	});
 
@@ -177,6 +126,19 @@ describe("UserList", () => {
 				],
 			});
 		});
+
+		it("should add a task to the user", () => {
+			userList.addUserTask("user1", "Task 1");
+			expect(userList.getUser("user1")).toEqual({
+				username: "user1",
+				tasks: [
+					{
+						description: "Task 1",
+						completionStatus: false,
+					},
+				],
+			});
+		});
 	});
 
 	describe("editUserTask", () => {
@@ -184,6 +146,13 @@ describe("UserList", () => {
 			userList.addUserTask("user1", "Task 1");
 			expect(userList.editUserTask("user1", 0, "Updated Task 1")).toEqual(
 				"Updated Task 1"
+			);
+		});
+
+		it("should throw an error if task does not exist", () => {
+			userList.addUserTask("user1", "Task 1");
+			expect(() => userList.editUserTask("user1", 1, "Updated Task 1")).toThrow(
+				"Task index out of bounds"
 			);
 		});
 
@@ -200,6 +169,13 @@ describe("UserList", () => {
 			expect(userList.completeUserTask("user1", 0)).toEqual("Task 1");
 		});
 
+		it("should throw an error if task does not exist", () => {
+			userList.addUserTask("user1", "Task 1");
+			expect(() => userList.completeUserTask("user1", 1)).toThrow(
+				"Task index out of bounds"
+			);
+		});
+
 		it("should throw an error if user does not exist", () => {
 			expect(() => userList.completeUserTask("nonExistentUser", 0)).toThrow(
 				"nonExistentUser has no tasks"
@@ -211,6 +187,13 @@ describe("UserList", () => {
 		it("should delete a task for the user", () => {
 			userList.addUserTask("user1", "Task 1");
 			expect(userList.deleteUserTask("user1", 0)).toEqual("Task 1");
+		});
+
+		it("should throw an error if task does not exist", () => {
+			userList.addUserTask("user1", "Task 1");
+			expect(() => userList.deleteUserTask("user1", 1)).toThrow(
+				"Task index out of bounds"
+			);
 		});
 
 		it("should throw an error if user does not exist", () => {
@@ -230,6 +213,29 @@ describe("UserList", () => {
 			expect(() => userList.checkUserTasks("nonExistentUser")).toThrow(
 				"nonExistentUser has no tasks"
 			);
+		});
+	});
+
+	describe("clearUserList", () => {
+		it("should clear all tasks", () => {
+			userList.addUserTask("user1", "Task 1");
+			userList.addUserTask("user1", "Task 1");
+			userList.clearUserList();
+			expect(userList.users).toEqual([]);
+		});
+	});
+
+	describe("clearDoneTasks", () => {
+		it("should clear all done tasks for the user", () => {
+			userList.addUserTask("user1", ["user1 Task 1", "user1 Task 1"]);
+			userList.addUserTask("user2", ["user2 Task 1", "user2 Task 1"]);
+			userList.completeUserTask("user1", 0);
+			userList.completeUserTask("user2", 1);
+			userList.clearDoneTasks();
+			expect(userList.getUser("user1")).toEqual({
+				username: "user1",
+				tasks: [{ description: "user1 Task 1", completionStatus: false }],
+			});
 		});
 	});
 });

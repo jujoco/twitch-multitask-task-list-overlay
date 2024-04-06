@@ -14,28 +14,39 @@ describe("User", () => {
 		});
 
 		it("should throw an error if the username is invalid", () => {
-			expect(() => user.validateUsername("")).toThrow(
-				"Invalid username format"
+			expect(() => user.validateUsername("")).toThrow("Username invalid");
+		});
+
+		it("should throw an Error if username is not a string", () => {
+			expect(() => user.validateUsername(123)).toThrow(
+				"Username must be of type string"
+			);
+			expect(() => user.validateUsername(true)).toThrow(
+				"Username must be of type string"
+			);
+			expect(() => user.validateUsername([])).toThrow(
+				"Username must be of type string"
 			);
 		});
 	});
 
 	describe("addTask", () => {
-		it("should add a task to the user", () => {
-			user.addTask("test task 1");
-			expect(user.getTasks().length).toBe(1);
+		it("should accept an array as its value and return array", () => {
+			expect(user.addTask(["task 1", "task 2"]).length).toBe(2);
 		});
-		it("should add a task with the specified description", () => {
-			user.addTask("test task 1");
-			expect(user.getTasks()[0].getDescription()).toBe("test task 1");
+
+		it("should accept a string as its value and return array", () => {
+			expect(user.addTask("task 1").length).toBe(1);
 		});
 	});
 
 	describe("editTask", () => {
-		it("should update the task at the specified index", () => {
+		it("should update the task description at the specified index", () => {
 			user.addTask("test task 1");
-			user.editTask(0, "updated task");
-			expect(user.getTasks()[0].getDescription()).toBe("updated task");
+			user.addTask("test task 2");
+			user.addTask("test task 3");
+			user.editTask(2, "task 3 updated");
+			expect(user.getTask(2).getDescription()).toBe("task 3 updated");
 		});
 
 		it("should throw an error if the index is out of bounds", () => {
@@ -76,6 +87,8 @@ describe("User", () => {
 			expect(() => user.deleteTask(10)).toThrow("Task index out of bounds");
 		});
 	});
+
+	describe("getTask", () => {});
 
 	describe("getTasks", () => {
 		it("should return the tasks of the user", () => {

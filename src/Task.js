@@ -26,9 +26,10 @@ class Task {
 	 */
 	validateDescription(description) {
 		if (typeof description !== "string") {
-			throw new Error("Task description is not a string");
+			throw new Error(`Task description must be of type string`);
 		}
-		if (description.trim().length === 0) {
+		description = description.trim();
+		if (description.length === 0) {
 			throw new Error("Task description invalid");
 		}
 		return description;
@@ -45,6 +46,7 @@ class Task {
 	/**
 	 * Set the description of the task.
 	 * @param {string} description - The new description of the task.
+	 * @return void
 	 */
 	setDescription(description) {
 		this.description = this.validateDescription(description);
@@ -64,7 +66,7 @@ class Task {
 	 */
 	setCompletionStatus(status) {
 		if (typeof status !== "boolean") {
-			throw new Error("Completion status must be a boolean");
+			throw new Error("Completion status must be of type boolean");
 		}
 		this.completionStatus = status;
 	}

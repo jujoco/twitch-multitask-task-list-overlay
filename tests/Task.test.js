@@ -14,8 +14,23 @@ describe("Task", () => {
 		});
 
 		it("should throw an error if the description is invalid", () => {
-			expect(() => task.validateDescription("  ")).toThrow(
+			expect(() => task.validateDescription("")).toThrow(
 				"Task description invalid"
+			);
+		});
+
+		it("should throw Error if description is not a string", () => {
+			expect(() => task.validateDescription(123)).toThrow(
+				"Task description must be of type string"
+			);
+			expect(() => task.validateDescription(true)).toThrow(
+				"Task description must be of type string"
+			);
+			expect(() => task.validateDescription([])).toThrow(
+				"Task description must be of type string"
+			);
+			expect(() => task.validateDescription({})).toThrow(
+				"Task description must be of type string"
 			);
 		});
 	});
@@ -31,12 +46,6 @@ describe("Task", () => {
 			task.setDescription("Clean the house");
 			expect(task.getDescription()).toBe("Clean the house");
 		});
-
-		it("should return Error if description is not a string", () => {
-			expect(() => task.setDescription(123)).toThrow(
-				"Task description is not a string"
-			);
-		});
 	});
 
 	describe("isComplete", () => {
@@ -49,11 +58,13 @@ describe("Task", () => {
 		it("should set the task status to complete", () => {
 			task.setCompletionStatus(true);
 			expect(task.isComplete()).toBe(true);
+			task.setCompletionStatus(false);
+			expect(task.isComplete()).toBe(false);
 		});
 
 		it("should return Error if status is not a boolean", () => {
 			expect(() => task.setCompletionStatus("true")).toThrow(
-				"Completion status must be a boolean"
+				"Completion status must be of type boolean"
 			);
 		});
 	});
