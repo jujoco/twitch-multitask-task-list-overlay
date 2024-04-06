@@ -4,11 +4,12 @@ const Task = require("./Task");
  * @class User
  * @property {string} username - The username of the user
  * @property {Task[]} tasks - The tasks of the user
- * @method validateUsername - Add a task to the user
- * @method addTask - Add a task to the user
+ * @method validateUsername - Validate the username of the user
+ * @method addTask - Add tasks to the user
  * @method editTask - Edit the task at the specified index
  * @method completeTask - Mark the task at index as complete
  * @method deleteTask - Delete the task at the specified index
+ * @method clearDoneTasks - Clear all completed tasks
  * @method getTask - Get the task at the specified index
  * @method getTasks - Get all tasks of the user
  * @method validateTaskIndex - Validates the task index
@@ -30,22 +31,30 @@ class User {
 	 * @throws {Error} - If the username is invalid
 	 */
 	validateUsername(username) {
-		if (typeof username !== "string" || username === "") {
-			throw new Error("Invalid username format");
+		if (typeof username !== "string") {
+			throw new Error("Username must be of type string");
+		}
+		username = username.trim();
+		if (username.length === 0) {
+			throw new Error("Username invalid");
 		}
 		return username;
 	}
 
 	/**
-	 * Add a task to the user
-	 * @param {string} description - The task to add
-	 * @returns {Task}
+	 * Add tasks to the user
+	 * @param {string | string[]} taskDescriptions - The task descriptions to add
+	 * @returns {Task[]} - The tasks that were added
 	 */
-	addTask(description) {
-		description = description.trim();
-		const task = new Task(description);
-		this.tasks.push(task);
-		return task;
+	addTask(descriptions) {
+		let tasks = [];
+		if (Array.isArray(descriptions)) {
+			tasks = descriptions.map((description) => new Task(description));
+		} else {
+			tasks.push(new Task(descriptions));
+		}
+		this.tasks = this.tasks.concat(tasks);
+		return this.tasks;
 	}
 
 	/**
@@ -76,24 +85,25 @@ class User {
 	/**
 	 * Delete the task at the specified index
 	 * @param {number} index - The index of the task to delete
-	 * @throws {Error} If the index is out of bounds
 	 * @returns {Task}	The task that was removed
 	 */
 	deleteTask(index) {
-		let taskToDelete = this.getTask(index);
-		const userTasks = this.getTasks().filter((task, i) => {
-			if (task.description !== taskToDelete.description) {
-				return task;
-			}
-		});
-		this.tasks = userTasks;
-		return taskToDelete;
+		this.validateTaskIndex(index);
+		return this.tasks.splice(index, 1)[0];
+	}
+
+	/**
+	 * Clear all completed tasks
+	 * @returns {Task[]} - The tasks that were cleared
+	 */
+	clearDoneTasks() {
+		this.tasks = this.tasks.filter((task) => !task.isComplete());
+		return this.tasks;
 	}
 
 	/**
 	 * Get the task at the specified index
 	 * @param {number} index - The index of the task to get
-	 * @throws {Error} If the index is out of bounds
 	 * @returns {Task} - The task at the specified index
 	 */
 	getTask(index) {
