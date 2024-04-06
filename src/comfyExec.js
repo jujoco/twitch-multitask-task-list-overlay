@@ -16,89 +16,73 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 	try {
 		// ADMIN COMMANDS
 		if (isMod(flags)) {
-			if (adminConfig.commands.adminClearAllTasksCommands.includes(command)) {
-				userList.clearAllTasks();
-				userList.commitChanges();
+			if (adminConfig.commands.adminClearUserList.includes(command)) {
+				userList.clearUserList();
 				respond(
-					adminConfig.responseTo[langCode].adminClearAllTasksCommands,
+					adminConfig.responseTo[langCode].adminClearUserList,
 					username,
 					message
 				);
-				return renderTaskBot();
+				return renderTaskListToDOM();
 			}
-			if (adminConfig.commands.adminClearDoneTasksCommands.includes(command)) {
+			if (adminConfig.commands.adminClearDoneTasks.includes(command)) {
 				userList.clearDoneTasks();
-				userList.commitChanges();
 				respond(
-					adminConfig.responseTo[langCode].adminClearDoneTasksCommands,
+					adminConfig.responseTo[langCode].adminClearDoneTasks,
 					username,
 					message
 				);
-				return renderTaskBot();
-			}
-			if (adminConfig.commands.adminClearUserCommands.includes(command)) {
-				userList.clearUserTasks(username);
-				userList.commitChanges();
-				respond(
-					adminConfig.responseTo[langCode].adminClearUserCommands,
-					username,
-					message
-				);
-				return renderTaskBot();
+				return renderTaskListToDOM();
 			}
 		}
 
 		// USER COMMANDS
-		if (userConfig.commands.addTaskCommands.includes(command)) {
+		if (userConfig.commands.addTask.includes(command)) {
 			// ADD TASK
 			if (userList.getUser(username).tasks.length >= maxTasksPerUser) {
 				respond(userConfig.responseTo[langCode].maxTasksReached, username);
 			}
 			const tasks = message.split(", ");
-			userList.addUserTasks(username, tasks);
-			userList.commitChanges();
-			respond(
-				userConfig.responseTo[langCode].addTaskCommands,
-				username,
-				message
-			);
+			userList.addUserTask(username, tasks);
+			respond(userConfig.responseTo[langCode].addTask, username, message);
 			return renderTaskBot();
 		}
-		if (userConfig.commands.finishTaskCommands.includes(command)) {
+		if (userConfig.commands.editTask.includes(command)) {
+			// EDIT TASK
+			const [strIndex, newTask] = message.split(", ");
+			const index = parseIndex(strIndex);
+			userList.editUserTask(username, index, newTask);
+			respond(userConfig.responseTo[langCode].editTask, username, newTask);
+			return renderTaskBot();
+		}
+		if (userConfig.commands.finishTask.includes(command)) {
 			// COMPLETE TASK
-			const index = parseInt(message, 10) - 1;
-			userList.completeUserTask(username, index);
-			userList.commitChanges();
+			const index = parseIndex(message);
+			const taskComp = userList.completeUserTask(username, index);
+			respond(userConfig.responseTo[langCode].finishTask, username, taskComp);
 			return renderTaskBot();
 		}
-		if (userConfig.commands.deleteTaskCommands.includes(command)) {
+		if (userConfig.commands.deleteTask.includes(command)) {
 			// DELETE TASK
-			userList.deleteUserTask(username, message);
-			userList.commitChanges();
-			respond(
-				userConfig.responseTo[langCode].deleteTaskCommands,
-				username,
-				message
-			);
+			const index = parseIndex(message);
+			const taskDel = userList.deleteUserTask(username, index);
+			respond(userConfig.responseTo[langCode].deleteTask, username, taskDel);
 			return renderTaskBot();
 		}
-		if (userConfig.commands.checkCommands.includes(command)) {
+		if (userConfig.commands.check.includes(command)) {
 			// CHECK TASKS
-			respond(userConfig.responseTo[langCode].checkCommands, username, message);
+			const tasks = userList.checkUserTasks(username).join(", ");
+			respond(userConfig.responseTo[langCode].check, username, tasks);
 			return renderTaskBot();
 		}
-		if (userConfig.commands.helpCommands.includes(command)) {
+		if (userConfig.commands.help.includes(command)) {
 			// HELP COMMAND
-			respond(userConfig.responseTo[langCode].helpCommands, username, message);
+			respond(userConfig.responseTo[langCode].help);
 			return renderTaskBot();
 		}
-		if (userConfig.commands.additionalCommands[command]) {
+		if (userConfig.commands.additional[command]) {
 			// ADDITIONAL COMMANDS
-			respond(
-				userConfig.responseTo[langCode].additionalCommands,
-				username,
-				message
-			);
+			respond(userConfig.responseTo[langCode].additional);
 			return renderTaskBot();
 		}
 	} catch (error) {
@@ -107,16 +91,16 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 	}
 };
 
-function respond(
-	template = "{user} - {taskDescription}",
-	username = "",
-	message = ""
-) {
+function respond(template, username = "", message = "") {
 	ComfyJS.Say(
-		template.replace("{user}", username).replace("{taskDescription}", message)
+		template.replace("{user}", username).replace("{message}", message)
 	);
 }
 
 function isMod(flags) {
 	return flags.broadcaster || flags.mod;
+}
+
+function parseIndex(index) {
+	return parseInt(index, 10) - 1;
 }
