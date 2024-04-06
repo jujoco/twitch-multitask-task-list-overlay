@@ -9,39 +9,32 @@ const configs = (function () {
 
 	const admin = {
 		commands: {
-			adminClearAllTasksCommands: ["!adminclearall"],
-			adminClearDoneTasksCommands: ["!admincleardone"],
-			adminClearUserCommands: ["!adminclearuser"],
+			adminClearUserList: ["!adminclearall"],
+			adminClearDoneTasks: ["!admincleardone"],
 		},
 		responseTo: {
 			EN: {
-				adminClearAllTasksCommands: "All tasks have been cleared",
-				adminClearDoneTasksCommands: "All finished tasks have been cleared",
-				adminClearUserCommands: "All tasks for {user} have been cleared",
+				adminClearUserList: "All tasks have been cleared",
+				adminClearDoneTasks: "All finished tasks have been cleared",
 			},
 			ES: {
-				adminClearAllTasksCommands: "Todas las tareas han sido borradas",
-				adminClearDoneTasksCommands:
-					"Todas las tareas terminadas han sido borradas",
-				adminClearUserCommands: "Todas las tareas de {user} han sido borradas",
+				adminClearUserList: "Todas las tareas han sido borradas",
+				adminClearDoneTasks: "Todas las tareas terminadas han sido borradas",
 			},
 			FR: {
-				adminClearAllTasksCommands: "Toutes les tâches ont été effacées",
-				adminClearDoneTasksCommands:
-					"Toutes les tâches terminées ont été effacées",
-				adminClearUserCommands: "Toutes les tâches de {user} ont été effacées",
+				adminClearUserList: "Toutes les tâches ont été effacées",
+				adminClearDoneTasks: "Toutes les tâches terminées ont été effacées",
 			},
 			JP: {
-				adminClearAllTasksCommands: "すべてのタスクがクリアされました",
-				adminClearDoneTasksCommands: "完了したすべてのタスクがクリアされました",
-				adminClearUserCommands: "{user}のすべてのタスクがクリアされました",
+				adminClearUserList: "すべてのタスクがクリアされました",
+				adminClearDoneTasks: "完了したすべてのタスクがクリアされました",
 			},
 		},
 	};
 
 	const user = {
 		commands: {
-			addTaskCommands: [
+			addTask: [
 				"!add",
 				"!task",
 				"!todo",
@@ -50,7 +43,7 @@ const configs = (function () {
 				"!taska",
 				"!atask",
 			],
-			editTaskCommands: [
+			editTask: [
 				"!edit",
 				"!rename",
 				"!taskedit",
@@ -58,7 +51,7 @@ const configs = (function () {
 				"!taske",
 				"!etask",
 			],
-			finishTaskCommands: [
+			finishTask: [
 				"!done",
 				"!donetask",
 				"!taskdone",
@@ -71,7 +64,7 @@ const configs = (function () {
 				"!dtask",
 				"!finish",
 			],
-			deleteTaskCommands: [
+			deleteTask: [
 				"!delete",
 				"!remove",
 				"!taskd",
@@ -84,32 +77,29 @@ const configs = (function () {
 				"!taskr",
 				"!rtask",
 			],
-			checkCommands: ["!check", "!mytask", "!taskcheck", "!checktask"],
-			nextCommands: ["!next", "!nexttask"],
-			helpCommands: ["!help", "!taskhelp"],
-			additionalCommands: ["!creator", "!credits"],
+			check: ["!check", "!mytask", "!taskcheck", "!checktask"],
+			next: ["!next", "!nexttask"],
+			help: ["!help", "!taskhelp"],
+			additional: ["!creator", "!credits"],
 		},
 		responseTo: {
 			EN: {
-				addTaskCommands: 'Task "{taskDescription}" has been added, {user}!',
-				editTaskCommands: 'Task updated to "{taskDescription}", {user}!',
-				finishTaskCommands: 'Good job on finishing "{taskDescription}" {user}!',
-				deleteTaskCommands:
-					'Task "{taskDescription}" has been deleted, {user}!',
-				checkCommands: 'Your current task is: "{taskDescription}", {user}',
-				nextCommands: 'Moving onto "{taskDescription}", {user}!',
-				helpCommands:
-					"Use the following commands to help you out - !add !remove !edit !done",
-				additionalCommands:
+				addTask: 'Task "{message}" has been added, {user}!',
+				editTask: 'Task updated to "{message}", {user}!',
+				finishTask: 'Good job on finishing "{message}" {user}!',
+				deleteTask: 'Task "{message}" has been deleted, {user}!',
+				check: 'Your current task is: "{message}", {user}',
+				next: 'Moving onto "{message}", {user}!',
+				help: "Use the following commands to help you out - !add !remove !edit !done",
+				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Looks like you've reached the max tasks {user}, try removing old tasks",
 				noTaskFound: "Looks like you don't have a task up there {user}",
 			},
 			ES: {
-				addTaskCommands:
-					'La tarea "{taskDescription}" ha sido añadida, {user}!',
-				noTaskAdded: 'La tarea "{taskDescription}" ha sido añadida, {user}!',
+				addTask: 'La tarea "{message}" ha sido añadida, {user}!',
+				noTaskAdded: 'La tarea "{message}" ha sido añadida, {user}!',
 				maxTasksAdded:
 					"Has alcanzado el número máximo de tareas {user}, usa !delete para borrar y remover las tareas antiguas",
 				noTaskContent:
@@ -117,8 +107,8 @@ const configs = (function () {
 				noTaskToEdit: "No hay tarea para editar {user}",
 			},
 			FR: {
-				addTaskCommands: 'La tâche "{taskDescription}" a été ajoutée, {user}!',
-				noTaskAdded: 'La tâche "{taskDescription}" a été ajoutée, {user}!',
+				addTask: 'La tâche "{message}" a été ajoutée, {user}!',
+				noTaskAdded: 'La tâche "{message}" a été ajoutée, {user}!',
 				maxTasksAdded:
 					"Vous avez atteint le nombre maximum de tâches {user}, utilisez !delete pour supprimer les anciennes tâches",
 				noTaskContent:
@@ -126,8 +116,8 @@ const configs = (function () {
 				noTaskToEdit: "Pas de tâche à éditer {user}",
 			},
 			JP: {
-				addTaskCommands: 'タスク "{taskDescription}" が追加されました、{user}!',
-				noTaskAdded: 'タスク "{taskDescription}" が追加されました、{user}!',
+				addTask: 'タスク "{message}" が追加されました、{user}!',
+				noTaskAdded: 'タスク "{message}" が追加されました、{user}!',
 				maxTasksAdded:
 					"最大タスク数に達しました {user}、古いタスクを削除して削除してください",
 				noTaskContent: "!add 作業中のタスク {user} を使用してみてください",
