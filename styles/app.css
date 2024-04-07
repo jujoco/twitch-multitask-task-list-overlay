@@ -3,6 +3,7 @@
 *:after {
 	box-sizing: border-box;
 	margin: 0;
+	padding: 0;
 }
 
 #app {
@@ -15,6 +16,8 @@
 	padding: var(--app-padding);
 	height: 100vh;
 	background-color: var(--app-background-color);
+	background-image: var(--app-bg-image);
+	background-repeat: repeat;
 }
 
 .header {
@@ -27,18 +30,18 @@
 	border-color: var(--header-border-color);
 	border-width: var(--header-border-width);
 	border-radius: var(--header-border-radius);
-	padding: var(--header-padding);
+	padding: 24px;
 	font-family: var(--header-font-family, "serif");
 	color: var(--header-font-color);
 	font-size: var(--header-font-size);
+	font-weight: var(--header-font-weight);
 	background-color: var(--header-background-color);
 }
 
 .task-wrapper {
 	display: flex;
 	flex-direction: column;
-	z-index: 1;
-	/* position: relative; */
+	gap: var(--card-gap-between);
 	overflow: hidden;
 	border: solid;
 	border-color: var(--body-border-color);
@@ -50,36 +53,41 @@
 }
 
 .task-container {
-	margin-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--card-gap-between);
 }
 
 .card {
-	border-style: solid;
-	border-color: var(--card-border-color);
-	border-width: var(--card-border-width);
+	border-top: var(--card-border-width) solid var(--card-border-color);
+	border-left: var(--card-border-width) solid var(--card-border-color);
 	border-radius: var(--card-border-radius);
-	padding: var(--card-padding);
 	background-color: var(--card-background-color);
-	font-size: var(--card-font-size);
-	color: var(--card-font-color);
+	/* backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px); */
 }
-
-.card:not(:last-child) {
-	margin-bottom: var(--card-margin-bottom);
-}
-
-/* .secondary {
-	display: none;
-} */
 
 .username {
 	overflow: hidden;
 	width: fit-content;
-	max-width: var(--username-max-width);
+	padding: 24px 24px 6px 24px;
+	max-width: 80%;
 	color: var(--username-color);
-	font-weight: bold;
+	font-size: var(--username-font-size);
+	font-weight: var(--username-font-weight);
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.user-task-list {
+	list-style-position: inside;
+	padding: 0 24px 24px 24px;
+}
+
+.task {
+	font-size: var(--task-font-size);
+	color: var(--task-font-color);
+	font-weight: var(--task-font-weight);
 }
 
 .done {
