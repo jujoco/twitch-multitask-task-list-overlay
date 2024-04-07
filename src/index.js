@@ -1,11 +1,11 @@
-let scrolling = false;
-let primaryAnimation, secondaryAnimation;
+/** @typedef {import('./UserList')} UserList */
+/** @type {UserList} */
 let userList;
 
 window.addEventListener("load", () => {
 	userList = new UserList();
 	loadCustomFont();
-	// renderTaskBot();
+	renderTaskListToDOM();
 });
 
 function loadCustomFont() {
@@ -28,7 +28,7 @@ function loadGoogleFont(font) {
 	});
 }
 
-function renderTaskBot() {
+function renderTaskListToDOM() {
 	const users = userList.getAllUsers();
 	const fragment = document.createDocumentFragment();
 	let totalTasksCount = 0;
@@ -57,44 +57,58 @@ function renderTaskBot() {
 		fragment.appendChild(cardDiv);
 	});
 
-	const totalTasksElement = document.querySelector(".task-count");
-	totalTasksElement.innerText = `${completedTasksCount} / ${totalTasksCount}`;
+	updateTaskCount(completedTasksCount, totalTasksCount);
 
-	const taskContainers = document.querySelectorAll(".task-container");
-	taskContainers.forEach((taskContainer) => {
-		taskContainer.innerHTML = "";
-		taskContainer.appendChild(fragment);
-	});
+	const clonedFragment = fragment.cloneNode(true);
+
+	const taskContainerPrimary = document.querySelector(
+		".task-container.primary"
+	);
+	taskContainerPrimary.innerHTML = "";
+	taskContainerPrimary.appendChild(clonedFragment);
+
+	const taskContainerSecondary = document.querySelector(
+		".task-container.secondary"
+	);
+	taskContainerSecondary.innerHTML = "";
+	taskContainerSecondary.appendChild(fragment);
 
 	animateScroll();
 }
 
+function updateTaskCount(completed, total) {
+	const totalTasksElement = document.querySelector(".task-count");
+	totalTasksElement.innerText = `${completed}/${total}`;
+}
+
 function animateScroll() {
-	// task wrapper height
-	let taskWrapper = document.querySelector(".task-wrapper");
-	let taskWrapperHeight = taskWrapper.clientHeight;
+	const taskWrapper = document.querySelector(".task-wrapper");
+	const taskWrapperHeight = taskWrapper.clientHeight;
 
-	// task container height
-	let taskContainerPrimary = document.querySelector(".task-container.primary");
-	let taskContainerHeight = taskContainerPrimary.scrollHeight;
+	const taskContainerPrimary = document.querySelector(
+		".task-container.primary"
+	);
+	const taskContainerHeight = taskContainerPrimary.scrollHeight;
 
-	// if primary task container height is greater than task wrapper height, animate scroll
-	if (taskContainerHeight > taskWrapperHeight && !scrolling) {
-		scrolling = true;
+	let taskContainerSecondary = document.querySelector(
+		".task-container.secondary"
+	);
 
-		let taskContainerSecondary = document.querySelector(
-			".task-container.secondary"
-		);
-		taskContainerSecondary.style.display = "flex";
+	if (taskContainerHeight < taskWrapperHeight) {
+		// hide secondary container
+		taskContainerSecondary.style.display = "none";
+	} else {
+		// show secondary container
+		taskContainerSecondary.style.display = "block";
 
 		let scrollSpeed = configs.settings.scrollSpeed;
-		scrollSpeed = parseInt(scrollSpeed * 10, 10);
+		scrollSpeed = parseInt(scrollSpeed, 10);
 
 		let duration = (taskContainerHeight / scrollSpeed) * 1000;
 
 		let options = {
 			duration: duration,
-			iterations: 1,
+			iterations: "Infinity",
 			easing: "linear",
 		};
 
@@ -104,39 +118,12 @@ function animateScroll() {
 		];
 
 		let secondaryKeyFrames = [
-			{ transform: `translateY(${taskContainerHeight}px)` },
 			{ transform: "translateY(0)" },
+			{ transform: `translateY(-${taskContainerHeight}px)` },
 		];
 
-		// create animation object and play it
-		primaryAnimation = document
-			.querySelector(".primary")
-			?.animate(primaryKeyFrames, options);
-
-		secondaryAnimation = document
-			.querySelector(".secondary")
-			?.animate(secondaryKeyFrames, options);
-
-		primaryAnimation?.play();
-		secondaryAnimation?.play();
-
-		addAnimationListeners();
-	} else if (!scrolling) {
-		// hide secondary element if task container height is less than task wrapper height
-		let secondaryElement = document.querySelector(".secondary");
-		secondaryElement.style.display = "none";
+		// apply animation
+		taskContainerPrimary.animate(primaryKeyFrames, options);
+		taskContainerSecondary.animate(secondaryKeyFrames, options);
 	}
-}
-
-function addAnimationListeners() {
-	if (primaryAnimation) {
-		primaryAnimation.addEventListener("finish", animationFinished);
-		primaryAnimation.addEventListener("cancel", animationFinished);
-	}
-}
-
-function animationFinished() {
-	scrolling = false;
-	renderTaskBot();
-	animateScroll();
 }
