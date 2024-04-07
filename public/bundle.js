@@ -115,18 +115,13 @@ class User {
 
 	/**
 	 * Add tasks to the user
-	 * @param {string | string[]} taskDescriptions - The task descriptions to add
-	 * @returns {Task[]} - The tasks that were added
+	 * @param {string} taskDescription - The task description to add
+	 * @returns {Task} - The newly created Task object
 	 */
 	addTask(descriptions) {
-		let tasks = [];
-		if (Array.isArray(descriptions)) {
-			tasks = descriptions.map((description) => new Task(description));
-		} else {
-			tasks.push(new Task(descriptions));
-		}
-		this.tasks = this.tasks.concat(tasks);
-		return this.tasks;
+		let task = new Task(descriptions);
+		this.tasks.push(task);
+		return task;
 	}
 
 	/**
@@ -246,7 +241,7 @@ class UserList {
 			const newUser = new User(oldUser.username);
 			oldUser.tasks.map((task) => {
 				const newTask = newUser.addTask(task.description);
-				newTask.completionStatus = task.completionStatus;
+				newTask.setCompletionStatus(task.completionStatus);
 			});
 			return newUser;
 		});
@@ -310,11 +305,10 @@ class UserList {
 		let user = this.getUser(username);
 		if (!user) {
 			user = new User(username);
-			user.addTask(taskDescriptions);
 			this.users.push(user);
-		} else {
-			user.addTask(taskDescriptions);
 		}
+		taskDescriptions.forEach((description) => user.addTask(description));
+
 		this.#commitToLocalStorage();
 		return taskDescriptions.join(", ");
 	}
@@ -449,55 +443,54 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		// USER COMMANDS
 		if (userConfig.commands.addTask.includes(command)) {
 			// ADD TASK
-			if (userList.getUser(username).tasks.length >= maxTasksPerUser) {
-				respond(userConfig.responseTo[langCode].maxTasksReached, username);
+			if (userList.getUser(username)?.tasks.length >= maxTasksPerUser) {
+				respond(userConfig.responseTo[langCode].maxTasksAdded, username);
+			} else {
+				const tasks = message.split(", ");
+				userList.addUserTask(username, tasks);
+				respond(userConfig.responseTo[langCode].addTask, username, message);
 			}
-			const tasks = message.split(", ");
-			userList.addUserTask(username, tasks);
-			respond(userConfig.responseTo[langCode].addTask, username, message);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.editTask.includes(command)) {
+		} else if (userConfig.commands.editTask.includes(command)) {
 			// EDIT TASK
-			const [strIndex, newTask] = message.split(", ");
-			const index = parseIndex(strIndex);
-			userList.editUserTask(username, index, newTask);
-			respond(userConfig.responseTo[langCode].editTask, username, newTask);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.finishTask.includes(command)) {
+			const regex = /(?<=\d)\s/;
+			const whiteSpaceIndex = message.search(regex);
+			const taskDescription = message.slice(whiteSpaceIndex + 1);
+			const taskNumber = parseIndex(message.slice(0, whiteSpaceIndex));
+			console.log(taskDescription);
+			console.log(taskDescription.length);
+			userList.editUserTask(username, taskNumber, taskDescription);
+			respond(
+				userConfig.responseTo[langCode].editTask,
+				username,
+				taskDescription
+			);
+		} else if (userConfig.commands.finishTask.includes(command)) {
 			// COMPLETE TASK
 			const index = parseIndex(message);
 			const taskComp = userList.completeUserTask(username, index);
 			respond(userConfig.responseTo[langCode].finishTask, username, taskComp);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.deleteTask.includes(command)) {
+		} else if (userConfig.commands.deleteTask.includes(command)) {
 			// DELETE TASK
 			const index = parseIndex(message);
 			const taskDel = userList.deleteUserTask(username, index);
 			respond(userConfig.responseTo[langCode].deleteTask, username, taskDel);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.check.includes(command)) {
+		} else if (userConfig.commands.check.includes(command)) {
 			// CHECK TASKS
 			const tasks = userList.checkUserTasks(username).join(", ");
 			respond(userConfig.responseTo[langCode].check, username, tasks);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.help.includes(command)) {
+		} else if (userConfig.commands.help.includes(command)) {
 			// HELP COMMAND
 			respond(userConfig.responseTo[langCode].help);
-			return renderTaskBot();
-		}
-		if (userConfig.commands.additional[command]) {
+		} else if (userConfig.commands.additional.includes(command)) {
 			// ADDITIONAL COMMANDS
 			respond(userConfig.responseTo[langCode].additional);
-			return renderTaskBot();
+		} else {
+			throw new Error("Invalid command");
 		}
+		return renderTaskListToDOM();
 	} catch (error) {
-		console.log(error, username, message);
-		respond(error.message, user, message);
+		console.error(error, username, message);
+		respond(userConfig.responseTo[langCode].invalidCommand, username);
 	}
 };
 
@@ -514,14 +507,13 @@ function isMod(flags) {
 function parseIndex(index) {
 	return parseInt(index, 10) - 1;
 }
-let scrolling = false;
-let primaryAnimation, secondaryAnimation;
+/** @type {UserList} */
 let userList;
 
 window.addEventListener("load", () => {
 	userList = new UserList();
 	loadCustomFont();
-	// renderTaskBot();
+	renderTaskListToDOM();
 });
 
 function loadCustomFont() {
@@ -544,7 +536,7 @@ function loadGoogleFont(font) {
 	});
 }
 
-function renderTaskBot() {
+function renderTaskListToDOM() {
 	const users = userList.getAllUsers();
 	const fragment = document.createDocumentFragment();
 	let totalTasksCount = 0;
@@ -562,6 +554,7 @@ function renderTaskBot() {
 		user.tasks.forEach((task) => {
 			const listItem = document.createElement("li");
 			listItem.innerText = task.description;
+			console.error(task.completionStatus);
 			if (task.completionStatus) {
 				listItem.classList.add("done");
 				completedTasksCount++;
@@ -573,44 +566,58 @@ function renderTaskBot() {
 		fragment.appendChild(cardDiv);
 	});
 
-	const totalTasksElement = document.querySelector(".task-count");
-	totalTasksElement.innerText = `${completedTasksCount} / ${totalTasksCount}`;
+	updateTaskCount(completedTasksCount, totalTasksCount);
 
-	const taskContainers = document.querySelectorAll(".task-container");
-	taskContainers.forEach((taskContainer) => {
-		taskContainer.innerHTML = "";
-		taskContainer.appendChild(fragment);
-	});
+	const clonedFragment = fragment.cloneNode(true);
+
+	const taskContainerPrimary = document.querySelector(
+		".task-container.primary"
+	);
+	taskContainerPrimary.innerHTML = "";
+	taskContainerPrimary.appendChild(clonedFragment);
+
+	const taskContainerSecondary = document.querySelector(
+		".task-container.secondary"
+	);
+	taskContainerSecondary.innerHTML = "";
+	taskContainerSecondary.appendChild(fragment);
 
 	animateScroll();
 }
 
+function updateTaskCount(completed, total) {
+	const totalTasksElement = document.querySelector(".task-count");
+	totalTasksElement.innerText = `${completed}/${total}`;
+}
+
 function animateScroll() {
-	// task wrapper height
-	let taskWrapper = document.querySelector(".task-wrapper");
-	let taskWrapperHeight = taskWrapper.clientHeight;
+	const taskWrapper = document.querySelector(".task-wrapper");
+	const taskWrapperHeight = taskWrapper.clientHeight;
 
-	// task container height
-	let taskContainerPrimary = document.querySelector(".task-container.primary");
-	let taskContainerHeight = taskContainerPrimary.scrollHeight;
+	const taskContainerPrimary = document.querySelector(
+		".task-container.primary"
+	);
+	const taskContainerHeight = taskContainerPrimary.scrollHeight;
 
-	// if primary task container height is greater than task wrapper height, animate scroll
-	if (taskContainerHeight > taskWrapperHeight && !scrolling) {
-		scrolling = true;
+	let taskContainerSecondary = document.querySelector(
+		".task-container.secondary"
+	);
 
-		let taskContainerSecondary = document.querySelector(
-			".task-container.secondary"
-		);
-		taskContainerSecondary.style.display = "flex";
+	if (taskContainerHeight < taskWrapperHeight) {
+		// hide secondary container
+		taskContainerSecondary.style.display = "none";
+	} else {
+		// show secondary container
+		taskContainerSecondary.style.display = "block";
 
 		let scrollSpeed = configs.settings.scrollSpeed;
-		scrollSpeed = parseInt(scrollSpeed * 10, 10);
+		scrollSpeed = parseInt(scrollSpeed, 10);
 
 		let duration = (taskContainerHeight / scrollSpeed) * 1000;
 
 		let options = {
 			duration: duration,
-			iterations: 1,
+			iterations: "Infinity",
 			easing: "linear",
 		};
 
@@ -620,39 +627,12 @@ function animateScroll() {
 		];
 
 		let secondaryKeyFrames = [
-			{ transform: `translateY(${taskContainerHeight}px)` },
 			{ transform: "translateY(0)" },
+			{ transform: `translateY(-${taskContainerHeight}px)` },
 		];
 
-		// create animation object and play it
-		primaryAnimation = document
-			.querySelector(".primary")
-			?.animate(primaryKeyFrames, options);
-
-		secondaryAnimation = document
-			.querySelector(".secondary")
-			?.animate(secondaryKeyFrames, options);
-
-		primaryAnimation?.play();
-		secondaryAnimation?.play();
-
-		addAnimationListeners();
-	} else if (!scrolling) {
-		// hide secondary element if task container height is less than task wrapper height
-		let secondaryElement = document.querySelector(".secondary");
-		secondaryElement.style.display = "none";
+		// apply animation
+		taskContainerPrimary.animate(primaryKeyFrames, options);
+		taskContainerSecondary.animate(secondaryKeyFrames, options);
 	}
-}
-
-function addAnimationListeners() {
-	if (primaryAnimation) {
-		primaryAnimation.addEventListener("finish", animationFinished);
-		primaryAnimation.addEventListener("cancel", animationFinished);
-	}
-}
-
-function animationFinished() {
-	scrolling = false;
-	renderTaskBot();
-	animateScroll();
 }
