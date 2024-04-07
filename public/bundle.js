@@ -456,8 +456,6 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 			const whiteSpaceIndex = message.search(regex);
 			const taskDescription = message.slice(whiteSpaceIndex + 1);
 			const taskNumber = parseIndex(message.slice(0, whiteSpaceIndex));
-			console.log(taskDescription);
-			console.log(taskDescription.length);
 			userList.editUserTask(username, taskNumber, taskDescription);
 			respond(
 				userConfig.responseTo[langCode].editTask,
@@ -509,11 +507,15 @@ function parseIndex(index) {
 }
 /** @type {UserList} */
 let userList;
+/** @type {Animation} */
+let primaryAnimation;
+/** @type {Animation} */
+let secondaryAnimation;
 
 window.addEventListener("load", () => {
 	userList = new UserList();
 	loadCustomFont();
-	renderTaskListToDOM();
+	renderDOM();
 });
 
 function loadCustomFont() {
@@ -531,9 +533,13 @@ function loadCustomFont() {
 function loadGoogleFont(font) {
 	WebFont.load({
 		google: {
-			families: [font],
+			families: [`${font}:100,400,700`],
 		},
 	});
+}
+
+function renderDOM() {
+	renderTaskListToDOM();
 }
 
 function renderTaskListToDOM() {
@@ -553,8 +559,8 @@ function renderTaskListToDOM() {
 		list.classList.add("user-task-list");
 		user.tasks.forEach((task) => {
 			const listItem = document.createElement("li");
+			listItem.classList.add("task");
 			listItem.innerText = task.description;
-			console.error(task.completionStatus);
 			if (task.completionStatus) {
 				listItem.classList.add("done");
 				completedTasksCount++;
@@ -570,17 +576,15 @@ function renderTaskListToDOM() {
 
 	const clonedFragment = fragment.cloneNode(true);
 
-	const taskContainerPrimary = document.querySelector(
-		".task-container.primary"
-	);
-	taskContainerPrimary.innerHTML = "";
-	taskContainerPrimary.appendChild(clonedFragment);
+	const primaryContainer = document.querySelector(".task-container.primary");
+	primaryContainer.innerHTML = "";
+	primaryContainer.appendChild(fragment);
 
-	const taskContainerSecondary = document.querySelector(
+	const secondaryContainer = document.querySelector(
 		".task-container.secondary"
 	);
-	taskContainerSecondary.innerHTML = "";
-	taskContainerSecondary.appendChild(fragment);
+	secondaryContainer.innerHTML = "";
+	secondaryContainer.appendChild(clonedFragment);
 
 	animateScroll();
 }
@@ -591,48 +595,73 @@ function updateTaskCount(completed, total) {
 }
 
 function animateScroll() {
-	const taskWrapper = document.querySelector(".task-wrapper");
-	const taskWrapperHeight = taskWrapper.clientHeight;
+	const wrapper = document.querySelector(".task-wrapper");
+	const wrapperHeight = wrapper.clientHeight;
 
-	const taskContainerPrimary = document.querySelector(
-		".task-container.primary"
-	);
-	const taskContainerHeight = taskContainerPrimary.scrollHeight;
+	const containerPrimary = document.querySelector(".task-container.primary");
+	const containerHeight = containerPrimary.scrollHeight;
 
-	let taskContainerSecondary = document.querySelector(
+	const containerSecondary = document.querySelector(
 		".task-container.secondary"
 	);
 
-	if (taskContainerHeight < taskWrapperHeight) {
-		// hide secondary container
-		taskContainerSecondary.style.display = "none";
+	// hide 2nd container & cancel animation OR
+	// show it & play animation
+	if (containerHeight < wrapperHeight) {
+		containerSecondary.style.display = "none";
+		cancelAnimation();
 	} else {
-		// show secondary container
-		taskContainerSecondary.style.display = "block";
+		containerSecondary.style.display = "flex";
 
-		let scrollSpeed = configs.settings.scrollSpeed;
-		scrollSpeed = parseInt(scrollSpeed, 10);
+		const scrollSpeed = parseInt(configs.settings.scrollSpeed, 10);
 
-		let duration = (taskContainerHeight / scrollSpeed) * 1000;
-
+		let duration = (containerHeight / scrollSpeed) * 1000;
 		let options = {
 			duration: duration,
-			iterations: "Infinity",
+			iterations: 1,
 			easing: "linear",
 		};
 
+		const gapSize = getComputedStyle(document.documentElement)
+			.getPropertyValue("--card-gap-between")
+			.slice(0, -2);
+		let adjustedHight = containerHeight + parseInt(gapSize, 10);
 		let primaryKeyFrames = [
 			{ transform: "translateY(0)" },
-			{ transform: `translateY(-${taskContainerHeight}px)` },
+			{ transform: `translateY(-${adjustedHight}px)` },
 		];
-
 		let secondaryKeyFrames = [
 			{ transform: "translateY(0)" },
-			{ transform: `translateY(-${taskContainerHeight}px)` },
+			{ transform: `translateY(-${adjustedHight}px)` },
 		];
 
-		// apply animation
-		taskContainerPrimary.animate(primaryKeyFrames, options);
-		taskContainerSecondary.animate(secondaryKeyFrames, options);
+		// store and apply animations
+		primaryAnimation = containerPrimary.animate(primaryKeyFrames, options);
+		secondaryAnimation = containerSecondary.animate(
+			secondaryKeyFrames,
+			options
+		);
+
+		addAnimationListeners();
 	}
+}
+
+function cancelAnimation() {
+	if (primaryAnimation) {
+		primaryAnimation.cancel();
+	}
+	if (secondaryAnimation) {
+		secondaryAnimation.cancel();
+	}
+}
+
+function addAnimationListeners() {
+	if (primaryAnimation) {
+		primaryAnimation.addEventListener("finish", animationFinished);
+		primaryAnimation.addEventListener("cancel", animationFinished);
+	}
+}
+
+function animationFinished() {
+	animateScroll();
 }

@@ -1,47 +1,48 @@
 :root {
 	/* fonts available @ https://fonts.google.com */
-	--header-font-family: Inconsolata;
-	--body-font-family: Inconsolata;
+	--header-font-family: Roboto Mono;
+	--body-font-family: Roboto Mono;
 
 	/* App Styles */
-	--app-background-color: #9a9a9a00;
-
-	--app-border-color: #00000000;
-	--app-border-width: 10px;
+	--app-border-color: rgba(144, 0, 0, 0);
+	--app-border-width: 0px;
 	--app-border-radius: 8px;
-
-	--app-padding: 0px;
+	--app-padding: 8px;
+	--app-bg-image: url(../public/transparent-background.png);
+	--app-background-color: rgba(129, 129, 129, 0.225);
 
 	/* Header */
 	--header-border-color: black;
 	--header-border-width: 0px;
 	--header-border-radius: 4px;
-	--header-background-color: rgba(0, 0, 0, 0.8);
-	--header-font-size: 30px;
-	--header-font-color: white;
 	--header-margin-bottom: 10px;
-	--header-padding: 20px 10px;
+	--header-background-color: rgba(0, 0, 0, 0.5);
+	--header-font-size: 24px;
+	--header-font-color: white;
+	--header-font-weight: lighter;
 
 	/* Body */
-	--body-border-color: #00000000;
-	--body-border-width: 1px;
+	--body-border-color: rgb(0, 0, 0, 0);
+	--body-border-width: 0px;
 	--body-border-radius: 4px;
-	--body-background-color: #00000000;
+	--body-background-color: rgba(0, 0, 0, 0);
 
 	/* Card */
-	--card-font-size: 18px;
-	--card-font-color: #ffffff;
-	--card-background-color: rgba(0, 0, 0, 0.6);
-	--card-border-color: #1f6900;
-	--card-border-width: 0px;
+	--card-gap-between: 10px;
+	--card-background-color: rgba(0, 0, 0, 0.8);
+	--card-border-color: rgba(255, 255, 255, 0.2);
+	--card-border-width: 1px;
 	--card-border-radius: 4px;
 	--card-margin-bottom: 10px;
-	--card-padding: 10px;
 
-	/* Done task */
-	--done-task-font-color: #2e2e2ecf;
-
-	/* Username */
+	/* User Name */
+	--username-font-size: 22px;
 	--username-color: #ffffff;
-	--username-max-width: 80%;
+	--username-font-weight: lighter;
+
+	/* User Task */
+	--task-font-size: 18px;
+	--task-font-color: #ffffff;
+	--task-font-weight: lighter;
+	--task-done-font-color: #2e2e2e;
 }
