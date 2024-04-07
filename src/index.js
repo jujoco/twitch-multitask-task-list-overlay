@@ -19,7 +19,7 @@ function loadCustomFont() {
 	loadGoogleFont(headerFontFamily);
 
 	const bodyFontFamily = getComputedStyle(document.documentElement)
-		.getPropertyValue("--body-font-family")
+		.getPropertyValue("--card-font-family")
 		.trim();
 	loadGoogleFont(bodyFontFamily);
 }
