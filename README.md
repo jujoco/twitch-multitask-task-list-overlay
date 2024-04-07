@@ -110,7 +110,7 @@ Open the `base.css` to edit the styles of the Task List
 
 - **number**: A value between 1 - 10;
 
-`scrollSpeed`: default **50**
+`scrollSpeed`: default **40**
 
 - **number**: A value between 1 - 100;
 
@@ -123,31 +123,28 @@ Open the `base.css` to edit the styles of the Task List
 Font family for the Header & Body \(supports all fonts from [Google Fonts](https://fonts.google.com/)\)
 
 ```css
+/* fonts available @ https://fonts.google.com */
 --header-font-family: Roboto Mono;
---body-font-family: Roboto Mono;
+--card-font-family: Roboto Mono;
 ```
 
 ### App Styles
 
 ```css
-/* App */
---app-border-color: rgba(144, 0, 0, 0);
---app-border-width: 0px;
---app-border-radius: 8px;
+/* App Styles */
+--app-border-radius: 5px;
 --app-padding: 8px;
 --app-bg-image: url(../public/transparent-background.png);
---app-background-color: rgba(129, 129, 129, 0.225);
+--app-background-color: rgb(183, 183, 183, 1);
 ```
 
 ### Header Styles
 
 ```css
 /* Header */
---header-border-color: black;
---header-border-width: 0px;
---header-border-radius: 4px;
+--header-border-radius: 5px;
 --header-margin-bottom: 10px;
---header-background-color: rgba(0, 0, 0, 0.5);
+--header-background-color: rgba(0, 142, 57, 0.2);
 --header-font-size: 24px;
 --header-font-color: white;
 --header-font-weight: lighter;
@@ -157,22 +154,16 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 
 ```css
 /* Body */
---body-border-color: rgb(0, 0, 0, 0);
---body-border-width: 0px;
---body-border-radius: 4px;
---body-background-color: rgba(0, 0, 0, 0);
+--body-background-color: rgba(0, 77, 0, 0);
 ```
 
-### Card Styles (individual tasks)
+### Card Styles (individual cards)
 
 ```css
 /* Card */
 --card-gap-between: 10px;
---card-background-color: rgba(0, 0, 0, 0.8);
---card-border-color: rgba(255, 255, 255, 0.2);
---card-border-width: 1px;
---card-border-radius: 4px;
---card-margin-bottom: 10px;
+--card-border-radius: 5px;
+--card-background-color: rgba(0, 142, 57, 0.2);
 
 /* User Name */
 --username-font-size: 22px;

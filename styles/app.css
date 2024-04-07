@@ -1,6 +1,8 @@
 *,
 *:before,
 *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -9,15 +11,12 @@
 #app {
 	display: flex;
 	flex-direction: column;
-	border: solid;
-	border-color: var(--app-border-color);
-	border-width: var(--app-border-width);
-	border-radius: var(--app-border-radius);
-	padding: var(--app-padding);
 	height: 100vh;
+	padding: var(--app-padding);
+	border-radius: var(--app-border-radius);
 	background-color: var(--app-background-color);
 	background-image: var(--app-bg-image);
-	background-repeat: repeat;
+	background-size: cover;
 }
 
 .header {
@@ -25,17 +24,22 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: var(--header-margin-bottom);
-	border-style: solid;
-	border-color: var(--header-border-color);
-	border-width: var(--header-border-width);
-	border-radius: var(--header-border-radius);
 	padding: 24px;
-	font-family: var(--header-font-family, "serif");
+	margin-bottom: var(--header-margin-bottom);
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--header-border-radius);
+	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
+	background-color: var(--header-background-color);
+	font-family: var(--header-font-family, "arial");
 	color: var(--header-font-color);
 	font-size: var(--header-font-size);
 	font-weight: var(--header-font-weight);
-	background-color: var(--header-background-color);
+
+	/* glass affect only work on Safari */
+	/* will break on chrome */
+	/* backdrop-filter: blur(4px); */
+	-webkit-backdrop-filter: blur(3px);
 }
 
 .task-wrapper {
@@ -43,13 +47,8 @@
 	flex-direction: column;
 	gap: var(--card-gap-between);
 	overflow: hidden;
-	border: solid;
-	border-color: var(--body-border-color);
-	border-width: var(--body-border-width);
-	border-radius: var(--body-border-radius);
 	height: 100%;
 	background-color: var(--body-background-color);
-	font-family: var(--body-font-family);
 }
 
 .task-container {
@@ -59,12 +58,17 @@
 }
 
 .card {
-	border-top: var(--card-border-width) solid var(--card-border-color);
-	border-left: var(--card-border-width) solid var(--card-border-color);
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--card-border-radius);
 	background-color: var(--card-background-color);
-	/* backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px); */
+	margin: 0 1px;
+	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
+	font-family: var(--card-font-family, "arial");
+
+	/* glass affect only work on Safari */
+	/* will break on chrome */
+	-webkit-backdrop-filter: blur(3px);
 }
 
 .username {
@@ -91,6 +95,6 @@
 }
 
 .done {
-	color: var(--done-task-font-color);
+	color: var(--task-done-font-color);
 	text-decoration-line: line-through;
 }
