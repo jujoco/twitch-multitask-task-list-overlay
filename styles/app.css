@@ -1,3 +1,10 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
 #app {
 	display: flex;
 	flex-direction: column;
@@ -16,22 +23,22 @@
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: var(--header-margin-bottom);
-	font-family: var(--header-font-family, "serif");
-	color: var(--header-font-color);
-	font-size: var(--header-font-size);
 	border-style: solid;
 	border-color: var(--header-border-color);
 	border-width: var(--header-border-width);
 	border-radius: var(--header-border-radius);
 	padding: var(--header-padding);
-	height: var(--header-height);
+	font-family: var(--header-font-family, "serif");
+	color: var(--header-font-color);
+	font-size: var(--header-font-size);
 	background-color: var(--header-background-color);
 }
 
 .task-wrapper {
 	display: flex;
+	flex-direction: column;
 	z-index: 1;
-	position: relative;
+	/* position: relative; */
 	overflow: hidden;
 	border: solid;
 	border-color: var(--body-border-color);
@@ -43,13 +50,7 @@
 }
 
 .task-container {
-	display: flex;
-	flex-direction: column;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: -1;
+	margin-bottom: 100px;
 }
 
 .card {
@@ -67,13 +68,9 @@
 	margin-bottom: var(--card-margin-bottom);
 }
 
-.secondary {
+/* .secondary {
 	display: none;
-}
-
-.fade {
-	opacity: 0;
-}
+} */
 
 .username {
 	overflow: hidden;
