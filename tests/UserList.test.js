@@ -1,5 +1,4 @@
 const UserList = require("../src/UserList");
-const User = require("../src/User");
 
 describe("UserList", () => {
 	/** @type UserList */
