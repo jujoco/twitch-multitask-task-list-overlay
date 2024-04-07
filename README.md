@@ -1,5 +1,7 @@
 # Twitch Multi-Task Chat Bot
 
+<img src="./demo/preview.png" width="530" height="660">
+
 ## Why you should use this
 
 - Free to use
