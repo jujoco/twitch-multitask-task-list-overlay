@@ -1,4 +1,5 @@
 const User = require("../src/User");
+const Task = require("../src/Task");
 
 describe("User", () => {
 	/** @type User */
@@ -31,12 +32,8 @@ describe("User", () => {
 	});
 
 	describe("addTask", () => {
-		it("should accept an array as its value and return array", () => {
-			expect(user.addTask(["task 1", "task 2"]).length).toBe(2);
-		});
-
-		it("should accept a string as its value and return array", () => {
-			expect(user.addTask("task 1").length).toBe(1);
+		it("should accept a string as its value and return the Task object", () => {
+			expect(user.addTask("task 1")).toBeInstanceOf(Task);
 		});
 	});
 

@@ -38,7 +38,7 @@ class UserList {
 			const newUser = new User(oldUser.username);
 			oldUser.tasks.map((task) => {
 				const newTask = newUser.addTask(task.description);
-				newTask.completionStatus = task.completionStatus;
+				newTask.setCompletionStatus(task.completionStatus);
 			});
 			return newUser;
 		});
@@ -102,11 +102,10 @@ class UserList {
 		let user = this.getUser(username);
 		if (!user) {
 			user = new User(username);
-			user.addTask(taskDescriptions);
 			this.users.push(user);
-		} else {
-			user.addTask(taskDescriptions);
 		}
+		taskDescriptions.forEach((description) => user.addTask(description));
+
 		this.#commitToLocalStorage();
 		return taskDescriptions.join(", ");
 	}

@@ -43,18 +43,13 @@ class User {
 
 	/**
 	 * Add tasks to the user
-	 * @param {string | string[]} taskDescriptions - The task descriptions to add
-	 * @returns {Task[]} - The tasks that were added
+	 * @param {string} taskDescription - The task description to add
+	 * @returns {Task} - The newly created Task object
 	 */
 	addTask(descriptions) {
-		let tasks = [];
-		if (Array.isArray(descriptions)) {
-			tasks = descriptions.map((description) => new Task(description));
-		} else {
-			tasks.push(new Task(descriptions));
-		}
-		this.tasks = this.tasks.concat(tasks);
-		return this.tasks;
+		let task = new Task(descriptions);
+		this.tasks.push(task);
+		return task;
 	}
 
 	/**
