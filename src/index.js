@@ -36,7 +36,7 @@ function loadGoogleFont(font) {
 }
 
 function loadTestUsers() {
-	localStorage.clear();
+	userList.clearUserList();
 	for (let i = 1; i <= 10; i++) {
 		userList.addUserTask(`User${i}`, ["Task 1", "Task 2", "Task 3"]);
 	}
