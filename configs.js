@@ -4,7 +4,8 @@ const configs = (function () {
 	const settings = {
 		languageCode: "EN", // "EN", "ES", "FR", "JP"
 		crossTasksOnDone: true, // true or false
-		maxTasksPerUser: 5, // number between 1 and 10
+		maxTasksPerUser: 5, // default 5
+		scrollSpeed: 40, // default 40
 	};
 
 	const admin = {
@@ -90,38 +91,58 @@ const configs = (function () {
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
 				next: 'Moving onto "{message}", {user}!',
-				help: "Use the following commands to help you out - !add !remove !edit !done",
+				help: "Try using these commands - !taskadd !taskedit !taskdone !taskdelete",
 				additional:
-					"Jujoco is the creator of this bot, check out his Twitch at https://www.twitch.tv/JujocoCS",
+					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Looks like you've reached the max tasks {user}, try removing old tasks",
 				noTaskFound: "Looks like you don't have a task up there {user}",
+				invalidCommand: "Invalid command, try !help {user}",
 			},
 			ES: {
 				addTask: 'La tarea "{message}" ha sido añadida, {user}!',
-				noTaskAdded: 'La tarea "{message}" ha sido añadida, {user}!',
+				editTask: 'Tarea actualizada a "{message}", {user}!',
+				finishTask: '¡Buen trabajo al terminar "{message}" {user}!',
+				deleteTask: 'La tarea "{message}" ha sido eliminada, {user}!',
+				check: 'Tu tarea actual es: "{message}", {user}',
+				next: 'Pasando a "{message}", {user}!',
+				help: "Prueba a usar estos comandos - !taskadd !taskedit !taskdone !taskdelete",
+				additional:
+					"Jujoco es el creador de este bot, mira su Twitch en: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"Has alcanzado el número máximo de tareas {user}, usa !delete para borrar y remover las tareas antiguas",
-				noTaskContent:
-					"Intenta usar !add la-tarea-en-la-que-estás-trabajando {user}",
-				noTaskToEdit: "No hay tarea para editar {user}",
+					"Parece que has alcanzado el máximo de tareas {user}, intenta eliminar tareas antiguas",
+				noTaskFound: "Parece que no tienes una tarea ahí arriba {user}",
+				invalidCommand: "Comando inválido, prueba !help {user}",
 			},
 			FR: {
-				addTask: 'La tâche "{message}" a été ajoutée, {user}!',
-				noTaskAdded: 'La tâche "{message}" a été ajoutée, {user}!',
+				addTask: 'Tâche "{message}" a été ajoutée, {user}!',
+				editTask: 'Tâche mise à jour en "{message}", {user}!',
+				finishTask: 'Bon travail pour avoir terminé "{message}" {user}!',
+				deleteTask: 'La tâche "{message}" a été supprimée, {user}!',
+				check: 'Votre tâche actuelle est : "{message}", {user}',
+				next: 'Passons à "{message}", {user}!',
+				help: "Essayez d'utiliser ces commandes - !taskadd !taskedit !taskdone !taskdelete",
+				additional:
+					"Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"Vous avez atteint le nombre maximum de tâches {user}, utilisez !delete pour supprimer les anciennes tâches",
-				noTaskContent:
-					"Essayez d'utiliser !add la-tâche-sur-laquelle-vous-travaillez {user}",
-				noTaskToEdit: "Pas de tâche à éditer {user}",
+					"Vous avez atteint le nombre maximal de tâches {user}, essayez de supprimer les anciennes tâches",
+				noTaskFound: "On dirait que vous n'avez pas de tâche là-haut {user}",
+				invalidCommand: "Commande invalide, essayez !help {user}",
 			},
 			JP: {
-				addTask: 'タスク "{message}" が追加されました、{user}!',
-				noTaskAdded: 'タスク "{message}" が追加されました、{user}!',
+				addTask: "タスク「{message}」が追加されました、{user}!",
+				editTask: "タスクが「{message}」に更新されました、{user}!",
+				finishTask: "「{message}」を終了してよくやった、{user}!",
+				deleteTask: "タスク「{message}」が削除されました、{user}!",
+				check: "現在のタスクは「{message}」です、{user}",
+				next: "「{message}」に移動します、{user}!",
+				help: "これらのコマンドを試してみてください - !taskadd !taskedit !taskdone !taskdelete",
+				additional:
+					"このボットの作成者はJujocoです、彼のTwitchは: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"最大タスク数に達しました {user}、古いタスクを削除して削除してください",
-				noTaskContent: "!add 作業中のタスク {user} を使用してみてください",
-				noTaskToEdit: "編集するタスクがありません {user}",
+					"最大タスク数に達しました {user}、古いタスクを削除してみてください",
+				noTaskFound: "上にタスクがないようです {user}",
+				invalidCommand: "無効なコマンドです。!help {user} を試してください",
 			},
 		},
 	};
