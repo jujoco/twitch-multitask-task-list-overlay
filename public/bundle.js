@@ -515,6 +515,9 @@ let secondaryAnimation;
 window.addEventListener("load", () => {
 	userList = new UserList();
 	loadCustomFont();
+	if (configs.settings.testMode) {
+		loadTestUsers();
+	}
 	renderDOM();
 });
 
@@ -536,6 +539,13 @@ function loadGoogleFont(font) {
 			families: [`${font}:100,400,700`],
 		},
 	});
+}
+
+function loadTestUsers() {
+	localStorage.clear();
+	for (let i = 1; i <= 10; i++) {
+		userList.addUserTask(`User${i}`, ["Task 1", "Task 2", "Task 3"]);
+	}
 }
 
 function renderDOM() {

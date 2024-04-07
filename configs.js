@@ -6,6 +6,7 @@ const configs = (function () {
 		crossTasksOnDone: true, // true or false
 		maxTasksPerUser: 5, // default 5
 		scrollSpeed: 40, // default 40
+		testMode: false, // true or false - for testing purposes
 	};
 
 	const admin = {
