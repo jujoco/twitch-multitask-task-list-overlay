@@ -210,7 +210,6 @@ class User {
  * @method #commitToLocalStorage - Save the user list to local storage
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
- * @method deleteUser - Delete the user at the specified index
  * @method addUserTask - Add a task to the specified user
  * @method editUserTask - Edit the task at the specified index
  * @method completeUserTask - Mark specified task as complete
@@ -218,6 +217,7 @@ class User {
  * @method checkUserTasks - Get inc from a user
  * @method clearUserList - Clear user list
  * @method clearDoneTasks - Clear all done tasks
+ * @method deleteUser - Delete the user
  */
 class UserList {
 	constructor() {
@@ -274,22 +274,6 @@ class UserList {
 	 */
 	getAllUsers() {
 		return this.users;
-	}
-
-	/**
-	 * Delete a user by username
-	 * @param {string} username - The username of the user
-	 * @throws {Error} - If the user is not found
-	 * @returns {User} - The deleted user
-	 */
-	deleteUser(username) {
-		const index = this.users.findIndex((user) => user.username === username);
-		if (index === -1) {
-			throw new Error("User not found");
-		}
-		const deletedUser = this.users.splice(index, 1)[0];
-		this.#commitToLocalStorage();
-		return deletedUser;
 	}
 
 	/**
@@ -401,6 +385,25 @@ class UserList {
 		});
 		this.#commitToLocalStorage();
 	}
+
+	/**
+	 * Delete a user by username
+	 * @param {string} username - The username of the user
+	 * @throws {Error} - If the user is not found
+	 * @returns {User} - The deleted user
+	 */
+	deleteUser(username) {
+		const userIndex = this.users.findIndex(
+			(user) => user.username === username
+		);
+		if (userIndex === -1) {
+			throw new Error(`${username} not found`);
+		}
+		const user = this.users[userIndex];
+		this.users.splice(userIndex, 1);
+		this.#commitToLocalStorage();
+		return user;
+	}
 }
 const adminConfig = configs.admin;
 const userConfig = configs.user;
@@ -420,19 +423,20 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 	try {
 		// ADMIN COMMANDS
 		if (isMod(flags)) {
-			if (adminConfig.commands.adminClearUserList.includes(command)) {
+			if (adminConfig.commands.adminClearList.includes(command)) {
 				userList.clearUserList();
-				respond(
-					adminConfig.responseTo[langCode].adminClearUserList,
-					username,
-					message
-				);
+				respond(adminConfig.responseTo[langCode].adminClearList, username);
 				return renderTaskListToDOM();
 			}
 			if (adminConfig.commands.adminClearDoneTasks.includes(command)) {
 				userList.clearDoneTasks();
+				respond(adminConfig.responseTo[langCode].adminClearDoneTasks, username);
+				return renderTaskListToDOM();
+			}
+			if (adminConfig.commands.adminClearUser.includes(command)) {
+				userList.deleteUser(message);
 				respond(
-					adminConfig.responseTo[langCode].adminClearDoneTasks,
+					adminConfig.responseTo[langCode].adminClearUser,
 					username,
 					message
 				);
@@ -488,7 +492,11 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		return renderTaskListToDOM();
 	} catch (error) {
 		console.error(error, username, message);
-		respond(userConfig.responseTo[langCode].invalidCommand, username);
+		respond(
+			userConfig.responseTo[langCode].invalidCommand,
+			username,
+			`${command} ${message}`
+		);
 	}
 };
 
