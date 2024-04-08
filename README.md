@@ -74,11 +74,11 @@ const oauth = "oauth:1a2b3c4d5e6f7g8h9i1j2k3l";
 
 ### Common
 
-- !taskadd \<task\> , \<task\> - Add a task or multiple tasks
+- !taskadd \<task\> , \<task\> - Add a task or multiple tasks by comma separated
 - !taskedit \<number\> \<newTask\> - Edit a single task
 - !taskdone \<number\> - Mark a single task as done
-- !taskdelete \<number\> - Remove a single task
-- !taskcheck - Check your last task
+- !taskdelete \<number\> - Delete a single task
+- !taskcheck - Check your unfinished tasks
 
 ### Moderators only
 
@@ -90,11 +90,9 @@ For aliases, see [here](#aliases)
 
 ## Customization settings
 
-Open the `configs.js` to edit the behavior of the Task List
-
-Open the `base.css` to edit the styles of the Task List
-
 ### Behavior Settings
+
+Open the `configs.js` to edit the behavior of the Task List
 
 `crossTasksOnDone`: default **true**
 
@@ -110,15 +108,20 @@ Open the `base.css` to edit the styles of the Task List
 
 `maxTasksPerUser`: default **5**
 
-- **number**: A value between 1 - 10;
+- **number**: A value between 1 - 10.
 
 `scrollSpeed`: default **40**
 
-- **number**: A value between 1 - 100;
+- **number**: A value between 1 - 100.
 
----
+`testMode`: default **false**
+
+- **false**: turn OFF test mode.
+- **true**: turn ON test mode.
 
 ### Styles Settings
+
+Open the `base.css` to edit the styles of the Task List
 
 ### Fonts Styles
 
@@ -137,7 +140,7 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 --app-border-radius: 5px;
 --app-padding: 8px;
 --app-bg-image: url(../public/transparent-background.png);
---app-background-color: rgb(183, 183, 183, 1);
+--app-background-color: rgb(183, 183, 183, 0);
 ```
 
 ### Header Styles
@@ -146,7 +149,7 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 /* Header */
 --header-border-radius: 5px;
 --header-margin-bottom: 10px;
---header-background-color: rgba(0, 142, 57, 0.2);
+--header-background-color: rgba(0, 0, 0, 0.8);
 --header-font-size: 24px;
 --header-font-color: white;
 --header-font-weight: lighter;
@@ -165,7 +168,7 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 /* Card */
 --card-gap-between: 10px;
 --card-border-radius: 5px;
---card-background-color: rgba(0, 142, 57, 0.2);
+--card-background-color: rgba(0, 0, 0, 0.8);
 
 /* User Name */
 --username-font-size: 22px;
@@ -181,7 +184,9 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 
 ## Aliases
 
-**add task commands:**
+### User Commands
+
+**add task commands:** \(add a task\)
 
 - `!addtask`
 - `!add`
@@ -191,81 +196,54 @@ Font family for the Header & Body \(supports all fonts from [Google Fonts](https
 - `!atask`
 - `!todo`
 
-**delete task commands:**
+**edit task commands:** \(edit a task\)
 
-- `!taskd`
-- `!taskdel`
-- `!taskdelete`
-- `!deltask`
-- `!deletetask`
-- `!taskr`
-- `!taskremove`
-- `!rtask`
-- `!removetask`
-- `!remove`
-- `!delete`
+- `!edit`
+- `!taskedit`
+- `!edittask`
+- `!taske`
+- `!etask`
 
-**edit task commands:**
+**finish task commands:** \(mark a task as done\)
 
-- `taske`
-- `taskedit`
-- `etask`
-- `edittask`
-- `edit`
-
-**finish task commands:**
-
-- `!taskf`
-- `!taskfinish`
-- `!ftask`
-- `!finishtask`
-- `!taskdone`
-- `!donetask`
-- `!finish`
 - `!done`
-- `!finished`
+- `!donetask`
+- `!taskdone`
+
+**delete task commands:** \(delete a task\)
+
+- `!delete`
+- `!taskdelete`
+- `!deletetask`
+- `!taskdel`
+- `!deltask`
 
 **check commands:** \(check last task of yourself or user\)
 
-- `!taskc`
-- `!taskcheck`
-- `!ctask`
-- `!checktask`
-- `!mytask`
 - `!check`
+- `!checktask`
+- `!taskcheck`
+- `!mytask`
 
-Note: You can also use it like this: `!check @user` or `!check user`
+**help commands:** \(show help commands\)
 
-**help commands:**
-
-- `!taskh`
+- `!help`
 - `!taskhelp`
-- `!htask`
 - `!helptask`
-- `!tasks`
 
-**admin delete commands:** \(delete a task from a user\) \(mods only\)
+### Admin Commands
 
-- `!taskadel`
-- `!adel`
-- `!adelete`
-- `!admindelete`
+**admin clear User commands:** \(clear all tasks from a user\) \(mods only\)
+
+- `!adminclearuser`
 
 **admin clear done commands:** \(clear all done tasks from list\) \(mods only\)
 
-- `!acleardone`
 - `!admincleardone`
-- `!cleardone`
 
 **admin clear all commands:** \(clear all tasks from list\) \(mods only\)
 
-- `!clearall`
-- `!allclear`
 - `!adminclearall`
-- `!adminallclear`
-- `!aclearall`
-- `!aclear`
-- `!clear`
 
 ## Credits
 

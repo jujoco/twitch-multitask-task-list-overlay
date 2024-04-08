@@ -11,25 +11,34 @@ const configs = (function () {
 
 	const admin = {
 		commands: {
-			adminClearUserList: ["!adminclearall"],
+			adminClearList: ["!adminclearall"],
 			adminClearDoneTasks: ["!admincleardone"],
+			adminClearUser: ["!adminclearuser"],
 		},
 		responseTo: {
 			EN: {
-				adminClearUserList: "All tasks have been cleared",
-				adminClearDoneTasks: "All finished tasks have been cleared",
+				adminClearList: "{user}, All tasks have been cleared",
+				adminClearDoneTasks: "{user}, All finished tasks have been cleared",
+				adminClearUser: "{user}, All tasks for {message} have been cleared",
 			},
 			ES: {
-				adminClearUserList: "Todas las tareas han sido borradas",
-				adminClearDoneTasks: "Todas las tareas terminadas han sido borradas",
+				adminClearList: "{user}, Todas las tareas han sido eliminadas",
+				adminClearDoneTasks:
+					"{user}, Todas las tareas terminadas han sido eliminadas",
+				adminClearUser:
+					"{user}, Todas las tareas de {message} han sido eliminadas",
 			},
 			FR: {
-				adminClearUserList: "Toutes les tâches ont été effacées",
-				adminClearDoneTasks: "Toutes les tâches terminées ont été effacées",
+				adminClearList: "{user}, Toutes les tâches ont été effacées",
+				adminClearDoneTasks:
+					"{user}, Toutes les tâches terminées ont été effacées",
+				adminClearUser:
+					"{user}, Toutes les tâches de {message} ont été effacées",
 			},
 			JP: {
-				adminClearUserList: "すべてのタスクがクリアされました",
-				adminClearDoneTasks: "完了したすべてのタスクがクリアされました",
+				adminClearList: "{user}, すべてのタスクがクリアされました",
+				adminClearDoneTasks: "{user}, 完了したすべてのタスクがクリアされました",
+				adminClearUser: "{user}, {message} のすべてのタスクがクリアされました",
 			},
 		},
 	};
@@ -45,43 +54,17 @@ const configs = (function () {
 				"!taska",
 				"!atask",
 			],
-			editTask: [
-				"!edit",
-				"!rename",
-				"!taskedit",
-				"!edittask",
-				"!taske",
-				"!etask",
-			],
-			finishTask: [
-				"!done",
-				"!donetask",
-				"!taskdone",
-				"!finished",
-				"!taskf",
-				"!taskfinish",
-				"!ftask",
-				"!finishtask",
-				"!taskd",
-				"!dtask",
-				"!finish",
-			],
+			editTask: ["!edit", "!taskedit", "!edittask", "!taske", "!etask"],
+			finishTask: ["!done", "!donetask", "!taskdone"],
 			deleteTask: [
 				"!delete",
-				"!remove",
-				"!taskd",
-				"!taskdel",
-				"!deltask",
 				"!taskdelete",
 				"!deletetask",
-				"!taskremove",
-				"!removetask",
-				"!taskr",
-				"!rtask",
+				"!taskdel",
+				"!deltask",
 			],
-			check: ["!check", "!mytask", "!taskcheck", "!checktask"],
-			next: ["!next", "!nexttask"],
-			help: ["!help", "!taskhelp"],
+			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
+			help: ["!help", "!taskhelp", "!helptask"],
 			additional: ["!creator", "!credits"],
 		},
 		responseTo: {
@@ -91,14 +74,13 @@ const configs = (function () {
 				finishTask: 'Good job on finishing "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
-				next: 'Moving onto "{message}", {user}!',
 				help: "Try using these commands - !taskadd !taskedit !taskdone !taskdelete",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Looks like you've reached the max tasks {user}, try removing old tasks",
 				noTaskFound: "Looks like you don't have a task up there {user}",
-				invalidCommand: "Invalid command, try !help {user}",
+				invalidCommand: "{user}, Invalid command: {message}. Try !help",
 			},
 			ES: {
 				addTask: 'La tarea "{message}" ha sido añadida, {user}!',
@@ -106,14 +88,13 @@ const configs = (function () {
 				finishTask: '¡Buen trabajo al terminar "{message}" {user}!',
 				deleteTask: 'La tarea "{message}" ha sido eliminada, {user}!',
 				check: 'Tu tarea actual es: "{message}", {user}',
-				next: 'Pasando a "{message}", {user}!',
 				help: "Prueba a usar estos comandos - !taskadd !taskedit !taskdone !taskdelete",
 				additional:
 					"Jujoco es el creador de este bot, mira su Twitch en: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Parece que has alcanzado el máximo de tareas {user}, intenta eliminar tareas antiguas",
 				noTaskFound: "Parece que no tienes una tarea ahí arriba {user}",
-				invalidCommand: "Comando inválido, prueba !help {user}",
+				invalidCommand: "{user}, Comando inválido: {message}. ¡Intenta !help",
 			},
 			FR: {
 				addTask: 'Tâche "{message}" a été ajoutée, {user}!',
@@ -121,14 +102,13 @@ const configs = (function () {
 				finishTask: 'Bon travail pour avoir terminé "{message}" {user}!',
 				deleteTask: 'La tâche "{message}" a été supprimée, {user}!',
 				check: 'Votre tâche actuelle est : "{message}", {user}',
-				next: 'Passons à "{message}", {user}!',
 				help: "Essayez d'utiliser ces commandes - !taskadd !taskedit !taskdone !taskdelete",
 				additional:
 					"Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Vous avez atteint le nombre maximal de tâches {user}, essayez de supprimer les anciennes tâches",
 				noTaskFound: "On dirait que vous n'avez pas de tâche là-haut {user}",
-				invalidCommand: "Commande invalide, essayez !help {user}",
+				invalidCommand: "{user}, Commande invalide: {message}. Essayez !help",
 			},
 			JP: {
 				addTask: "タスク「{message}」が追加されました、{user}!",
@@ -136,14 +116,14 @@ const configs = (function () {
 				finishTask: "「{message}」を終了してよくやった、{user}!",
 				deleteTask: "タスク「{message}」が削除されました、{user}!",
 				check: "現在のタスクは「{message}」です、{user}",
-				next: "「{message}」に移動します、{user}!",
 				help: "これらのコマンドを試してみてください - !taskadd !taskedit !taskdone !taskdelete",
 				additional:
 					"このボットの作成者はJujocoです、彼のTwitchは: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"最大タスク数に達しました {user}、古いタスクを削除してみてください",
 				noTaskFound: "上にタスクがないようです {user}",
-				invalidCommand: "無効なコマンドです。!help {user} を試してください",
+				invalidCommand:
+					"{user}、無効なコマンド: {message}。!help を試してみてください",
 			},
 		},
 	};

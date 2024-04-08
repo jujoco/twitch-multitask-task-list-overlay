@@ -7,7 +7,6 @@ const User = require("./User");
  * @method #commitToLocalStorage - Save the user list to local storage
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
- * @method deleteUser - Delete the user at the specified index
  * @method addUserTask - Add a task to the specified user
  * @method editUserTask - Edit the task at the specified index
  * @method completeUserTask - Mark specified task as complete
@@ -15,6 +14,7 @@ const User = require("./User");
  * @method checkUserTasks - Get inc from a user
  * @method clearUserList - Clear user list
  * @method clearDoneTasks - Clear all done tasks
+ * @method deleteUser - Delete the user
  */
 class UserList {
 	constructor() {
@@ -71,22 +71,6 @@ class UserList {
 	 */
 	getAllUsers() {
 		return this.users;
-	}
-
-	/**
-	 * Delete a user by username
-	 * @param {string} username - The username of the user
-	 * @throws {Error} - If the user is not found
-	 * @returns {User} - The deleted user
-	 */
-	deleteUser(username) {
-		const index = this.users.findIndex((user) => user.username === username);
-		if (index === -1) {
-			throw new Error("User not found");
-		}
-		const deletedUser = this.users.splice(index, 1)[0];
-		this.#commitToLocalStorage();
-		return deletedUser;
 	}
 
 	/**
@@ -197,6 +181,25 @@ class UserList {
 			user.clearDoneTasks();
 		});
 		this.#commitToLocalStorage();
+	}
+
+	/**
+	 * Delete a user by username
+	 * @param {string} username - The username of the user
+	 * @throws {Error} - If the user is not found
+	 * @returns {User} - The deleted user
+	 */
+	deleteUser(username) {
+		const userIndex = this.users.findIndex(
+			(user) => user.username === username
+		);
+		if (userIndex === -1) {
+			throw new Error(`${username} not found`);
+		}
+		const user = this.users[userIndex];
+		this.users.splice(userIndex, 1);
+		this.#commitToLocalStorage();
+		return user;
 	}
 }
 module.exports = UserList;

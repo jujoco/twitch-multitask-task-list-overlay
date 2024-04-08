@@ -16,19 +16,20 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 	try {
 		// ADMIN COMMANDS
 		if (isMod(flags)) {
-			if (adminConfig.commands.adminClearUserList.includes(command)) {
+			if (adminConfig.commands.adminClearList.includes(command)) {
 				userList.clearUserList();
-				respond(
-					adminConfig.responseTo[langCode].adminClearUserList,
-					username,
-					message
-				);
+				respond(adminConfig.responseTo[langCode].adminClearList, username);
 				return renderTaskListToDOM();
 			}
 			if (adminConfig.commands.adminClearDoneTasks.includes(command)) {
 				userList.clearDoneTasks();
+				respond(adminConfig.responseTo[langCode].adminClearDoneTasks, username);
+				return renderTaskListToDOM();
+			}
+			if (adminConfig.commands.adminClearUser.includes(command)) {
+				userList.deleteUser(message);
 				respond(
-					adminConfig.responseTo[langCode].adminClearDoneTasks,
+					adminConfig.responseTo[langCode].adminClearUser,
 					username,
 					message
 				);
@@ -84,7 +85,11 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		return renderTaskListToDOM();
 	} catch (error) {
 		console.error(error, username, message);
-		respond(userConfig.responseTo[langCode].invalidCommand, username);
+		respond(
+			userConfig.responseTo[langCode].invalidCommand,
+			username,
+			`${command} ${message}`
+		);
 	}
 };
 
