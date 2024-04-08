@@ -10,3 +10,7 @@ node_modules/
 
 # Misc files
 .DS_Store
+.todo.md
+
+# notes
+devNotes.md
