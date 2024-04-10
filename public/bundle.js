@@ -409,11 +409,9 @@ const adminConfig = configs.admin;
 const userConfig = configs.user;
 const langCode = configs.settings.languageCode;
 const maxTasksPerUser = configs.settings.maxTasksPerUser;
-const twitchUserName = auth.username;
-const twitchChannel = auth.channel;
-const oauth_token = auth.oauth.includes("oauth:")
-	? auth.oauth
-	: `oauth:${auth.oauth}`;
+const twitchChannel = configs.auth.channel;
+const twitchUserName = configs.auth.username;
+const oauth_token = configs.auth.oauth;
 
 ComfyJS.Init(twitchUserName, oauth_token, twitchChannel);
 
@@ -425,12 +423,18 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		if (isMod(flags)) {
 			if (adminConfig.commands.adminClearList.includes(command)) {
 				userList.clearUserList();
-				respond(adminConfig.responseTo[langCode].adminClearList, username);
+				respond(
+					adminConfig.responseTo[langCode].adminClearList,
+					username
+				);
 				return renderTaskListToDOM();
 			}
 			if (adminConfig.commands.adminClearDoneTasks.includes(command)) {
 				userList.clearDoneTasks();
-				respond(adminConfig.responseTo[langCode].adminClearDoneTasks, username);
+				respond(
+					adminConfig.responseTo[langCode].adminClearDoneTasks,
+					username
+				);
 				return renderTaskListToDOM();
 			}
 			if (adminConfig.commands.adminClearUser.includes(command)) {
@@ -448,11 +452,18 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		if (userConfig.commands.addTask.includes(command)) {
 			// ADD TASK
 			if (userList.getUser(username)?.tasks.length >= maxTasksPerUser) {
-				respond(userConfig.responseTo[langCode].maxTasksAdded, username);
+				respond(
+					userConfig.responseTo[langCode].maxTasksAdded,
+					username
+				);
 			} else {
 				const tasks = message.split(", ");
 				userList.addUserTask(username, tasks);
-				respond(userConfig.responseTo[langCode].addTask, username, message);
+				respond(
+					userConfig.responseTo[langCode].addTask,
+					username,
+					message
+				);
 			}
 		} else if (userConfig.commands.editTask.includes(command)) {
 			// EDIT TASK
@@ -470,12 +481,20 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 			// COMPLETE TASK
 			const index = parseIndex(message);
 			const taskComp = userList.completeUserTask(username, index);
-			respond(userConfig.responseTo[langCode].finishTask, username, taskComp);
+			respond(
+				userConfig.responseTo[langCode].finishTask,
+				username,
+				taskComp
+			);
 		} else if (userConfig.commands.deleteTask.includes(command)) {
 			// DELETE TASK
 			const index = parseIndex(message);
 			const taskDel = userList.deleteUserTask(username, index);
-			respond(userConfig.responseTo[langCode].deleteTask, username, taskDel);
+			respond(
+				userConfig.responseTo[langCode].deleteTask,
+				username,
+				taskDel
+			);
 		} else if (userConfig.commands.check.includes(command)) {
 			// CHECK TASKS
 			const tasks = userList.checkUserTasks(username).join(", ");
@@ -492,11 +511,6 @@ ComfyJS.onCommand = (username, command, message, flags, extra) => {
 		return renderTaskListToDOM();
 	} catch (error) {
 		console.error(error, username, message);
-		respond(
-			userConfig.responseTo[langCode].invalidCommand,
-			username,
-			`${command} ${message}`
-		);
 	}
 };
 
@@ -522,32 +536,11 @@ let secondaryAnimation;
 
 window.addEventListener("load", () => {
 	userList = new UserList();
-	loadCustomFont();
 	if (configs.settings.testMode) {
 		loadTestUsers();
 	}
 	renderDOM();
 });
-
-function loadCustomFont() {
-	const headerFontFamily = getComputedStyle(document.documentElement)
-		.getPropertyValue("--header-font-family")
-		.trim();
-	loadGoogleFont(headerFontFamily);
-
-	const bodyFontFamily = getComputedStyle(document.documentElement)
-		.getPropertyValue("--card-font-family")
-		.trim();
-	loadGoogleFont(bodyFontFamily);
-}
-
-function loadGoogleFont(font) {
-	WebFont.load({
-		google: {
-			families: [`${font}:100,400,700`],
-		},
-	});
-}
 
 function loadTestUsers() {
 	userList.clearUserList();
@@ -683,3 +676,43 @@ function addAnimationListeners() {
 function animationFinished() {
 	animateScroll();
 }
+(() => {
+	"use strict";
+
+	const styles = configs.styles;
+
+	window.addEventListener("load", () => {
+		loadCustomStyles();
+	});
+
+	function loadCustomStyles() {
+		const root = document.querySelector(":root");
+		for (let [key, val] of Object.entries(styles)) {
+			if (key.includes("FontFamily")) {
+				loadGoogleFont(val);
+			}
+			root.style.setProperty(convertToCSSVar(key), val);
+		}
+	}
+
+	/**
+	 * @param {string} font - Font family name.
+	 * @returns {void}
+	 */
+	function loadGoogleFont(font) {
+		WebFont.load({
+			google: {
+				families: [`${font}:100,400,700`],
+			},
+		});
+	}
+
+	/**
+	 * @param {string} name - The name of the CSS variable.
+	 * @returns {string}
+	 */
+	function convertToCSSVar(name) {
+		let cssVar = name.replace(/([A-Z])/g, "-$1").toLowerCase();
+		return `--${cssVar}`;
+	}
+})();

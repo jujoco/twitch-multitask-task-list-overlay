@@ -8,32 +8,11 @@ let secondaryAnimation;
 
 window.addEventListener("load", () => {
 	userList = new UserList();
-	loadCustomFont();
 	if (configs.settings.testMode) {
 		loadTestUsers();
 	}
 	renderDOM();
 });
-
-function loadCustomFont() {
-	const headerFontFamily = getComputedStyle(document.documentElement)
-		.getPropertyValue("--header-font-family")
-		.trim();
-	loadGoogleFont(headerFontFamily);
-
-	const bodyFontFamily = getComputedStyle(document.documentElement)
-		.getPropertyValue("--card-font-family")
-		.trim();
-	loadGoogleFont(bodyFontFamily);
-}
-
-function loadGoogleFont(font) {
-	WebFont.load({
-		google: {
-			families: [`${font}:100,400,700`],
-		},
-	});
-}
 
 function loadTestUsers() {
 	userList.clearUserList();
