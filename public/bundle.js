@@ -545,7 +545,11 @@ window.addEventListener("load", () => {
 function loadTestUsers() {
 	userList.clearUserList();
 	for (let i = 1; i <= 10; i++) {
-		userList.addUserTask(`User${i}`, ["Task 1", "Task 2", "Task 3"]);
+		userList.addUserTask(`Username${i}`, [
+			"Task description 1",
+			"Task description 2",
+			"Task with very long description 3",
+		]);
 	}
 }
 
@@ -567,7 +571,7 @@ function renderTaskListToDOM() {
 		userNameDiv.innerText = user.username;
 		cardDiv.appendChild(userNameDiv);
 		const list = document.createElement("ol");
-		list.classList.add("user-task-list");
+		list.classList.add("tasks");
 		user.tasks.forEach((task) => {
 			const listItem = document.createElement("li");
 			listItem.classList.add("task");
