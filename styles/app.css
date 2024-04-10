@@ -15,7 +15,7 @@
 	padding: var(--app-padding);
 	border-radius: var(--app-border-radius);
 	background-color: var(--app-background-color);
-	background-image: var(--app-bg-image);
+	background-image: var(--app-background-image);
 	background-size: cover;
 }
 
@@ -38,8 +38,7 @@
 
 	/* glass affect only work on Safari */
 	/* will break on chrome */
-	/* backdrop-filter: blur(4px); */
-	-webkit-backdrop-filter: blur(3px);
+	/* -webkit-backdrop-filter: blur(3px); */
 }
 
 .task-wrapper {
@@ -68,7 +67,7 @@
 
 	/* glass affect only work on Safari */
 	/* will break on chrome */
-	-webkit-backdrop-filter: blur(3px);
+	/* -webkit-backdrop-filter: blur(3px); */
 }
 
 .username {
