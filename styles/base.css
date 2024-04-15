@@ -6,7 +6,7 @@
 	/* App Styles */
 	--app-border-radius: 5px;
 	--app-padding: 8px;
-	--app-background-image: url(../public/transparent-background.png);
+	--app-background-image: url(../images/transparent-background.png);
 	--app-background-color: rgba(183, 183, 183, 0);
 
 	/* Header */
