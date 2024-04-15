@@ -1,58 +1,71 @@
-const configs = (function () {
-	"use strict";
-
+window.configs = {
+	// ========================================
 	// Authentication and channel - Required
-	const channel = ""; // <-- your channel
-	const username = ""; // <-- your username
-	const oauth = "oauth:101010101010101010101010"; // <-- your oauth token
-
-	// Font Family: available @ https://fonts.google.com
-	const headerFontFamily = "Roboto Mono";
-	const cardFontFamily = "Roboto Mono";
-
-	// App Styles
-	const appBorderRadius = "5px"; // px
-	const appPadding = "8px"; // px
-	const appBackgroundImage = "url(../public/transparent-background.png)"; // images go in public folder
-	const appBackgroundColor = "rgba(0, 0, 0, 0)"; // color picker https://rgbcolorpicker.com/
-
-	//  Header Styles
-	const headerBorderRadius = "5px";
-	const headerMarginBottom = "10px";
-	const headerBackgroundColor = "rgb(0, 0, 0)"; // color picker https://rgbcolorpicker.com/
-	const headerFontSize = "24px";
-	const headerFontColor = "#FFFFFF"; // color picker https://rgbcolorpicker.com/
-	const headerFontWeight = "lighter"; // lighter, normal, bold
-
-	// Body Styles
-	const bodyBackgroundColor = "rgb(0, 77, 0, 0)"; // color picker https://rgbcolorpicker.com/
-
-	// Card Styles
-	const cardGapBetween = "10px";
-	const cardBorderRadius = "5px";
-	const cardBackgroundColor = "rgb(0, 0, 0, 0.8)"; // color picker https://rgbcolorpicker.com/
-
-	// User Name Styles
-	const usernameFontSize = "22px";
-	const usernameColor = "rgb(255, 255, 255)"; // color picker https://rgbcolorpicker.com/
-	const usernameFontWeight = "lighter"; // lighter, normal, bold
-
-	// User Task Styles
-	const taskFontSize = "18px"; // px
-	const taskFontColor = "#FFFFFF"; // color picker https://rgbcolorpicker.com/
-	const taskFontWeight = "lighter"; // lighter, normal, bold
-	const taskDoneFontColor = "#2E2E2E"; // color picker https://rgbcolorpicker.com/
-
+	// Get your oauth token from https://twitchapps.com/tmi
+	// ========================================
+	auth: {
+		twitch_channel: "CHANNEL_HERE",
+		twitch_username: "USERNAME_HERE",
+		twitch_oauth: "OAUTH_HERE",
+	},
+	// ========================================
 	// Bot Behavior Settings
-	const settings = {
+	// ========================================
+	settings: {
 		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
+		maxTasksPerUser: 5, // default 5
+		scrollSpeed: 50, // default 50
 		crossTasksOnDone: true, // true or false
-		maxTasksPerUser: "5", // default 5
-		scrollSpeed: "50", // default 50
-		testMode: true, // true or false - for testing purposes
-	};
+		showUsernameColor: true, // true or false
+		testMode: false, // true or false - for testing purposes
+	},
 
-	const admin = {
+	// ========================================
+	// Styles Settings
+	// ========================================
+	styles: {
+		// Font Family: available @ https://fonts.google.com
+		headerFontFamily: "Roboto Mono",
+		cardFontFamily: "Roboto Mono",
+
+		// App Styles
+		appBorderRadius: "5px",
+		appPadding: "8px",
+		appBackgroundImage: "transparent-background.png",
+		appBackgroundColor: "rgba(0, 0, 0, 0)",
+
+		//  Header Styles
+		headerBorderRadius: "5px",
+		headerMarginBottom: "10px",
+		headerBackgroundColor: "rgb(0, 0, 0)",
+		headerFontSize: "24px",
+		headerFontColor: "#FFFFFF",
+		headerFontWeight: "normal",
+
+		// Body Styles
+		bodyBackgroundColor: "rgba(0, 0, 0, 0)",
+
+		// Card Styles
+		cardGapBetween: "10px",
+		cardBorderRadius: "5px",
+		cardBackgroundColor: "rgb(0, 0, 0, 0.8)",
+
+		// Username Styles
+		usernameFontSize: "22px",
+		usernameColor: "rgb(255, 255, 255)",
+		usernameFontWeight: "normal",
+
+		// Task Styles
+		taskFontSize: "18px",
+		taskFontColor: "#FFFFFF",
+		taskFontWeight: "normal",
+		taskDoneFontColor: "#2E2E2E",
+	},
+
+	// ========================================
+	// Admin Command and Response
+	// ========================================
+	admin: {
 		commands: {
 			adminClearList: ["!adminclearall"],
 			adminClearDoneTasks: ["!admincleardone"],
@@ -88,20 +101,15 @@ const configs = (function () {
 					"{user}, {message} のすべてのタスクがクリアされました",
 			},
 		},
-	};
+	},
 
-	const user = {
+	// ========================================
+	// User Commands and Responses
+	// ========================================
+	user: {
 		commands: {
-			addTask: [
-				"!add",
-				"!task",
-				"!todo",
-				"!addtask",
-				"!taskadd",
-				"!taska",
-				"!atask",
-			],
-			editTask: ["!edit", "!taskedit", "!edittask", "!taske", "!etask"],
+			addTask: ["!add", "!task", "!todo", "!addtask", "!taskadd"],
+			editTask: ["!edit", "!taskedit", "!edittask"],
 			finishTask: ["!done", "!donetask", "!taskdone"],
 			deleteTask: [
 				"!delete",
@@ -112,11 +120,11 @@ const configs = (function () {
 			],
 			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
 			help: ["!help", "!taskhelp", "!helptask"],
-			additional: ["!creator", "!credits"],
+			additional: ["!taskbot"],
 		},
 		responseTo: {
 			EN: {
-				addTask: 'Task "{message}" has been added, {user}!',
+				addTask: 'Task(s) "{message}" added, {user}!',
 				editTask: 'Task updated to "{message}", {user}!',
 				finishTask: 'Good job on finishing "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
@@ -177,47 +185,5 @@ const configs = (function () {
 					"{user}、無効なコマンド: {message}。!help を試してみてください",
 			},
 		},
-	};
-
-	const styles = {
-		appBorderRadius,
-		appPadding,
-		appBackgroundImage,
-		appBackgroundColor,
-		headerBorderRadius,
-		headerMarginBottom,
-		headerBackgroundColor,
-		headerFontFamily,
-		headerFontSize,
-		headerFontColor,
-		headerFontWeight,
-		bodyBackgroundColor,
-		cardGapBetween,
-		cardBorderRadius,
-		cardBackgroundColor,
-		cardFontFamily,
-		usernameFontSize,
-		usernameColor,
-		usernameFontWeight,
-		taskFontSize,
-		taskFontColor,
-		taskFontWeight,
-		taskDoneFontColor,
-	};
-
-	const auth = {
-		channel,
-		username,
-		oauth,
-	};
-
-	const module = {
-		admin,
-		user,
-		auth,
-		styles,
-		settings,
-	};
-
-	return module;
-})();
+	},
+};

@@ -1,5 +1,5 @@
-const User = require("./User");
-
+import User from "./User.js";
+import Task from "./Task.js";
 /**
  * @class UserList
  * @property {User[]} users
@@ -7,16 +7,17 @@ const User = require("./User");
  * @method #commitToLocalStorage - Save the user list to local storage
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
- * @method addUserTask - Add a task to the specified user
+ * @method createUser - Create a new user
+ * @method addUserTasks - Add a tasks to the specified user
  * @method editUserTask - Edit the task at the specified index
- * @method completeUserTask - Mark specified task as complete
- * @method deleteUserTask - Delete specified task at index
+ * @method completeUserTasks - Mark specified tasks as complete
+ * @method deleteUserTasks - Delete tasks at specified indices
  * @method checkUserTasks - Get inc from a user
  * @method clearUserList - Clear user list
  * @method clearDoneTasks - Clear all done tasks
  * @method deleteUser - Delete the user
  */
-class UserList {
+export default class UserList {
 	constructor() {
 		this.users = this.#loadUserListFromLocalStorage();
 	}
@@ -35,9 +36,11 @@ class UserList {
 		}
 		userList = JSON.parse(userList);
 		const users = userList.map((oldUser) => {
-			const newUser = new User(oldUser.username);
+			const newUser = new User(oldUser.username, {
+				nameColor: oldUser.nameColor,
+			});
 			oldUser.tasks.map((task) => {
-				const newTask = newUser.addTask(task.description);
+				const newTask = newUser.addTask(new Task(task.description));
 				newTask.setCompletionStatus(task.completionStatus);
 			});
 			return newUser;
@@ -74,24 +77,40 @@ class UserList {
 	}
 
 	/**
-	 * Add a task to the user at the specified index
+	 * Create new user
+	 * @param {string} username - The username of the user
+	 * @param {{nameColor: string}} options - The username of the user
+	 * @returns {User} - The newly created User object
+	 */
+	createUser(username, options) {
+		if (this.getUser(username))
+			throw new Error(`${username} already exists`);
+		const user = new User(username, options);
+		this.users.push(user);
+		return user;
+	}
+
+	/**
+	 * Add tasks to a user
 	 * @param {string} username - The username of the user
 	 * @param {string | string[]} taskDescriptions - The task to add
-	 * @returns {string} - The description of the added task
+	 * @throws {Error} - If user does not exist
+	 * @returns {string[]} - The description of the added task
 	 */
-	addUserTask(username, taskDescriptions) {
+	addUserTasks(username, taskDescriptions) {
+		let user = this.getUser(username);
+		if (!user) {
+			throw new Error(`${username} does not exist`);
+		}
 		if (!Array.isArray(taskDescriptions)) {
 			taskDescriptions = [taskDescriptions];
 		}
-		let user = this.getUser(username);
-		if (!user) {
-			user = new User(username);
-			this.users.push(user);
-		}
-		taskDescriptions.forEach((description) => user.addTask(description));
+		taskDescriptions.forEach((taskDesc) =>
+			user.addTask(new Task(taskDesc))
+		);
 
 		this.#commitToLocalStorage();
-		return taskDescriptions.join(", ");
+		return taskDescriptions;
 	}
 
 	/**
@@ -113,37 +132,47 @@ class UserList {
 	}
 
 	/**
-	 * Mark the task at the specified index as complete
+	 * Mark the user tasks as complete
 	 * @param {string} username - The username of the user
-	 * @param {number} taskIndex - The index of the task to complete
+	 * @param {number | number[]} taskIndex - The index of the task to complete
 	 * @throws {Error} - If user has no tasks
 	 * @returns {string} - The description of the completed task
 	 */
-	completeUserTask(username, taskIndex) {
+	completeUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		const task = user.completeTask(taskIndex);
+		if (!Array.isArray(indices)) {
+			indices = [indices];
+		}
+		const completedTaskDescriptions = indices.map(
+			(i) => user.completeTask(i).description
+		);
 		this.#commitToLocalStorage();
-		return task.getDescription();
+		return completedTaskDescriptions;
 	}
 
 	/**
-	 * Delete the task at the specified index
+	 * Delete the user tasks
 	 * @param {string} username - The username of the user
-	 * @param {number} taskIndex - The index of the task to delete
+	 * @param {number | number[]} indices - The index of the task to delete
 	 * @throws {Error} - If user has no tasks
-	 * @returns {string} - The description of the deleted task
+	 * @returns {string[]} - The description of the deleted task
 	 */
-	deleteUserTask(username, taskIndex) {
+	deleteUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		const task = user.deleteTask(taskIndex);
+		if (!Array.isArray(indices)) {
+			indices = [indices];
+		}
+		const deletedDesc = user
+			.deleteTask(indices)
+			.map((task) => task.description);
 		this.#commitToLocalStorage();
-		return task.getDescription();
+		return deletedDesc;
 	}
 
 	/**
@@ -202,4 +231,3 @@ class UserList {
 		return user;
 	}
 }
-module.exports = UserList;

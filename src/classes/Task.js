@@ -8,7 +8,7 @@
  * @method isComplete - Get the completion status of the task.
  * @method setCompletionStatus - Set the status of the task.
  */
-class Task {
+export default class Task {
 	/**
 	 * @constructor
 	 * @param {string} description - The description of the task.
@@ -71,4 +71,3 @@ class Task {
 		this.completionStatus = status;
 	}
 }
-module.exports = Task;

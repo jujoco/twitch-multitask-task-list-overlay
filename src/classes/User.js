@@ -1,8 +1,8 @@
-const Task = require("./Task");
-
+import Task from "./Task.js";
 /**
  * @class User
  * @property {string} username - The username of the user
+ * @property {string} nameColor - The color of the username
  * @property {Task[]} tasks - The tasks of the user
  * @method validateUsername - Validate the username of the user
  * @method addTask - Add tasks to the user
@@ -14,13 +14,15 @@ const Task = require("./Task");
  * @method getTasks - Get all tasks of the user
  * @method validateTaskIndex - Validates the task index
  */
-class User {
+export default class User {
 	/**
 	 * @constructor
 	 * @param {string} username - The username of the user
+	 * @param {{nameColor: string}} options - The username of the user
 	 */
-	constructor(username) {
+	constructor(username, options) {
 		this.username = this.validateUsername(username);
+		this.nameColor = options?.nameColor || "";
 		this.tasks = [];
 	}
 
@@ -43,11 +45,10 @@ class User {
 
 	/**
 	 * Add tasks to the user
-	 * @param {string} taskDescription - The task description to add
-	 * @returns {Task} - The newly created Task object
+	 * @param {Task} task - The Task to add
+	 * @returns {Task} - The Task that was added
 	 */
-	addTask(descriptions) {
-		let task = new Task(descriptions);
+	addTask(task) {
 		this.tasks.push(task);
 		return task;
 	}
@@ -79,12 +80,24 @@ class User {
 
 	/**
 	 * Delete the task at the specified index
-	 * @param {number} index - The index of the task to delete
-	 * @returns {Task}	The task that was removed
+	 * @param {number[]} indices - The indices of the tasks to delete
+	 * @returns {Task[]}	The task that was removed
 	 */
-	deleteTask(index) {
-		this.validateTaskIndex(index);
-		return this.tasks.splice(index, 1)[0];
+	deleteTask(indices) {
+		if (!Array.isArray(indices)) {
+			indices = [indices];
+		}
+		indices.forEach((index) => this.validateTaskIndex(index));
+		const taskForDeletion = [];
+		this.tasks = this.tasks.filter((task, i) => {
+			if (indices.includes(i)) {
+				taskForDeletion.push(task);
+			} else {
+				return true;
+			}
+		});
+
+		return taskForDeletion;
 	}
 
 	/**
@@ -92,6 +105,7 @@ class User {
 	 * @returns {Task[]} - The tasks that were cleared
 	 */
 	clearDoneTasks() {
+		/** @type Task[] */
 		this.tasks = this.tasks.filter((task) => !task.isComplete());
 		return this.tasks;
 	}
@@ -130,4 +144,3 @@ class User {
 		return true;
 	}
 }
-module.exports = User;
