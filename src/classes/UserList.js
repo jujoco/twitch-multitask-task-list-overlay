@@ -61,7 +61,7 @@ export default class UserList {
 	/**
 	 * Get user by username
 	 * @param {string} username - The username of the user
-	 * @returns {User | undefined} - The user at the specified index
+	 * @returns {User | undefined} - The user
 	 */
 	getUser(username) {
 		const user = this.users.find((user) => user.username === username);
@@ -134,7 +134,7 @@ export default class UserList {
 	/**
 	 * Mark the user tasks as complete
 	 * @param {string} username - The username of the user
-	 * @param {number | number[]} taskIndex - The index of the task to complete
+	 * @param {number | number[]} indices - The index of the task to complete
 	 * @throws {Error} - If user has no tasks
 	 * @returns {string} - The description of the completed task
 	 */

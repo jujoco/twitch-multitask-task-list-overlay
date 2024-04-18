@@ -4,7 +4,7 @@ let primaryAnimation;
 let secondaryAnimation;
 
 /**
- * @param {number} scrollSpeed
+ * Animates the scroll of the task list
  * @returns {void}
  */
 export function animateScroll() {
