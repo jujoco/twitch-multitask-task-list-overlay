@@ -36,8 +36,8 @@ window.configs = {
 
 		//  Header Styles
 		headerBorderRadius: "5px",
-		headerMarginBottom: "10px",
-		headerBackgroundColor: "rgb(0, 0, 0)",
+		headerMarginBottom: "6px",
+		headerBackgroundColor: "rgb(0, 0, 0, 0.8)",
 		headerFontSize: "24px",
 		headerFontColor: "#FFFFFF",
 		headerFontWeight: "normal",
@@ -46,7 +46,7 @@ window.configs = {
 		bodyBackgroundColor: "rgba(0, 0, 0, 0)",
 
 		// Card Styles
-		cardGapBetween: "10px",
+		cardGapBetween: "2px",
 		cardBorderRadius: "5px",
 		cardBackgroundColor: "rgb(0, 0, 0, 0.8)",
 
@@ -67,37 +67,34 @@ window.configs = {
 	// ========================================
 	admin: {
 		commands: {
-			adminClearList: ["!adminclearall"],
-			adminClearDoneTasks: ["!admincleardone"],
-			adminClearUser: ["!adminclearuser"],
+			clearList: ["!clearlist"],
+			clearDone: ["!cleardone"],
+			clearUser: ["!clearuser"],
 		},
 		responseTo: {
 			EN: {
-				adminClearList: "{user}, All tasks have been cleared",
-				adminClearDoneTasks:
-					"{user}, All finished tasks have been cleared",
-				adminClearUser:
-					"{user}, All tasks for {message} have been cleared",
+				clearList: "{user}, All tasks have been cleared",
+				clearDone: "{user}, All done tasks have been cleared",
+				clearUser: "{user}, All tasks for {message} have been cleared",
 			},
 			ES: {
-				adminClearList: "{user}, Todas las tareas han sido eliminadas",
-				adminClearDoneTasks:
+				clearList: "{user}, Todas las tareas han sido eliminadas",
+				clearDone:
 					"{user}, Todas las tareas terminadas han sido eliminadas",
-				adminClearUser:
+				clearUser:
 					"{user}, Todas las tareas de {message} han sido eliminadas",
 			},
 			FR: {
-				adminClearList: "{user}, Toutes les tâches ont été effacées",
-				adminClearDoneTasks:
+				clearList: "{user}, Toutes les tâches ont été effacées",
+				clearDone:
 					"{user}, Toutes les tâches terminées ont été effacées",
-				adminClearUser:
+				clearUser:
 					"{user}, Toutes les tâches de {message} ont été effacées",
 			},
 			JP: {
-				adminClearList: "{user}, すべてのタスクがクリアされました",
-				adminClearDoneTasks:
-					"{user}, 完了したすべてのタスクがクリアされました",
-				adminClearUser:
+				clearList: "{user}, すべてのタスクがクリアされました",
+				clearDone: "{user}, 完了したすべてのタスクがクリアされました",
+				clearUser:
 					"{user}, {message} のすべてのタスクがクリアされました",
 			},
 		},
@@ -108,32 +105,26 @@ window.configs = {
 	// ========================================
 	user: {
 		commands: {
-			addTask: ["!add", "!task", "!todo", "!addtask", "!taskadd"],
-			editTask: ["!edit", "!taskedit", "!edittask"],
+			addTask: ["!add", "!task", "!addtask", "!taskadd"],
+			editTask: ["!edit", "!edittask", "!taskedit"],
 			finishTask: ["!done", "!donetask", "!taskdone"],
-			deleteTask: [
-				"!delete",
-				"!taskdelete",
-				"!deletetask",
-				"!taskdel",
-				"!deltask",
-			],
+			deleteTask: ["!delete", "!deletetask", "!taskdelete"],
 			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
 			help: ["!help", "!taskhelp", "!helptask"],
-			additional: ["!taskbot"],
+			additional: ["!credit", "!taskbot"],
 		},
 		responseTo: {
 			EN: {
 				addTask: 'Task(s) "{message}" added, {user}!',
-				editTask: 'Task updated to "{message}", {user}!',
+				editTask: 'Task "{message}" updated, {user}!',
 				finishTask: 'Good job on finishing "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
-				help: "Try using these commands - !taskadd !taskedit !taskdone !taskdelete",
+				help: "Try using these commands - !add !edit !done !delete",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"Looks like you've reached the max tasks {user}, try removing old tasks",
+					"{user}, maximum number of tasks reached, try removing some first.",
 				noTaskFound: "Looks like you don't have a task up there {user}",
 				invalidCommand: "{user}, Invalid command: {message}. Try !help",
 			},
@@ -143,7 +134,7 @@ window.configs = {
 				finishTask: '¡Buen trabajo al terminar "{message}" {user}!',
 				deleteTask: 'La tarea "{message}" ha sido eliminada, {user}!',
 				check: 'Tu tarea actual es: "{message}", {user}',
-				help: "Prueba a usar estos comandos - !taskadd !taskedit !taskdone !taskdelete",
+				help: "Prueba a usar estos comandos - !add !edit !done !delete",
 				additional:
 					"Jujoco es el creador de este bot, mira su Twitch en: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -159,7 +150,7 @@ window.configs = {
 					'Bon travail pour avoir terminé "{message}" {user}!',
 				deleteTask: 'La tâche "{message}" a été supprimée, {user}!',
 				check: 'Votre tâche actuelle est : "{message}", {user}',
-				help: "Essayez d'utiliser ces commandes - !taskadd !taskedit !taskdone !taskdelete",
+				help: "Essayez d'utiliser ces commandes - !add !edit !done !delete",
 				additional:
 					"Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -175,7 +166,7 @@ window.configs = {
 				finishTask: "「{message}」を終了してよくやった、{user}!",
 				deleteTask: "タスク「{message}」が削除されました、{user}!",
 				check: "現在のタスクは「{message}」です、{user}",
-				help: "これらのコマンドを試してみてください - !taskadd !taskedit !taskdone !taskdelete",
+				help: "これらのコマンドを試してみてください - !add !edit !done !delete",
 				additional:
 					"このボットの作成者はJujocoです、彼のTwitchは: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:

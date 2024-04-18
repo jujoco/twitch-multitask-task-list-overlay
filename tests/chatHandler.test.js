@@ -255,7 +255,7 @@ describe("chatHandler", () => {
 		});
 
 		describe("!checkTask", () => {
-			it("!checkTask", () => {
+			it("should return a message listing user's uncompleted tasks", () => {
 				const response = chatHandler(
 					chatUser.username,
 					chatUser.command.CHECKTASK,
@@ -267,10 +267,24 @@ describe("chatHandler", () => {
 					'Your current task is: "task2", joeTheUser'
 				);
 			});
+
+			it("should return a message if no tasks are found", () => {
+				userList.completeUserTasks("joeTheUser", 1);
+				const response = chatHandler(
+					chatUser.username,
+					chatUser.command.CHECKTASK,
+					"",
+					chatUser.flags,
+					chatUser.extra
+				);
+				expect(response).toBe(
+					"Looks like you don't have a task up there joeTheUser"
+				);
+			});
 		});
 
 		describe("!help", () => {
-			it("!help", () => {
+			it("should return a helpful message", () => {
 				const response = chatHandler(
 					chatUser.username,
 					chatUser.command.HELP,
@@ -285,7 +299,7 @@ describe("chatHandler", () => {
 		});
 
 		describe("!credit", () => {
-			it("!credit", () => {
+			it("should return info about the task bot", () => {
 				const response = chatHandler(
 					chatUser.username,
 					chatUser.command.ADDITIONAL,
