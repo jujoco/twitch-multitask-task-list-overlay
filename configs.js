@@ -15,7 +15,6 @@ window.configs = {
 		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
 		maxTasksPerUser: 5, // default 5
 		scrollSpeed: 50, // default 50
-		crossTasksOnDone: true, // true or false
 		showUsernameColor: true, // true or false
 		testMode: false, // true or false - for testing purposes
 	},
@@ -31,13 +30,13 @@ window.configs = {
 		// App Styles
 		appBorderRadius: "5px",
 		appPadding: "8px",
-		appBackgroundImage: "transparent-background.png",
-		appBackgroundColor: "rgba(0, 0, 0, 0)",
+		appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
+		appBackgroundColor: "rgba(130, 130, 130, 0);",
 
 		//  Header Styles
 		headerBorderRadius: "5px",
 		headerMarginBottom: "6px",
-		headerBackgroundColor: "rgb(0, 0, 0, 0.8)",
+		headerBackgroundColor: "rgba(45, 45, 45, 0.7)",
 		headerFontSize: "24px",
 		headerFontColor: "#FFFFFF",
 		headerFontWeight: "normal",
@@ -48,18 +47,21 @@ window.configs = {
 		// Card Styles
 		cardGapBetween: "2px",
 		cardBorderRadius: "5px",
-		cardBackgroundColor: "rgb(0, 0, 0, 0.8)",
+		// cardBackgroundColor: "rgba(45, 45, 45, 0.7)",
 
 		// Username Styles
-		usernameFontSize: "22px",
+		usernameFontSize: "18px",
 		usernameColor: "rgb(255, 255, 255)",
 		usernameFontWeight: "normal",
 
 		// Task Styles
-		taskFontSize: "18px",
+		taskFontSize: "16px",
 		taskFontColor: "#FFFFFF",
 		taskFontWeight: "normal",
-		taskDoneFontColor: "#2E2E2E",
+
+		taskDoneFontColor: "#b9b9b9",
+		taskDoneFontStyle: "italic", // "italic" or "normal"
+		taskDoneTextDecoration: "none", // "line-through" or "none"
 	},
 
 	// ========================================

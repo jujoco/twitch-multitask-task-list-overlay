@@ -35,10 +35,6 @@
 	color: var(--header-font-color);
 	font-size: var(--header-font-size);
 	font-weight: var(--header-font-weight);
-
-	/* glass affect only work on Safari */
-	/* will break on chrome */
-	/* -webkit-backdrop-filter: blur(3px); */
 }
 
 .task-wrapper {
@@ -65,17 +61,12 @@
 	padding: 16px 22px 22px 22px;
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	font-family: var(--card-font-family, "arial");
-
-	/* glass affect only work on Safari */
-	/* will break on chrome */
-	/* -webkit-backdrop-filter: blur(3px); */
 }
 
 .username {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	margin-bottom: 4px;
 	max-width: 90%;
 	width: fit-content;
 	color: var(--username-color);
@@ -98,5 +89,6 @@
 
 .done {
 	color: var(--task-done-font-color);
-	text-decoration-line: line-through;
+	text-decoration-line: var(--task-done-text-decoration);
+	font-style: var(--task-done-font-style);
 }

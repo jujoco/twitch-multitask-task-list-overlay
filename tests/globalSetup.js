@@ -48,7 +48,6 @@ const configs = {
 		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
 		maxTasksPerUser: 5, // default 5
 		scrollSpeed: 50, // default 50
-		crossTasksOnDone: true, // true or false
 		showUsernameColor: true, // true or false
 		testMode: false, // true or false - for testing purposes
 	},

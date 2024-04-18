@@ -83,11 +83,6 @@ twitch_username = "USERNAME_HERE",
 
 -   **number**: A value between 1 - 100.
 
-`crossTasksOnDone`: default **true**
-
--   **true**: cross the tasks when they are marked as done
--   **false**: don't cross the tasks when they are marked as done
-
 `showUsernameColor`: default **true**
 
 -   **true**: will shows the user's twitch chat color
@@ -143,22 +138,24 @@ twitch_username = "USERNAME_HERE",
 -   taskFontColor
 -   taskFontWeight
 -   taskDoneFontColor
+-   taskDoneFontStyle
+-   taskDoneTextDecoration
 
 ## Commands
 
 ### Commands for Everyone
 
--   !taskadd \<task\> , \<task\> - Add a task or multiple tasks by comma separated
--   !taskedit \<number\> \<newTask\> - Edit a single task
--   !taskdone \<number\> - Mark a single task as done
--   !taskdelete \<number\> - Delete a single task
--   !taskcheck - Check your unfinished tasks
+-   `!task` \<task\>, \<task\> - Add task(s) (multiple tasks must be separated by a comma)
+-   `!edit` \<number\> \<updatedTask\> - Edit a single task
+-   `!done` \<number\>, \<number> - Mark task(s) as done (multiple tasks must be separated by a comma)
+-   `!delete` \<number\>, \<number> - Delete task(s) (multiple tasks must be separated by a comma)
+-   `!check` - Check your unfinished tasks
 
 ### Commands for Broadcasters and Moderators
 
--   !adminclearall - Clear all tasks
--   !admincleardone - Clear all done tasks
--   !adminclearuser \<username\> - Remove all tasks from a user
+-   `!clearall` - Clear all tasks
+-   `!cleardone` - Clear all done tasks
+-   `!clearuser` \<username\> - Remove all tasks from a user
 
 For aliases, see [here](#aliases)
 
@@ -166,7 +163,7 @@ For aliases, see [here](#aliases)
 
 ### User Commands
 
-**add task commands:\*\*\*\***
+**add task commands:**
 
 -   `!addtask`
 -   `!add`
@@ -201,20 +198,6 @@ For aliases, see [here](#aliases)
 -   `!help`
 -   `!taskhelp`
 -   `!helptask`
-
-### Admin Commands
-
-**admin clear User commands:** \(clear all tasks from a user\) \(mods only\)
-
--   `!adminclearuser`
-
-**admin clear done commands:** \(clear all done tasks from list\) \(mods only\)
-
--   `!admincleardone`
-
-**admin clear all commands:** \(clear all tasks from list\) \(mods only\)
-
--   `!adminclearall`
 
 ## Credits
 
