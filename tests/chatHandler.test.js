@@ -47,16 +47,34 @@ describe("chatHandler", () => {
 	});
 
 	describe("Admin commands", () => {
-		test("!clearList ", () => {
-			const response = chatHandler(
-				adminUser.username,
-				adminUser.command.CLEARLIST,
-				"",
-				adminUser.flags,
-				adminUser.extra
-			);
-			expect(userList.users.length).toBe(0);
-			expect(response).toBe("bobTheAdmin, All tasks have been cleared");
+		describe("!clearList", () => {
+			it("should return a success message when an Admin user submits !clearList ", () => {
+				const response = chatHandler(
+					adminUser.username,
+					adminUser.command.CLEARLIST,
+					"",
+					adminUser.flags,
+					adminUser.extra
+				);
+				expect(userList.users.length).toBe(0);
+				expect(response).toBe(
+					"bobTheAdmin, All tasks have been cleared"
+				);
+			});
+
+			it("should return a error message when an non-Admin user submits !clearList ", () => {
+				const response = chatHandler(
+					chatUser.username,
+					adminUser.command.CLEARLIST,
+					"",
+					chatUser.flags,
+					chatUser.extra
+				);
+				expect(userList.users.length).toBe(2);
+				expect(response).toBe(
+					'joeTheUser, Invalid command: "command not found" - Try !help'
+				);
+			});
 		});
 
 		test("!clearDone", () => {
@@ -89,6 +107,21 @@ describe("chatHandler", () => {
 	});
 
 	describe("User commands", () => {
+		describe("Invalid command", () => {
+			it("should return an error message if the command is not found", () => {
+				const response = chatHandler(
+					chatUser.username,
+					"invalidCommand",
+					"",
+					chatUser.flags,
+					chatUser.extra
+				);
+				expect(response).toBe(
+					'joeTheUser, Invalid command: "command not found" - Try !help'
+				);
+			});
+		});
+
 		describe("!addTask", () => {
 			it("should return a success message showing the added tasks", () => {
 				const response = chatHandler(

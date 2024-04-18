@@ -106,7 +106,7 @@ export function chatHandler(username, command, message, flags, extra) {
 			template = userConfig.responseTo[languageCode].additional;
 		} else {
 			// INVALID COMMAND
-			throw new Error("Invalid command");
+			throw new Error("command not found");
 		}
 
 		return respondMessage(template, username, responseDetail);
