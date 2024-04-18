@@ -1,4 +1,4 @@
-import Task from "./Task.js";
+/** @typedef {import('./Task').default} Task */
 /**
  * @class User
  * @property {string} username - The username of the user
