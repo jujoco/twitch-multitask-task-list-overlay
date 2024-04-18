@@ -1,134 +1,126 @@
-import ComfyJS from "comfy.js";
-import { renderTaskListToDOM } from "./app.js";
+/** @typedef {import('../src/classes/UserList').default} UserList */
+/**
+ * Handles chat commands and responses
+ * @param {string} username
+ * @param {string} command
+ * @param {string} message
+ * @param {Object} flags
+ * @param {{nameColor: string}} extra
+ * @returns {string} - Response message
+ */
+export function chatHandler(username, command, message, flags, extra) {
+	command = `!${command.toLowerCase()}`;
+	const {
+		admin: adminConfig,
+		user: userConfig,
+		settings: { languageCode, maxTasksPerUser },
+	} = window.configs;
 
-const adminConfig = configs;
-const userConfig = configs.user;
-const { languageCode: langCode, maxTasksPerUser } = configs.settings;
-const { twitch_channel, twitch_oauth, twitch_username } = configs.auth;
+	/** @type UserList */
+	const userList = window.userList;
 
-export function mountChatHandler() {
-	ComfyJS.Init(twitch_username, twitch_oauth, [twitch_channel]);
+	let template = "";
+	let responseDetail = "";
 
-	ComfyJS.onCommand = (username, command, message, flags, extra) => {
-		command = `!${command.toLowerCase()}`;
-
-		try {
-			// ADMIN COMMANDS
-			if (isMod(flags)) {
-				if (adminConfig.commands.adminClearList.includes(command)) {
-					userList.clearUserList();
-					respond(
-						adminConfig.responseTo[langCode].adminClearList,
-						username
-					);
-					return renderTaskListToDOM();
-				}
-				if (
-					adminConfig.commands.adminClearDoneTasks.includes(command)
-				) {
-					userList.clearDoneTasks();
-					respond(
-						adminConfig.responseTo[langCode].adminClearDoneTasks,
-						username
-					);
-					return renderTaskListToDOM();
-				}
-				if (adminConfig.commands.adminClearUser.includes(command)) {
-					userList.deleteUser(message);
-					respond(
-						adminConfig.responseTo[langCode].adminClearUser,
-						username,
-						message
-					);
-					return renderTaskListToDOM();
-				}
+	try {
+		// ADMIN COMMANDS
+		if (isMod(flags)) {
+			if (adminConfig.commands.clearList.includes(command)) {
+				userList.clearUserList();
+				template = adminConfig.responseTo[languageCode].clearList;
+				return respondMessage(template, username, responseDetail);
 			}
-
-			// USER COMMANDS
-			if (userConfig.commands.addTask.includes(command)) {
-				// ADD TASK
-				if (message === "") {
-					throw new Error("Task description is empty");
-				}
-				let user = userList.getUser(username);
-				if (!user) {
-					user = userList.createUser(username, {
-						nameColor: extra.color,
-					});
-				}
-				const tasks = message.split(", ");
-				if (user.getTasks.length + tasks.length > maxTasksPerUser) {
-					respond(
-						userConfig.responseTo[langCode].maxTasksAdded,
-						username
-					);
-				} else {
-					userList.addUserTasks(username, tasks);
-					respond(
-						userConfig.responseTo[langCode].addTask,
-						username,
-						message
-					);
-				}
-			} else if (userConfig.commands.editTask.includes(command)) {
-				// EDIT TASK
-				const whiteSpaceIndex = message.search(/(?<=\d)\s/);
-				const taskDescription = message.slice(whiteSpaceIndex + 1);
-				const taskNumber = parseTaskIndex(
-					message.slice(0, whiteSpaceIndex)
-				);
-				userList.editUserTask(username, taskNumber, taskDescription);
-				respond(
-					userConfig.responseTo[langCode].editTask,
-					username,
-					taskDescription
-				);
-			} else if (userConfig.commands.finishTask.includes(command)) {
-				// COMPLETE TASK
-				const index = parseTaskIndex(message);
-				const taskComp = userList.completeUserTasks(username, index);
-				respond(
-					userConfig.responseTo[langCode].finishTask,
-					username,
-					taskComp
-				);
-			} else if (userConfig.commands.deleteTask.includes(command)) {
-				// DELETE TASK
-				const index = parseTaskIndex(message);
-				const taskDel = userList.deleteUserTasks(username, index);
-				respond(
-					userConfig.responseTo[langCode].deleteTask,
-					username,
-					taskDel
-				);
-			} else if (userConfig.commands.check.includes(command)) {
-				// CHECK TASKS
-				const tasks = userList.checkUserTasks(username).join(", ");
-				respond(userConfig.responseTo[langCode].check, username, tasks);
-			} else if (userConfig.commands.help.includes(command)) {
-				// HELP COMMAND
-				respond(userConfig.responseTo[langCode].help);
-			} else if (userConfig.commands.additional.includes(command)) {
-				// ADDITIONAL COMMANDS
-				respond(userConfig.responseTo[langCode].additional);
-			} else {
-				throw new Error("Invalid command");
+			if (adminConfig.commands.clearDone.includes(command)) {
+				userList.clearDoneTasks();
+				template = adminConfig.responseTo[languageCode].clearDone;
+				return respondMessage(template, username, responseDetail);
 			}
-
-			return renderTaskListToDOM();
-		} catch (error) {
-			console.error(
-				error.message,
-				`\ndata: username: ${username} - command: ${command} - message: ${message}`
-			);
+			if (adminConfig.commands.clearUser.includes(command)) {
+				userList.deleteUser(message);
+				responseDetail = message;
+				template = adminConfig.responseTo[languageCode].clearUser;
+				return respondMessage(template, username, responseDetail);
+			}
 		}
-	};
+
+		// USER COMMANDS
+		if (userConfig.commands.addTask.includes(command)) {
+			// ADD TASK
+			if (message === "") {
+				throw new Error("Task description is empty");
+			}
+			let user = userList.getUser(username);
+			if (!user) {
+				user = userList.createUser(username, {
+					nameColor: extra.color,
+				});
+			}
+			const tasks = message.split(", ");
+			if (user.getTasks().length + tasks.length > maxTasksPerUser) {
+				template = userConfig.responseTo[languageCode].maxTasksAdded;
+			} else {
+				responseDetail = userList
+					.addUserTasks(username, tasks)
+					.join(", ");
+				template = userConfig.responseTo[languageCode].addTask;
+			}
+		} else if (userConfig.commands.editTask.includes(command)) {
+			// EDIT TASK
+			const whiteSpaceIndex = message.search(/(?<=\d)\s/);
+			if (whiteSpaceIndex === -1) {
+				throw new Error("Task number or description format is invalid");
+			}
+			const taskDescription = message.slice(whiteSpaceIndex + 1);
+			const taskNumber = message.slice(0, whiteSpaceIndex);
+
+			userList.editUserTask(
+				username,
+				parseTaskIndex(taskNumber),
+				taskDescription
+			);
+			responseDetail = taskNumber;
+			template = userConfig.responseTo[languageCode].editTask;
+		} else if (userConfig.commands.finishTask.includes(command)) {
+			// COMPLETE TASK
+			const index = parseTaskIndex(message);
+			responseDetail = userList.completeUserTasks(username, index);
+			template = userConfig.responseTo[languageCode].finishTask;
+		} else if (userConfig.commands.deleteTask.includes(command)) {
+			// DELETE TASK
+			const index = parseTaskIndex(message);
+			responseDetail = userList.deleteUserTasks(username, index);
+			template = userConfig.responseTo[languageCode].deleteTask;
+		} else if (userConfig.commands.check.includes(command)) {
+			// CHECK TASKS
+			responseDetail = userList.checkUserTasks(username).join(", ");
+			if (responseDetail === "") {
+				template = userConfig.responseTo[languageCode].noTaskFound;
+			} else {
+				template = userConfig.responseTo[languageCode].check;
+			}
+		} else if (userConfig.commands.help.includes(command)) {
+			// HELP COMMAND
+			template = userConfig.responseTo[languageCode].help;
+		} else if (userConfig.commands.additional.includes(command)) {
+			// ADDITIONAL COMMANDS
+			template = userConfig.responseTo[languageCode].additional;
+		} else {
+			// INVALID COMMAND
+			throw new Error("Invalid command");
+		}
+
+		return respondMessage(template, username, responseDetail);
+	} catch (error) {
+		return respondMessage(
+			userConfig.responseTo[languageCode].invalidCommand,
+			username,
+			error.message
+		);
+	}
 }
 
-function respond(template, username = "", message = "") {
-	ComfyJS.Say(
-		template.replace("{user}", username).replace("{message}", message)
-	);
+function respondMessage(template, username, message) {
+	return template.replace("{user}", username).replace("{message}", message);
 }
 
 function isMod(flags) {
