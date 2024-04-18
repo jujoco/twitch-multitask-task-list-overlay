@@ -38,11 +38,11 @@ describe("chatHandler", () => {
 
 	beforeEach(() => {
 		userList.clearUserList();
-		userList.createUser("joeTheUser", { nameColor: "#00FFFF" });
+		userList.createUser("joeTheUser", { userColor: "#00FFFF" });
 		userList.addUserTasks("joeTheUser", ["task1", "task2"]);
 		userList.completeUserTasks("joeTheUser", 0);
 
-		userList.createUser("bobTheAdmin", { nameColor: "#FF0000" });
+		userList.createUser("bobTheAdmin", { userColor: "#FF0000" });
 		userList.addUserTasks("bobTheAdmin", ["task1", "task2"]);
 	});
 

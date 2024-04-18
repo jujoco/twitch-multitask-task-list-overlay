@@ -2,7 +2,7 @@
 /**
  * @class User
  * @property {string} username - The username of the user
- * @property {string} nameColor - The color of the username
+ * @property {string} userColor - The color of the username
  * @property {Task[]} tasks - The tasks of the user
  * @method validateUsername - Validate the username of the user
  * @method addTask - Add tasks to the user
@@ -18,11 +18,11 @@ export default class User {
 	/**
 	 * @constructor
 	 * @param {string} username - The username of the user
-	 * @param {{nameColor: string}} options - The username of the user
+	 * @param {{userColor: string}} options - The username of the user
 	 */
 	constructor(username, options) {
 		this.username = this.validateUsername(username);
-		this.nameColor = options?.nameColor || "";
+		this.userColor = options?.userColor || "";
 		this.tasks = [];
 	}
 

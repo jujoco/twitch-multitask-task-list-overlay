@@ -5,7 +5,7 @@
  * @param {string} command
  * @param {string} message
  * @param {Object} flags
- * @param {{nameColor: string}} extra
+ * @param {{userColor: string}} extra
  * @returns {string} - Response message
  */
 export function chatHandler(username, command, message, flags, extra) {
@@ -52,7 +52,7 @@ export function chatHandler(username, command, message, flags, extra) {
 			let user = userList.getUser(username);
 			if (!user) {
 				user = userList.createUser(username, {
-					nameColor: extra.color,
+					userColor: extra.userColor,
 				});
 			}
 			const tasks = message.split(", ");
