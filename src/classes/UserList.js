@@ -37,7 +37,7 @@ export default class UserList {
 		userList = JSON.parse(userList);
 		const users = userList.map((oldUser) => {
 			const newUser = new User(oldUser.username, {
-				nameColor: oldUser.nameColor,
+				userColor: oldUser.userColor,
 			});
 			oldUser.tasks.map((task) => {
 				const newTask = newUser.addTask(new Task(task.description));
@@ -79,7 +79,7 @@ export default class UserList {
 	/**
 	 * Create new user
 	 * @param {string} username - The username of the user
-	 * @param {{nameColor: string}} options - The username of the user
+	 * @param {{userColor: string}} options - The username of the user
 	 * @returns {User} - The newly created User object
 	 */
 	createUser(username, options) {

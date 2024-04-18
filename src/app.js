@@ -17,7 +17,7 @@ export function renderTaskListToDOM(users) {
 		userNameDiv.classList.add("username");
 		userNameDiv.innerText = user.username;
 		userNameDiv.style.color = configs.settings.showUsernameColor
-			? user.nameColor
+			? user.userColor
 			: "";
 		cardDiv.appendChild(userNameDiv);
 		const list = document.createElement("ol");
@@ -71,11 +71,11 @@ export function loadTestUsers() {
 			"goldenRod",
 			"violet",
 		];
-		const nameColor =
+		const userColor =
 			colorOptions[Math.floor(Math.random() * colorOptions.length)];
 		const user = {
 			username: userName,
-			nameColor: nameColor,
+			userColor,
 			tasks: [
 				{ description: "Task 1 description", completionStatus: true },
 				{

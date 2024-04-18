@@ -7,7 +7,7 @@ describe("User", () => {
 	let user;
 
 	beforeEach(() => {
-		user = new User("Bob", { nameColor: "red" });
+		user = new User("Bob", { userColor: "red" });
 	});
 
 	describe("validateUsername", () => {

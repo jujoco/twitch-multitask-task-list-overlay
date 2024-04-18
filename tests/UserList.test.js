@@ -43,10 +43,10 @@ describe("UserList", () => {
 
 	describe("getUser", () => {
 		test("should return user by providing username", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			const user = userList.getUser("user1");
 			expect(user.username).toEqual("user1");
-			expect(user.nameColor).toEqual("#ff0000");
+			expect(user.userColor).toEqual("#ff0000");
 			expect(user.tasks).toEqual([]);
 		});
 
@@ -57,16 +57,16 @@ describe("UserList", () => {
 
 	describe("getAllUsers", () => {
 		test("should return all users", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
-			userList.createUser("user2", { nameColor: "#00ff00" });
+			userList.createUser("user1", { userColor: "#ff0000" });
+			userList.createUser("user2", { userColor: "#00ff00" });
 
 			const [user1, user2] = userList.users;
 			expect(user1.username).toEqual("user1");
-			expect(user1.nameColor).toEqual("#ff0000");
+			expect(user1.userColor).toEqual("#ff0000");
 			expect(user1.tasks).toEqual([]);
 
 			expect(user2.username).toEqual("user2");
-			expect(user2.nameColor).toEqual("#00ff00");
+			expect(user2.userColor).toEqual("#00ff00");
 			expect(user2.tasks).toEqual([]);
 		});
 
@@ -77,24 +77,24 @@ describe("UserList", () => {
 
 	describe("createUser", () => {
 		test("should create a new user", () => {
-			const user = userList.createUser("user1", { nameColor: "#ff0000" });
+			const user = userList.createUser("user1", { userColor: "#ff0000" });
 			expect(user.username).toEqual("user1");
-			expect(user.nameColor).toEqual("#ff0000");
+			expect(user.userColor).toEqual("#ff0000");
 			expect(user.tasks).toEqual([]);
 			expect(user).toBeInstanceOf(User);
 		});
 
 		test("should throw an error if user already exists", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			expect(() =>
-				userList.createUser("user1", { nameColor: "#ff0000" })
+				userList.createUser("user1", { userColor: "#ff0000" })
 			).toThrow("user1 already exists");
 		});
 	});
 
 	describe("addUserTasks", () => {
 		test("should be able to add a single string description", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			const taskDesc = userList.addUserTasks(
 				"user1",
 				"A single task containing , comma in, description"
@@ -105,7 +105,7 @@ describe("UserList", () => {
 		});
 
 		test("should be able to add multiple tasks if given an array of descriptions", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			const taskDesc = userList.addUserTasks("user1", [
 				"Task 1",
 				"Task 2 containing , comma in, description",
@@ -125,7 +125,7 @@ describe("UserList", () => {
 
 	describe("editUserTask", () => {
 		test("should edit a task for the user", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(userList.editUserTask("user1", 0, "Updated Task 1")).toEqual(
 				"Updated Task 1"
@@ -133,7 +133,7 @@ describe("UserList", () => {
 		});
 
 		test("should throw an error if task does not exist", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(() =>
 				userList.editUserTask("user1", 1, "Updated Task 1")
@@ -149,13 +149,13 @@ describe("UserList", () => {
 
 	describe("completeUserTask", () => {
 		test("should complete a task for the user", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(userList.completeUserTasks("user1", 0)).toEqual(["Task 1"]);
 		});
 
 		test("should be able to mark multiple tasks as complete if given an array of indices", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", [
 				"Task 1",
 				"Task 2",
@@ -167,7 +167,7 @@ describe("UserList", () => {
 		});
 
 		test("should throw an error if task does not exist", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(() => userList.completeUserTasks("user1", 1)).toThrow(
 				"Task index out of bounds"
@@ -183,14 +183,14 @@ describe("UserList", () => {
 
 	describe("deleteUserTask", () => {
 		test("should delete a task if given a single index", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			userList.addUserTasks("user1", "Task 2");
 			expect(userList.deleteUserTasks("user1", 0)).toEqual(["Task 1"]);
 		});
 
 		test("should delete multiple tasks if given an array of indices", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			userList.addUserTasks("user1", "Task 2");
 			userList.addUserTasks("user1", "Task 3");
@@ -201,7 +201,7 @@ describe("UserList", () => {
 		});
 
 		test("should throw an error if task does not exist", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(() => userList.deleteUserTasks("user1", [1])).toThrow(
 				"Task index out of bounds"
@@ -217,7 +217,7 @@ describe("UserList", () => {
 
 	describe("checkUserTasks", () => {
 		test("should return all tasks for the user", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			expect(userList.checkUserTasks("user1")).toEqual(["Task 1"]);
 		});
@@ -231,7 +231,7 @@ describe("UserList", () => {
 
 	describe("clearUserList", () => {
 		test("should clear all tasks", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			userList.addUserTasks("user1", "Task 2");
 			userList.clearUserList();
@@ -242,7 +242,7 @@ describe("UserList", () => {
 	describe("clearDoneTasks", () => {
 		test("should clear all done tasks for the user", () => {
 			const user1 = userList.createUser("user1", {
-				nameColor: "#ff0000",
+				userColor: "#ff0000",
 			});
 			userList.addUserTasks("user1", [
 				"user1-task 1",
@@ -252,7 +252,7 @@ describe("UserList", () => {
 			userList.completeUserTasks("user1", 0);
 
 			const user2 = userList.createUser("user2", {
-				nameColor: "#ff0000",
+				userColor: "#ff0000",
 			});
 			userList.addUserTasks("user2", ["user2-task 1", "user2-task 2"]);
 			userList.completeUserTasks("user2", 1);
@@ -266,11 +266,11 @@ describe("UserList", () => {
 
 	describe("deleteUser", () => {
 		test("should delete user by given username", () => {
-			userList.createUser("user1", { nameColor: "#ff0000" });
+			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
 			const user = userList.deleteUser("user1");
 			expect(user.username).toEqual("user1");
-			expect(user.nameColor).toEqual("#ff0000");
+			expect(user.userColor).toEqual("#ff0000");
 			expect(user.tasks[0].description).toEqual("Task 1");
 			expect(user).toBeInstanceOf(User);
 		});
