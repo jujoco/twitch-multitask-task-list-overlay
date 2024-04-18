@@ -57,7 +57,7 @@ export function renderTaskListToDOM(users) {
 
 /**
  * Returns a list of test users
- * @returns {Object[]}
+ * @returns {import('./classes/User.js').default[]}
  */
 export function loadTestUsers() {
 	const testUserList = [];
