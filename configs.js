@@ -37,7 +37,7 @@ window.configs = {
 		headerBorderRadius: "5px",
 		headerMarginBottom: "6px",
 		headerBackgroundColor: "rgba(45, 45, 45, 0.7)",
-		headerFontSize: "24px",
+		headerFontSize: "20px",
 		headerFontColor: "#FFFFFF",
 		headerFontWeight: "normal",
 
@@ -59,7 +59,7 @@ window.configs = {
 		taskFontColor: "#FFFFFF",
 		taskFontWeight: "normal",
 
-		taskDoneFontColor: "#b9b9b9",
+		taskDoneFontColor: "#aaaaaa",
 		taskDoneFontStyle: "italic", // "italic" or "normal"
 		taskDoneTextDecoration: "none", // "line-through" or "none"
 	},

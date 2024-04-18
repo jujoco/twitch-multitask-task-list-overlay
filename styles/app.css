@@ -24,7 +24,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: 24px;
+	padding: 20px 22px 22px 22px;
 	margin-bottom: var(--header-margin-bottom);
 	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -58,7 +58,7 @@
 	border-radius: var(--card-border-radius);
 	background-color: var(--card-background-color);
 	margin: 0 1px;
-	padding: 16px 22px 22px 22px;
+	padding: 18px 22px 22px 22px;
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	font-family: var(--card-font-family, "arial");
 }
