@@ -20,11 +20,11 @@
 }
 
 .header {
-	display: flex;
+	display: var(--header-display, flex);
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px 22px 22px 22px;
+	padding: 18px 22px 22px 22px;
 	margin-bottom: var(--header-margin-bottom);
 	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	border-left: 1px solid rgba(255, 255, 255, 0.1);
@@ -48,6 +48,7 @@
 	overflow: hidden;
 	height: 100%;
 	background-color: var(--body-background-color);
+	border-radius: var(--card-border-radius);
 }
 
 .task-container {

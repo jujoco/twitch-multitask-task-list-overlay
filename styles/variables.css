@@ -10,7 +10,8 @@
 	--app-background-color: rgba(130, 130, 130, 0);
 
 	/* Header */
-	--header-border-radius: 5px;
+	--header-display: flex;
+	--header-border-radius: 6px;
 	--header-margin-bottom: 6px;
 	--header-background-color: rgba(45, 45, 45, 0.7);
 	--header-font-size: 20px;
@@ -21,9 +22,9 @@
 	--body-background-color: rgba(0, 0, 0, 0);
 
 	/* Card */
-	--card-gap-between: 2px;
-	--card-border-radius: 5px;
-	--card-background-color: rgba(45, 45, 45, 0.7);
+	--card-gap-between: 6px;
+	--card-border-radius: 6px;
+	--card-background-color: rgba(100, 100, 100, 0.6);
 
 	/* User Name */
 	--username-font-size: 18px;

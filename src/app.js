@@ -61,18 +61,22 @@ export function renderTaskListToDOM(users) {
  */
 export function loadTestUsers() {
 	const testUserList = [];
-	for (let i = 1; i <= 6; i++) {
+	for (let i = 1; i <= 10; i++) {
 		const userName = `Username${i}`;
 		const colorOptions = [
 			"red",
-			"royalBlue",
+			"coral",
 			"springGreen",
 			"lightSeaGreen",
-			"goldenRod",
+			"slateBlue",
+			"hotpink",
 			"violet",
+			"orange",
+			"darkTurquoise",
+			"dodgerblue",
+			"blueviolet",
 		];
-		const userColor =
-			colorOptions[Math.floor(Math.random() * colorOptions.length)];
+		const userColor = colorOptions[i - 1];
 		const user = {
 			username: userName,
 			userColor,
