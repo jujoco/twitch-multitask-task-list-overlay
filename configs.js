@@ -28,38 +28,39 @@ window.configs = {
 		cardFontFamily: "Roboto Mono",
 
 		// App Styles
-		appBorderRadius: "5px",
-		appPadding: "8px",
+		appBorderRadius: "5px", // px value
+		appPadding: "8px", // px value
 		appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
-		appBackgroundColor: "rgba(130, 130, 130, 0);",
+		appBackgroundColor: "rgba(130, 130, 130, 0)", // rgba or hex value https://rgbcolorpicker.com
 
 		//  Header Styles
-		headerBorderRadius: "5px",
-		headerMarginBottom: "6px",
-		headerBackgroundColor: "rgba(45, 45, 45, 0.7)",
-		headerFontSize: "20px",
-		headerFontColor: "#FFFFFF",
-		headerFontWeight: "normal",
+		headerDisplay: "flex", // "none" to hide header or "flex" to show header
+		headerBorderRadius: "6px", // px value
+		headerMarginBottom: "6px", // px value
+		headerBackgroundColor: "rgba(45, 45, 45, 0.7)", // rgba or hex value https://rgbcolorpicker.com/
+		headerFontSize: "20px", // px value
+		headerFontColor: "#FFFFFF", // hex value
+		headerFontWeight: "normal", // "normal", "lighter", "bold"
 
 		// Body Styles
-		bodyBackgroundColor: "rgba(0, 0, 0, 0)",
+		bodyBackgroundColor: "rgba(0, 0, 0, 0)", // rgba or hex value https://rgbcolorpicker.com/
 
 		// Card Styles
-		cardGapBetween: "2px",
-		cardBorderRadius: "5px",
-		// cardBackgroundColor: "rgba(45, 45, 45, 0.7)",
+		cardGapBetween: "6px", // px value
+		cardBorderRadius: "6px", // px value
+		cardBackgroundColor: "rgba(45, 45, 45, 0.6)", // rgba or hex value https://rgbcolorpicker.com/
 
 		// Username Styles
-		usernameFontSize: "18px",
-		usernameColor: "rgb(255, 255, 255)",
-		usernameFontWeight: "normal",
+		usernameFontSize: "18px", // px value
+		usernameColor: "#FFFFFF", // hex value
+		usernameFontWeight: "normal", // "normal", "lighter", "bold"
 
 		// Task Styles
-		taskFontSize: "16px",
-		taskFontColor: "#FFFFFF",
-		taskFontWeight: "normal",
+		taskFontSize: "16px", // px value
+		taskFontColor: "#FFFFFF", // hex value
+		taskFontWeight: "normal", // "normal", "lighter", "bold"
 
-		taskDoneFontColor: "#aaaaaa",
+		taskDoneFontColor: "#aaaaaa", // hex value
 		taskDoneFontStyle: "italic", // "italic" or "normal"
 		taskDoneTextDecoration: "none", // "line-through" or "none"
 	},
