@@ -1,6 +1,7 @@
 import ComfyJS from "comfy.js";
 import UserList from "./classes/UserList.js";
 import { loadStyles } from "./styleLoader.js";
+import { fadeInOutHelpCommands } from "./animations/fadeCommands.js";
 import { loadTestUsers, renderTaskListToDOM } from "./app.js";
 import { chatHandler } from "./chatHandler.js";
 
@@ -9,6 +10,7 @@ const { twitch_channel, twitch_oauth, twitch_username } = configs.auth;
 window.addEventListener("load", () => {
 	window.userList = new UserList();
 	loadStyles();
+	fadeInOutHelpCommands();
 	if (configs.settings.testMode) {
 		window.userList.users = loadTestUsers();
 	}
@@ -19,6 +21,5 @@ window.addEventListener("load", () => {
 		ComfyJS.Say(response);
 		renderTaskListToDOM(window.userList.users);
 	};
-
 	renderTaskListToDOM(window.userList.users);
 });
