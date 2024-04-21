@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  comfy.js:
-    specifier: ^1.1.16
-    version: 1.1.16
+  tmi.js:
+    specifier: 1.8.5
+    version: 1.8.5
 
 devDependencies:
   happy-dom:
@@ -450,17 +450,6 @@ packages:
     dependencies:
       get-func-name: 2.0.2
     dev: true
-
-  /comfy.js@1.1.16:
-    resolution: {integrity: sha512-APuu/fo1u96v/ARN/K/wjhz0PXwEW6A21nKIp6OIypZcsWNNzZOl8bDdDSn6yfDToJTHsd8cTsZy6YiMBSwsWQ==}
-    dependencies:
-      node-fetch: 2.7.0
-      tmi.js: 1.8.5
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
