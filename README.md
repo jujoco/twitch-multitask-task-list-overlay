@@ -1,4 +1,4 @@
-# Twitch Multi-Task Chat Bot
+# Twitch Chatbot Multitask Task List Overlay
 
 <img src="./images/preview.png" width="530" height="660">
 
