@@ -1,14 +1,15 @@
 {
 	"name": "twitch-multi-task-chat-overlay",
 	"version": "1.0.0",
-	"description": "Twitch Multi Task Chat Overlay",
+	"description": "Interactive multitask task list overlay chatbot for Twitch streamer",
 	"author": "Jujoco",
 	"license": "MIT",
 	"keywords": [
 		"twitch overlay",
-		"chat overlay",
-		"multi task",
-		"twitch"
+		"chatbot",
+		"multitask task list",
+		"twitch",
+		"streamer"
 	],
 	"engines": {
 		"node": ">=18.0.0",
@@ -27,8 +28,5 @@
 		"happy-dom": "^14.7.1",
 		"vite": "^5.2.8",
 		"vitest": "^1.5.0"
-	},
-	"dependencies": {
-		"tmi.js": "1.8.5"
 	}
 }
