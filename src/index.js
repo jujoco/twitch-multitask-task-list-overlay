@@ -1,9 +1,9 @@
-import ComfyJS from "comfy.js";
 import UserList from "./classes/UserList.js";
 import { loadStyles } from "./styleLoader.js";
 import { fadeInOutHelpCommands } from "./animations/fadeCommands.js";
 import { loadTestUsers, renderTaskListToDOM } from "./app.js";
 import { chatHandler } from "./chatHandler.js";
+import TwitchChat from "./twitch/TwitchChat.js";
 
 const { twitch_channel, twitch_oauth, twitch_username } = configs.auth;
 
@@ -15,11 +15,17 @@ window.addEventListener("load", () => {
 		window.userList.users = loadTestUsers();
 	}
 
-	ComfyJS.Init(twitch_username, twitch_oauth, [twitch_channel]);
-	ComfyJS.onCommand = (user, command, message, flags, extra) => {
-		const response = chatHandler(user, command, message, flags, extra);
-		ComfyJS.Say(response);
+	const client = new TwitchChat({
+		username: twitch_username,
+		authToken: twitch_oauth,
+		channel: twitch_channel,
+	});
+	client.on("message", (message) => {
+		const response = chatHandler(tags.username, message);
+		client.say(response);
 		renderTaskListToDOM(window.userList.users);
-	};
+	});
+	client.connect();
+
 	renderTaskListToDOM(window.userList.users);
 });
