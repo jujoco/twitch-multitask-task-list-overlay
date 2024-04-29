@@ -1,80 +1,75 @@
-// Parses an IRC message and returns a JSON object with the message's
-// component parts (tags, source (nick and host), command, parameters).
-// Expects the caller to pass a single message. (Remember, the Twitch
-// IRC server may send one or more IRC messages in a single message.)
-export function parseMessage(message) {
-	let parsedMessage = {
-		// Contains the component parts.
-		tags: null,
-		source: null,
-		command: null,
-		parameters: null,
-	};
+/**
+ * @typedef {object} ParsedMessage
+ * @property {object} command
+ * @property {object} source
+ * @property {object} tags
+ * @property {string} parameters
+ */
 
-	// The start index. Increments as we parse the IRC message.
-
+/**
+ * Parses an IRC message and returns a parsed object containing the message's component parts.
+ * @param {string} message
+ * @returns {ParsedMessage | null}
+ */
+export function parseIRCMessage(message) {
 	let idx = 0;
-
-	// The raw components of the IRC message.
-
 	let rawTagsComponent = null;
 	let rawSourceComponent = null;
 	let rawCommandComponent = null;
 	let rawParametersComponent = null;
 
-	// If the message includes tags, get the tags component of the IRC message.
-
+	// Get the raw tags component of the IRC message.
+	// example: "@badge-info=;badges=broadcaster/1;color=#0000FF;"
 	if (message[idx] === "@") {
-		// The message includes tags.
 		let endIdx = message.indexOf(" ");
 		rawTagsComponent = message.slice(1, endIdx);
 		idx = endIdx + 1; // Should now point to source colon (:).
 	}
 
-	// Get the source component (nick and host) of the IRC message.
-	// The idx should point to the source part; otherwise, it's a PING command.
+	// Get the raw source component of the IRC message (otherwise it's a PING command).
+	// example: ":username1!username1@username1.tmi.twitch.tv"
 	if (message[idx] === ":") {
 		idx += 1;
 		let endIdx = message.indexOf(" ", idx);
 		rawSourceComponent = message.slice(idx, endIdx);
-		idx = endIdx + 1; // Should point to the command part of the message.
+		idx = endIdx + 1;
 	}
 
-	// Get the command component of the IRC message.
+	// Get the raw command component of the IRC message.
+	// example: "PRIVMSG #jujococs"
 	let endIdx = message.indexOf(":", idx); // Looking for the parameters part of the message.
-	if (-1 == endIdx) {
+	if (-1 === endIdx) {
 		// But not all messages include the parameters part.
 		endIdx = message.length;
 	}
-
 	rawCommandComponent = message.slice(idx, endIdx).trim();
-
-	// Get the parameters component of the IRC message.
-	if (endIdx != message.length) {
-		// Check if the IRC message contains a parameters component.
-		idx = endIdx + 1; // Should point to the parameters part of the message.
+	// Get the raw parameters component of the IRC message.
+	// example: ":!taskAdd walk the dog"
+	if (endIdx !== message.length) {
+		idx = endIdx + 1; // skip the colon (:)
 		rawParametersComponent = message.slice(idx);
 	}
 
+	let parsedMessage = {
+		command: null,
+		parameters: null,
+		source: null,
+		tags: null,
+	};
 	// Parse the command component of the IRC message.
 	parsedMessage.command = parseCommand(rawCommandComponent);
 
-	// Only parse the rest of the components if it's a command
-	// we care about; we ignore some messages.
-	if (null == parsedMessage.command) {
-		// Is null if it's a message we don't care about.
+	// Only parse the rest of the components if it's a command we recognize.
+	if (parsedMessage.command === null) {
 		return null;
 	} else {
-		if (null != rawTagsComponent) {
-			// The IRC message contains tags.
+		if (rawTagsComponent !== null) {
 			parsedMessage.tags = parseTags(rawTagsComponent);
 		}
 
 		parsedMessage.source = parseSource(rawSourceComponent);
-
 		parsedMessage.parameters = rawParametersComponent;
 		if (rawParametersComponent && rawParametersComponent[0] === "!") {
-			// The user entered a bot command in the chat window.
 			parsedMessage.command = parseParameters(
 				rawParametersComponent,
 				parsedMessage.command
@@ -85,7 +80,88 @@ export function parseMessage(message) {
 	return parsedMessage;
 }
 
-// Parses the tags component of the IRC message.
+/**
+ * Parses the command component of the IRC message.
+ * @param {string} rawCommandComponent
+ * @returns {object | null}
+ */
+function parseCommand(rawCommandComponent) {
+	let parsedCommand = null;
+	const commandParts = rawCommandComponent.split(" ");
+	switch (commandParts[0]) {
+		case "JOIN":
+		case "PART":
+		case "NOTICE":
+		case "CLEARCHAT":
+		case "HOSTTARGET":
+		case "PRIVMSG":
+			parsedCommand = {
+				command: commandParts[0],
+				channel: commandParts[1],
+			};
+			break;
+		case "PING":
+			parsedCommand = {
+				command: commandParts[0],
+			};
+			break;
+		case "CAP":
+			parsedCommand = {
+				command: commandParts[0],
+				isCapRequestEnabled: commandParts[2] === "ACK",
+			};
+			break;
+		case "GLOBALUSERSTATE":
+			parsedCommand = {
+				command: commandParts[0],
+			};
+			break;
+		case "USERSTATE":
+		case "ROOMSTATE":
+			parsedCommand = {
+				command: commandParts[0],
+				channel: commandParts[1],
+			};
+			break;
+		case "RECONNECT":
+			console.log(
+				"The Twitch IRC server is about to terminate the connection for maintenance."
+			);
+			parsedCommand = {
+				command: commandParts[0],
+			};
+			break;
+		case "421":
+			console.log(`Unsupported IRC command: ${commandParts[2]}`);
+			return null;
+		case "001":
+			parsedCommand = {
+				command: commandParts[0],
+			};
+			break;
+		case "002":
+		case "003":
+		case "004":
+		case "353":
+		case "366":
+		case "375":
+		case "372":
+		case "376":
+			// console.log(`numeric message: ${commandParts[0]}`);
+			return null;
+		default:
+			console.log(`Unexpected command: ${commandParts[0]}`);
+			return null;
+	}
+
+	return parsedCommand;
+}
+
+/**
+ * Raw tags are semicolon-separated key/value pairs.
+ * @param {string} tags
+ * @returns {object}
+ */
 function parseTags(tags) {
 	// badge-info=;badges=broadcaster/1;color=#0000FF;...
 
@@ -95,23 +171,19 @@ function parseTags(tags) {
 		flags: null,
 	};
 
-	let dictParsedTags = {}; // Holds the parsed list of tags.
-	// The key is the tag's name (e.g., color).
+	let dictParsedTags = {};
 	let parsedTags = tags.split(";");
-
 	parsedTags.forEach((tag) => {
-		let parsedTag = tag.split("="); // Tags are key/value pairs.
+		let parsedTag = tag.split("=");
 		let tagValue = parsedTag[1] === "" ? null : parsedTag[1];
 
-		switch (
-			parsedTag[0] // Switch on tag name
-		) {
+		switch (parsedTag[0]) {
 			case "badges":
 			case "badge-info":
 				// badges=staff/1,broadcaster/1,turbo/1;
 
 				if (tagValue) {
-					let dict = {}; // Holds the list of badge objects.
+					let dict = {};
 					// The key is the badge's name (e.g., subscriber).
 					let badges = tagValue.split(",");
 					badges.forEach((pair) => {
@@ -125,7 +197,6 @@ function parseTags(tags) {
 				break;
 			case "emotes":
 				// emotes=25:0-4,12-16/1902:6-10
-
 				if (tagValue) {
 					let dictEmotes = {}; // Holds a list of emote objects.
 					// The key is the emote's ID.
@@ -155,7 +226,6 @@ function parseTags(tags) {
 				break;
 			case "emote-sets":
 				// emote-sets=0,33,50,237
-
 				let emoteSetIds = tagValue.split(","); // Array of emote set IDs.
 				dictParsedTags[parsedTag[0]] = emoteSetIds;
 				break;
@@ -173,85 +243,11 @@ function parseTags(tags) {
 	return dictParsedTags;
 }
 
-// Parses the command component of the IRC message.
-function parseCommand(rawCommandComponent) {
-	let parsedCommand = null;
-	commandParts = rawCommandComponent.split(" ");
-
-	switch (commandParts[0]) {
-		case "JOIN":
-		case "PART":
-		case "NOTICE":
-		case "CLEARCHAT":
-		case "HOSTTARGET":
-		case "PRIVMSG":
-			parsedCommand = {
-				command: commandParts[0],
-				channel: commandParts[1],
-			};
-			break;
-		case "PING":
-			parsedCommand = {
-				command: commandParts[0],
-			};
-			break;
-		case "CAP":
-			parsedCommand = {
-				command: commandParts[0],
-				isCapRequestEnabled: commandParts[2] === "ACK",
-				// The parameters part of the messages contains the
-				// enabled capabilities.
-			};
-			break;
-		case "GLOBALUSERSTATE": // Included only if you request the /commands capability.
-			// But it has no meaning without also including the /tags capability.
-			parsedCommand = {
-				command: commandParts[0],
-			};
-			break;
-		case "USERSTATE": // Included only if you request the /commands capability.
-		case "ROOMSTATE": // But it has no meaning without also including the /tags capabilities.
-			parsedCommand = {
-				command: commandParts[0],
-				channel: commandParts[1],
-			};
-			break;
-		case "RECONNECT":
-			console.log(
-				"The Twitch IRC server is about to terminate the connection for maintenance."
-			);
-			parsedCommand = {
-				command: commandParts[0],
-			};
-			break;
-		case "421":
-			console.log(`Unsupported IRC command: ${commandParts[2]}`);
-			return null;
-		case "001": // Logged in (successfully authenticated).
-			parsedCommand = {
-				command: commandParts[0],
-				channel: commandParts[1],
-			};
-			break;
-		case "002": // Ignoring all other numeric messages.
-		case "003":
-		case "004":
-		case "353": // Tells you who else is in the chat room you're joining.
-		case "366":
-		case "372":
-		case "375":
-		case "376":
-			console.log(`numeric message: ${commandParts[0]}`);
-			return null;
-		default:
-			console.log(`\nUnexpected command: ${commandParts[0]}\n`);
-			return null;
-	}
-
-	return parsedCommand;
-}
-
-// Parses the source (nick and host) components of the IRC message.
+/**
+ * Parses the source (nick and host) components of the IRC message.
+ * @param {string} rawSourceComponent
+ * @returns {object}
+ */
 function parseSource(rawSourceComponent) {
 	if (null == rawSourceComponent) {
 		// Not all messages contain a source
@@ -265,19 +261,23 @@ function parseSource(rawSourceComponent) {
 	}
 }
 
-// Parsing the IRC parameters component if it contains a command (e.g., !dice).
+/**
+ * Parsing the IRC parameters component if it contains a command (e.g., !taskAdd).
+ * @param {string} rawParametersComponent
+ * @param {object} command
+ * @returns {object}
+ */
 function parseParameters(rawParametersComponent, command) {
 	let idx = 0;
-	let commandParts = rawParametersComponent.slice(idx + 1).trim();
+	let commandParts = rawParametersComponent.slice(idx + 1).trim(); // remove the leading "!"
 	let paramsIdx = commandParts.indexOf(" ");
 
-	if (-1 == paramsIdx) {
-		// no parameters
+	if (paramsIdx === -1) {
 		command.botCommand = commandParts.slice(0);
+		command.botCommandParams = "";
 	} else {
 		command.botCommand = commandParts.slice(0, paramsIdx);
 		command.botCommandParams = commandParts.slice(paramsIdx).trim();
-		// TODO: remove extra spaces in parameters string
 	}
 
 	return command;

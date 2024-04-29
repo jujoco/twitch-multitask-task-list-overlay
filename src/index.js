@@ -20,9 +20,12 @@ window.addEventListener("load", () => {
 		authToken: twitch_oauth,
 		channel: twitch_channel,
 	});
-	client.on("message", (message) => {
-		const response = chatHandler(tags.username, message);
-		client.say(response);
+	client.on("command", (data) => {
+		const { user, command, message, flags, extra } = data;
+		const response = chatHandler(user, command, message, flags, extra);
+		if (response) {
+			client.say(response, extra.messageId);
+		}
 		renderTaskListToDOM(window.userList.users);
 	});
 	client.connect();
