@@ -4,9 +4,9 @@ window.configs = {
 	// Get your oauth token from https://twitchapps.com/tmi
 	// ========================================
 	auth: {
-		twitch_channel: "CHANNEL_HERE",
-		twitch_username: "USERNAME_HERE",
-		twitch_oauth: "OAUTH_HERE",
+		twitch_channel: "CHANNEL", // Replace CHANNEL with a Twitch channel name
+		twitch_username: "USERNAME", // Replace USERNAME with your Twitch username
+		twitch_oauth: "OAUTHTOKEN", // Replace OAUTHTOKEN with your Twitch oauth token
 	},
 	// ========================================
 	// Bot Behavior Settings
