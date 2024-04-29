@@ -3,8 +3,6 @@ import Task from "./Task.js";
 /**
  * @class UserList
  * @property {User[]} users
- * @method #loadUserListFromLocalStorage - Load the user list from local storage
- * @method #commitToLocalStorage - Save the user list to local storage
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
  * @method createUser - Create a new user
