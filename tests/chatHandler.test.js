@@ -162,6 +162,19 @@ describe("chatHandler", () => {
 					"joeTheUser, maximum number of tasks reached, try removing some first."
 				);
 			});
+
+			it("should return an error message if the message is empty", () => {
+				const response = chatHandler(
+					chatUser.username,
+					chatUser.command.ADDTASK,
+					"",
+					chatUser.flags,
+					chatUser.extra
+				);
+				expect(response).toBe(
+					'joeTheUser, Invalid command: "Task description is empty" - Try !help'
+				);
+			});
 		});
 
 		describe("!editTask", () => {
