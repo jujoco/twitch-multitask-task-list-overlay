@@ -25,8 +25,6 @@ export default class UserList {
 	 */
 	constructor(localStoreName = "userList") {
 		this.#localStoreName = localStoreName;
-		this.tasksCompleted = 0;
-		this.totalTasks = 0;
 		if (window.configs.settings.testMode) {
 			this.#localStoreName = "testUserList";
 		}
@@ -50,10 +48,8 @@ export default class UserList {
 					const newTask = user.addTask(
 						new Task(task.description, task.id)
 					);
-					this.totalTasks++;
 					if (task.completionStatus) {
 						newTask.setCompletionStatus(task.completionStatus);
-						this.tasksCompleted++;
 					}
 				});
 				return user;
@@ -127,9 +123,10 @@ export default class UserList {
 			throw new Error(`${username} does not exist`);
 		}
 		const descriptions = [].concat(taskDescriptions);
-		const tasks = descriptions.map((taskDesc) =>
-			user.addTask(new Task(taskDesc))
-		);
+		const tasks = [];
+		descriptions.forEach((taskDesc) => {
+			tasks.push(user.addTask(new Task(taskDesc)));
+		});
 
 		this.#commitToLocalStorage();
 		return tasks;
@@ -217,13 +214,15 @@ export default class UserList {
 
 	/**
 	 * Clear all done tasks
-	 * @returns {void}
+	 * @returns {Tasks[]} The cleared tasks
 	 */
 	clearDoneTasks() {
+		const tasks = [];
 		this.users.forEach((user) => {
-			user.clearDoneTasks();
+			tasks.concat(user.clearDoneTasks());
 		});
 		this.#commitToLocalStorage();
+		return tasks;
 	}
 
 	/**
