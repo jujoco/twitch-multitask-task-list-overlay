@@ -17,35 +17,58 @@ import Task from "./Task.js";
  * @method deleteUser - Delete the user
  */
 export default class UserList {
-	constructor() {
+	#localStoreName;
+	/**
+	 * @constructor
+	 * @param {string} #localStoreName - The name of the local storage
+	 * @property {User[]} users - The list of users
+	 */
+	constructor(localStoreName = "userList") {
+		this.#localStoreName = localStoreName;
+		this.tasksCompleted = 0;
+		this.totalTasks = 0;
+		if (window.configs.settings.testMode) {
+			this.#localStoreName = "testUserList";
+		}
 		this.users = this.#loadUserListFromLocalStorage();
 	}
 
 	/**
 	 * Load the user list from local storage
 	 * @private
-	 * @returns {User[]} - The user list
+	 * @returns {User[]} The user list
 	 */
 	#loadUserListFromLocalStorage() {
-		let userList = localStorage.getItem("userList");
-		if (!userList) {
+		let userList = localStorage.getItem(this.#localStoreName);
+		if (userList) {
+			userList = JSON.parse(userList);
+			return userList.map((oldUser) => {
+				const user = new User(oldUser.username, {
+					userColor: oldUser.userColor,
+				});
+				oldUser.tasks.map((task) => {
+					const newTask = user.addTask(
+						new Task(task.description, task.id)
+					);
+					this.totalTasks++;
+					if (task.completionStatus) {
+						newTask.setCompletionStatus(task.completionStatus);
+						this.tasksCompleted++;
+					}
+				});
+				return user;
+			});
+		} else {
 			userList = [];
-			localStorage.setItem("userList", JSON.stringify(userList));
+			if (window.configs.settings.testMode) {
+				userList = loadTestUsers();
+			}
+			localStorage.setItem(
+				this.#localStoreName,
+				JSON.stringify(userList)
+			);
 			return userList;
 		}
-		userList = JSON.parse(userList);
-		const users = userList.map((oldUser) => {
-			const newUser = new User(oldUser.username, {
-				userColor: oldUser.userColor,
-			});
-			oldUser.tasks.map((task) => {
-				const newTask = newUser.addTask(new Task(task.description));
-				newTask.setCompletionStatus(task.completionStatus);
-			});
-			return newUser;
-		});
-
-		return users;
 	}
 
 	/**
@@ -54,13 +77,13 @@ export default class UserList {
 	 * @returns {void}
 	 */
 	#commitToLocalStorage() {
-		localStorage.setItem("userList", JSON.stringify(this.users));
+		localStorage.setItem(this.#localStoreName, JSON.stringify(this.users));
 	}
 
 	/**
 	 * Get user by username
 	 * @param {string} username - The username of the user
-	 * @returns {User | undefined} - The user
+	 * @returns {User | undefined} The user
 	 */
 	getUser(username) {
 		const user = this.users.find((user) => user.username === username);
@@ -69,7 +92,7 @@ export default class UserList {
 
 	/**
 	 * Get all users
-	 * @returns {User[]} - All users
+	 * @returns {User[]} All users
 	 */
 	getAllUsers() {
 		return this.users;
@@ -79,11 +102,13 @@ export default class UserList {
 	 * Create new user
 	 * @param {string} username - The username of the user
 	 * @param {{userColor: string}} options - The username of the user
-	 * @returns {User} - The newly created User object
+	 * @throws {Error} If the user already exists
+	 * @returns {User} The newly created User object
 	 */
 	createUser(username, options) {
-		if (this.getUser(username))
+		if (this.getUser(username)) {
 			throw new Error(`${username} already exists`);
+		}
 		const user = new User(username, options);
 		this.users.push(user);
 		return user;
@@ -93,23 +118,21 @@ export default class UserList {
 	 * Add tasks to a user
 	 * @param {string} username - The username of the user
 	 * @param {string | string[]} taskDescriptions - The task to add
-	 * @throws {Error} - If user does not exist
-	 * @returns {string[]} - The description of the added task
+	 * @throws {Error} If user does not exist
+	 * @returns {Task[]} The description of the added task
 	 */
 	addUserTasks(username, taskDescriptions) {
-		let user = this.getUser(username);
+		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} does not exist`);
 		}
-		if (!Array.isArray(taskDescriptions)) {
-			taskDescriptions = [taskDescriptions];
-		}
-		taskDescriptions.forEach((taskDesc) =>
+		const descriptions = [].concat(taskDescriptions);
+		const tasks = descriptions.map((taskDesc) =>
 			user.addTask(new Task(taskDesc))
 		);
 
 		this.#commitToLocalStorage();
-		return taskDescriptions;
+		return tasks;
 	}
 
 	/**
@@ -117,68 +140,60 @@ export default class UserList {
 	 * @param {string} username - The username of the user
 	 * @param {number} taskIndex - The index of the task to edit
 	 * @param {string} taskDescription - The new task value
-	 * @throws {Error} - If user has no tasks
-	 * @returns {string} - The new task description
+	 * @throws {Error} If user has no tasks
+	 * @returns {Task} The edited task
 	 */
 	editUserTask(username, taskIndex, taskDescription) {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		user.editTask(taskIndex, taskDescription);
+		const task = user.editTask(taskIndex, taskDescription);
 		this.#commitToLocalStorage();
-		return taskDescription;
+		return task;
 	}
 
 	/**
 	 * Mark the user tasks as complete
 	 * @param {string} username - The username of the user
 	 * @param {number | number[]} indices - The index of the task to complete
-	 * @throws {Error} - If user has no tasks
-	 * @returns {string} - The description of the completed task
+	 * @throws {Error} If user has no tasks
+	 * @returns {Task[]} The description of the completed task
 	 */
 	completeUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		if (!Array.isArray(indices)) {
-			indices = [indices];
-		}
-		const completedTaskDescriptions = indices.map(
-			(i) => user.completeTask(i).description
-		);
+		const items = [].concat(indices);
+		const tasks = items.map((i) => user.completeTask(i));
 		this.#commitToLocalStorage();
-		return completedTaskDescriptions;
+		return tasks;
 	}
 
 	/**
 	 * Delete the user tasks
 	 * @param {string} username - The username of the user
 	 * @param {number | number[]} indices - The index of the task to delete
-	 * @throws {Error} - If user has no tasks
-	 * @returns {string[]} - The description of the deleted task
+	 * @throws {Error} If user has no tasks
+	 * @returns {Task[]} The deleted task description
 	 */
 	deleteUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		if (!Array.isArray(indices)) {
-			indices = [indices];
-		}
-		const deletedDesc = user
-			.deleteTask(indices)
-			.map((task) => task.description);
+		const items = [].concat(indices);
+		const tasks = user.deleteTask(items);
 		this.#commitToLocalStorage();
-		return deletedDesc;
+		return tasks;
 	}
 
 	/**
 	 * Get incomplete tasks from a user
 	 * @param {string} username - The username of the user
-	 * @throws {Error} - If the user has no tasks
-	 * @returns {string[]} - The incomplete tasks of the user
+	 * @throws {Error} If the user has no tasks
+	 * @returns {string[]} The incomplete tasks of the user
 	 */
 	checkUserTasks(username) {
 		const user = this.getUser(username);
@@ -188,7 +203,7 @@ export default class UserList {
 		return user
 			.getTasks()
 			.filter((task) => !task.isComplete())
-			.map((task) => task.getDescription());
+			.map((task) => task.description);
 	}
 
 	/**
@@ -214,8 +229,8 @@ export default class UserList {
 	/**
 	 * Delete a user by username
 	 * @param {string} username - The username of the user
-	 * @throws {Error} - If the user is not found
-	 * @returns {User} - The deleted user
+	 * @throws {Error} If the user is not found
+	 * @returns {User} The deleted user
 	 */
 	deleteUser(username) {
 		const userIndex = this.users.findIndex(
@@ -229,4 +244,50 @@ export default class UserList {
 		this.#commitToLocalStorage();
 		return user;
 	}
+}
+
+/**
+ * Returns a list of test users
+ * @returns {User[]} The test user list
+ */
+function loadTestUsers() {
+	const testUserList = [];
+	const colorOptions = [
+		"red",
+		"coral",
+		"springGreen",
+		"lightSeaGreen",
+		"slateBlue",
+		"hotpink",
+		"violet",
+		"orange",
+		"darkTurquoise",
+		"dodgerblue",
+		"blueviolet",
+	];
+	for (let i = 1; i <= 10; i++) {
+		const userName = `Username${i}`;
+		const userColor = colorOptions[i - 1];
+		const user = new User(userName, { userColor });
+		user.addTask(
+			new Task(`Task 1 for testing propose`, `${generateTimeStamp()}`)
+		).setCompletionStatus(true);
+		user.addTask(
+			new Task(`Task 2 for testing propose`, `${generateTimeStamp()}`)
+		).setCompletionStatus(true);
+		user.addTask(
+			new Task(
+				`Task 3 with a longer description for testing with length`,
+				`${generateTimeStamp()}`
+			)
+		);
+		testUserList.push(user);
+	}
+
+	function generateTimeStamp() {
+		const randomNum = Math.floor(Math.random() * 10000000000);
+		return `${randomNum}`;
+	}
+
+	return testUserList;
 }

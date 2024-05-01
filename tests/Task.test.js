@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import Task from "../src/classes/Task";
 
 describe("Task", () => {
@@ -9,20 +9,28 @@ describe("Task", () => {
 		task = new Task("Buy groceries");
 	});
 
+	describe("constructor", () => {
+		it("should see that all properties are assigned correctly", () => {
+			expect(task.description).toBeTypeOf("string");
+			expect(task.id).toBeTypeOf("string");
+			expect(task.completionStatus).toBeTypeOf("boolean");
+		});
+	});
+
 	describe("validateDescription", () => {
-		test("should return the description if it is valid", () => {
+		it("should return the description if it is valid", () => {
 			expect(task.validateDescription("Buy groceries")).toBe(
 				"Buy groceries"
 			);
 		});
 
-		test("should throw an error if the description is invalid", () => {
+		it("should throw an error if the description is invalid", () => {
 			expect(() => task.validateDescription("")).toThrow(
 				"Task description invalid"
 			);
 		});
 
-		test("should throw Error if description is not a string", () => {
+		it("should throw Error if description is not a string", () => {
 			expect(() => task.validateDescription(123)).toThrow(
 				"Task description must be of type string"
 			);
@@ -39,33 +47,33 @@ describe("Task", () => {
 	});
 
 	describe("getDescription", () => {
-		test("should return the description of the task", () => {
-			expect(task.getDescription()).toBe("Buy groceries");
+		it("should return the description of the task", () => {
+			expect(task.description).toBe("Buy groceries");
 		});
 	});
 
 	describe("setDescription", () => {
-		test("should set the description of the task", () => {
+		it("should set the description of the task", () => {
 			task.setDescription("Clean the house");
-			expect(task.getDescription()).toBe("Clean the house");
+			expect(task.description).toBe("Clean the house");
 		});
 	});
 
 	describe("isComplete", () => {
-		test("should return the completion status of the task", () => {
+		it("should return the completion status of the task", () => {
 			expect(task.isComplete()).toBe(false);
 		});
 	});
 
 	describe("setCompletionStatus", () => {
-		test("should set the task status to complete", () => {
+		it("should set the task status to complete", () => {
 			task.setCompletionStatus(true);
 			expect(task.isComplete()).toBe(true);
 			task.setCompletionStatus(false);
 			expect(task.isComplete()).toBe(false);
 		});
 
-		test("should return Error if status is not a boolean", () => {
+		it("should return Error if status is not a boolean", () => {
 			expect(() => task.setCompletionStatus("true")).toThrow(
 				"Completion status must be of type boolean"
 			);

@@ -34,7 +34,10 @@ describe("User", () => {
 
 	describe("addTask", () => {
 		test("should accept a string as its value and return the Task object", () => {
-			expect(user.addTask(new Task("task 1"))).toBeInstanceOf(Task);
+			const task = new Task("task 1");
+			const addedTask = user.addTask(task);
+			expect(addedTask).toBeInstanceOf(Task);
+			expect(addedTask.description).toBe("task 1");
 		});
 	});
 
@@ -43,8 +46,9 @@ describe("User", () => {
 			user.addTask(new Task("test task 1"));
 			user.addTask(new Task("test task 2"));
 			user.addTask(new Task("test task 3"));
-			user.editTask(2, "task 3 updated");
-			expect(user.getTask(2).getDescription()).toBe("task 3 updated");
+			expect(user.editTask(2, "task 3 updated").description).toBe(
+				"task 3 updated"
+			);
 		});
 
 		test("should throw an error if the index is out of bounds", () => {
@@ -93,7 +97,7 @@ describe("User", () => {
 		test("should return the task at the specified index", () => {
 			user.addTask(new Task("test task 1"));
 			expect(user.getTask(0)).toBeInstanceOf(Task);
-			expect(user.getTask(0).getDescription()).toBe("test task 1");
+			expect(user.getTask(0).description).toBe("test task 1");
 		});
 
 		test("should throw an error if the index is out of bounds", () => {
