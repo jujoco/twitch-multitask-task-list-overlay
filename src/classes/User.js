@@ -29,8 +29,8 @@ export default class User {
 	/**
 	 * Validate the username of the user
 	 * @param {string} username - The username of the user
-	 * @returns {string} - The username of the user
-	 * @throws {Error} - If the username is invalid
+	 * @returns {string} The username of the user
+	 * @throws {Error} If the username is invalid
 	 */
 	validateUsername(username) {
 		if (typeof username !== "string") {
@@ -46,7 +46,7 @@ export default class User {
 	/**
 	 * Add tasks to the user
 	 * @param {Task} task - The Task to add
-	 * @returns {Task} - The Task that was added
+	 * @returns {Task} The Task that was added
 	 */
 	addTask(task) {
 		this.tasks.push(task);
@@ -58,7 +58,7 @@ export default class User {
 	 * @param {number} index - The index of the task to get
 	 * @param {string} description - The new task description
 	 * @throws {Error} If the index is out of bounds
-	 * @returns {Task} - The task that was edited
+	 * @returns {Task} The task that was edited
 	 */
 	editTask(index, description) {
 		let task = this.getTask(index);
@@ -70,7 +70,7 @@ export default class User {
 	 * Mark the task at the specified index as complete
 	 * @param {number} index - The index of the task to complete
 	 * @throws {Error} If the index is out of bounds
-	 * @returns {Task} - The task that was completed
+	 * @returns {Task} The task that was completed
 	 */
 	completeTask(index) {
 		let task = this.getTask(index);
@@ -80,17 +80,16 @@ export default class User {
 
 	/**
 	 * Delete the task at the specified index
-	 * @param {number[]} indices - The indices of the tasks to delete
+	 * @param {number | number[]} indices - The indices of the tasks to delete
 	 * @returns {Task[]}	The task that was removed
 	 */
 	deleteTask(indices) {
-		if (!Array.isArray(indices)) {
-			indices = [indices];
-		}
-		indices.forEach((index) => this.validateTaskIndex(index));
+		const items = [].concat(indices);
+		items.forEach((index) => this.validateTaskIndex(index));
+
 		const taskForDeletion = [];
 		this.tasks = this.tasks.filter((task, i) => {
-			if (indices.includes(i)) {
+			if (items.includes(i)) {
 				taskForDeletion.push(task);
 			} else {
 				return true;
@@ -102,7 +101,7 @@ export default class User {
 
 	/**
 	 * Clear all completed tasks
-	 * @returns {Task[]} - The tasks that were cleared
+	 * @returns {Task[]} The tasks that were cleared
 	 */
 	clearDoneTasks() {
 		/** @type Task[] */
@@ -113,7 +112,7 @@ export default class User {
 	/**
 	 * Get the task at the specified index
 	 * @param {number} index - The index of the task to get
-	 * @returns {Task} - The task at the specified index
+	 * @returns {Task} The task at the specified index
 	 */
 	getTask(index) {
 		this.validateTaskIndex(index);
@@ -122,7 +121,7 @@ export default class User {
 
 	/**
 	 * Get the tasks of the user
-	 * @returns {Task[]} - The tasks of the user
+	 * @returns {Task[]} The tasks of the user
 	 */
 	getTasks() {
 		return this.tasks;

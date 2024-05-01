@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
 import UserList from "../src/classes/UserList";
 import User from "../src/classes/User";
+import Task from "../src/classes/Task";
 
 describe("UserList", () => {
 	/** @type UserList */
@@ -95,25 +96,30 @@ describe("UserList", () => {
 	describe("addUserTasks", () => {
 		test("should be able to add a single string description", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			const taskDesc = userList.addUserTasks(
+			const tasks = userList.addUserTasks(
 				"user1",
 				"A single task containing , comma in, description"
 			);
-			expect(taskDesc).toEqual([
-				"A single task containing , comma in, description",
-			]);
+			const [task1] = tasks;
+
+			expect(task1).instanceOf(Task);
+			expect(task1.description).toEqual(
+				"A single task containing , comma in, description"
+			);
 		});
 
 		test("should be able to add multiple tasks if given an array of descriptions", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			const taskDesc = userList.addUserTasks("user1", [
+			const tasks = userList.addUserTasks("user1", [
 				"Task 1",
 				"Task 2 containing , comma in, description",
 			]);
-			expect(taskDesc).toEqual([
-				"Task 1",
-				"Task 2 containing , comma in, description",
-			]);
+			const [task1, task2] = tasks;
+
+			expect(task1.description).toEqual("Task 1");
+			expect(task2.description).toEqual(
+				"Task 2 containing , comma in, description"
+			);
 		});
 
 		test("should throw an error if user does not exist", () => {
@@ -127,9 +133,8 @@ describe("UserList", () => {
 		test("should edit a task for the user", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
-			expect(userList.editUserTask("user1", 0, "Updated Task 1")).toEqual(
-				"Updated Task 1"
-			);
+			const task = userList.editUserTask("user1", 0, "Updated Task 1");
+			expect(task.description).toEqual("Updated Task 1");
 		});
 
 		test("should throw an error if task does not exist", () => {
@@ -151,7 +156,8 @@ describe("UserList", () => {
 		test("should complete a task for the user", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
-			expect(userList.completeUserTasks("user1", 0)).toEqual(["Task 1"]);
+			const [task1] = userList.completeUserTasks("user1", 0);
+			expect(task1.description).toEqual("Task 1");
 		});
 
 		test("should be able to mark multiple tasks as complete if given an array of indices", () => {
@@ -162,7 +168,8 @@ describe("UserList", () => {
 				"Task 3",
 				"Task 4",
 			]);
-			userList.completeUserTasks("user1", [0, 2, 3]);
+			const tasks = userList.completeUserTasks("user1", [0, 2, 3]);
+			expect(tasks.length).toEqual(3);
 			expect(userList.checkUserTasks("user1")).toEqual(["Task 2"]);
 		});
 
@@ -184,20 +191,19 @@ describe("UserList", () => {
 	describe("deleteUserTask", () => {
 		test("should delete a task if given a single index", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			userList.addUserTasks("user1", "Task 1");
-			userList.addUserTasks("user1", "Task 2");
-			expect(userList.deleteUserTasks("user1", 0)).toEqual(["Task 1"]);
+			userList.addUserTasks("user1", ["Task 1", "Task 2"]);
+			const [task1] = userList.deleteUserTasks("user1", 0);
+
+			expect(task1.description).toEqual("Task 1");
 		});
 
 		test("should delete multiple tasks if given an array of indices", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			userList.addUserTasks("user1", "Task 1");
-			userList.addUserTasks("user1", "Task 2");
-			userList.addUserTasks("user1", "Task 3");
-			expect(userList.deleteUserTasks("user1", [0, 2])).toEqual([
-				"Task 1",
-				"Task 3",
-			]);
+			userList.addUserTasks("user1", ["Task 1", "Task 2", "Task 3"]);
+			const [task1, task3] = userList.deleteUserTasks("user1", [0, 2]);
+
+			expect(task1.description).toEqual("Task 1");
+			expect(task3.description).toEqual("Task 3");
 		});
 
 		test("should throw an error if task does not exist", () => {
@@ -232,8 +238,7 @@ describe("UserList", () => {
 	describe("clearUserList", () => {
 		test("should clear all tasks", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			userList.addUserTasks("user1", "Task 1");
-			userList.addUserTasks("user1", "Task 2");
+			userList.addUserTasks("user1", "Task 1, Task 2");
 			userList.clearUserList();
 			expect(userList.users).toEqual([]);
 		});

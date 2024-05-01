@@ -1,20 +1,23 @@
 /**
  * @class Task
  * @property {string} description - The description of the task.
+ * @property {number} id - The id of the task.
  * @property {boolean} completionStatus - Indicates whether the task is complete or not.
  * @method validateDescription - Validate the description of the task.
- * @method getDescription - Get the description of the task.
  * @method setDescription - Set the description of the task.
  * @method isComplete - Get the completion status of the task.
  * @method setCompletionStatus - Set the status of the task.
+ * @returns {Task}
  */
 export default class Task {
 	/**
 	 * @constructor
 	 * @param {string} description - The description of the task.
+	 * @param {number} id - The id of the task.
 	 */
 	constructor(description) {
 		this.description = this.validateDescription(description);
+		this.id = this.#assignId();
 		this.completionStatus = false;
 	}
 
@@ -36,11 +39,20 @@ export default class Task {
 	}
 
 	/**
-	 * Get the description of the task.
-	 * @returns {string} Description of the task.
+	 * Assign the current date as id to the task.
+	 * @returns {string}
+	 * @private
 	 */
-	getDescription() {
-		return this.description;
+	#assignId() {
+		const now = new Date();
+		const month = String(now.getMonth() + 1).padStart(2, "0");
+		const day = String(now.getDate()).padStart(2, "0");
+		const hour = String(now.getHours()).padStart(2, "0");
+		const minute = String(now.getMinutes()).padStart(2, "0");
+		const second = String(now.getSeconds()).padStart(2, "0");
+		const salt = Math.floor(Math.random() * 10000);
+		// format: MMDDHHMMSS + 3 digit salt
+		return `${month}${day}${hour}${minute}${second}${salt}`;
 	}
 
 	/**
