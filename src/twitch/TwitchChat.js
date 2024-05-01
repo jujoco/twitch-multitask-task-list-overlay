@@ -1,5 +1,5 @@
 import { parseIRCMessage } from "./message-parsers";
-import EventEmitter from "./EventEmitter";
+import EventEmitter from "../classes/EventEmitter";
 
 /**
  * @class TwitchChat

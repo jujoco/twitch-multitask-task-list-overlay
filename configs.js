@@ -120,7 +120,8 @@ window.configs = {
 			EN: {
 				addTask: 'Task(s) "{message}" added, {user}!',
 				editTask: 'Task "{message}" updated, {user}!',
-				finishTask: 'Good job on finishing "{message}" {user}!',
+				finishTask:
+					'Good job on completing task(s) "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
 				help: "Try using these commands - !add !edit !done !delete",

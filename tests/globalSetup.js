@@ -1,5 +1,4 @@
 import { vi } from "vitest";
-import UserList from "../src/classes/UserList";
 
 const configs = {
 	admin: {
@@ -30,7 +29,8 @@ const configs = {
 			EN: {
 				addTask: 'Task(s) "{message}" added, {user}!',
 				editTask: 'Task "{message}" updated, {user}!',
-				finishTask: 'Good job on finishing "{message}" {user}!',
+				finishTask:
+					'Good job on completing task(s) "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
 				help: "Try using these commands - !add !edit !done !delete",
@@ -51,7 +51,7 @@ const configs = {
 		showUsernameColor: true, // true or false
 		testMode: false, // true or false - for testing purposes
 	},
+	styles: {},
 };
 
 vi.stubGlobal("configs", configs);
-vi.stubGlobal("userList", new UserList());
