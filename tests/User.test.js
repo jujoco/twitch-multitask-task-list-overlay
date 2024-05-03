@@ -93,6 +93,19 @@ describe("User", () => {
 		});
 	});
 
+	describe("removeCompletedTasks", () => {
+		test("should remove all completed tasks", () => {
+			user.addTask(new Task("test task 1"));
+			user.addTask(new Task("test task 2"));
+			user.addTask(new Task("test task 3"));
+			user.completeTask(0);
+			user.completeTask(2);
+			const deletedTasks = user.removeCompletedTasks();
+			expect(user.getTasks().length).toBe(1);
+			expect(deletedTasks.length).toBe(2);
+		});
+	});
+
 	describe("getTask", () => {
 		test("should return the task at the specified index", () => {
 			user.addTask(new Task("test task 1"));

@@ -9,7 +9,7 @@
  * @method editTask - Edit the task at the specified index
  * @method completeTask - Mark the task at index as complete
  * @method deleteTask - Delete the task at the specified index
- * @method clearDoneTasks - Clear all completed tasks
+ * @method removeCompletedTasks - Remove all completed tasks
  * @method getTask - Get the task at the specified index
  * @method getTasks - Get all tasks of the user
  * @method validateTaskIndex - Validates the task index
@@ -44,7 +44,7 @@ export default class User {
 	}
 
 	/**
-	 * Add tasks to the user
+	 * Add a task to the user
 	 * @param {Task} task - The Task to add
 	 * @returns {Task} The Task that was added
 	 */
@@ -81,7 +81,7 @@ export default class User {
 	/**
 	 * Delete the task at the specified index
 	 * @param {number | number[]} indices - The indices of the tasks to delete
-	 * @returns {Task[]}	The task that was removed
+	 * @returns {Task[]}	The task that was deleted
 	 */
 	deleteTask(indices) {
 		const items = [].concat(indices);
@@ -100,13 +100,20 @@ export default class User {
 	}
 
 	/**
-	 * Clear all completed tasks
-	 * @returns {Task[]} The tasks that were cleared
+	 * Remove all completed tasks
+	 * @returns {Task[]} The tasks that were removed
 	 */
-	clearDoneTasks() {
+	removeCompletedTasks() {
+		const removedTasks = [];
 		/** @type Task[] */
-		this.tasks = this.tasks.filter((task) => !task.isComplete());
-		return this.tasks;
+		this.tasks = this.tasks.filter((task) => {
+			if (task.isComplete()) {
+				removedTasks.push(task);
+				return false;
+			}
+			return true;
+		});
+		return removedTasks;
 	}
 
 	/**

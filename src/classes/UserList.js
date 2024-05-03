@@ -25,9 +25,6 @@ export default class UserList {
 	 */
 	constructor(localStoreName = "userList") {
 		this.#localStoreName = localStoreName;
-		if (window.configs.settings.testMode) {
-			this.#localStoreName = "testUserList";
-		}
 		this.users = this.#loadUserListFromLocalStorage();
 	}
 
@@ -56,9 +53,6 @@ export default class UserList {
 			});
 		} else {
 			userList = [];
-			if (window.configs.settings.testMode) {
-				userList = loadTestUsers();
-			}
 			localStorage.setItem(
 				this.#localStoreName,
 				JSON.stringify(userList)
@@ -213,13 +207,14 @@ export default class UserList {
 	}
 
 	/**
-	 * Clear all done tasks
-	 * @returns {Tasks[]} The cleared tasks
+	 * Clear all done tasks from all users
+	 * @returns {Tasks[]} The deleted tasks from all users
 	 */
 	clearDoneTasks() {
-		const tasks = [];
+		let tasks = [];
 		this.users.forEach((user) => {
-			tasks.concat(user.clearDoneTasks());
+			let removedTasks = user.removeCompletedTasks();
+			tasks = tasks.concat(removedTasks);
 		});
 		this.#commitToLocalStorage();
 		return tasks;
@@ -243,50 +238,4 @@ export default class UserList {
 		this.#commitToLocalStorage();
 		return user;
 	}
-}
-
-/**
- * Returns a list of test users
- * @returns {User[]} The test user list
- */
-function loadTestUsers() {
-	const testUserList = [];
-	const colorOptions = [
-		"red",
-		"coral",
-		"springGreen",
-		"lightSeaGreen",
-		"slateBlue",
-		"hotpink",
-		"violet",
-		"orange",
-		"darkTurquoise",
-		"dodgerblue",
-		"blueviolet",
-	];
-	for (let i = 1; i <= 10; i++) {
-		const userName = `Username${i}`;
-		const userColor = colorOptions[i - 1];
-		const user = new User(userName, { userColor });
-		user.addTask(
-			new Task(`Task 1 for testing propose`, `${generateTimeStamp()}`)
-		).setCompletionStatus(true);
-		user.addTask(
-			new Task(`Task 2 for testing propose`, `${generateTimeStamp()}`)
-		).setCompletionStatus(true);
-		user.addTask(
-			new Task(
-				`Task 3 with a longer description for testing with length`,
-				`${generateTimeStamp()}`
-			)
-		);
-		testUserList.push(user);
-	}
-
-	function generateTimeStamp() {
-		const randomNum = Math.floor(Math.random() * 10000000000);
-		return `${randomNum}`;
-	}
-
-	return testUserList;
 }

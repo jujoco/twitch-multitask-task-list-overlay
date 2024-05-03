@@ -5,10 +5,13 @@ describe("App.chatHandler", () => {
 	describe("chatHandler", () => {
 		const app = new App();
 		const userList = app.userList;
+		app.clearListFromDOM = vi.fn();
 		app.addTaskToDOM = vi.fn();
-		app.updateTaskFromDOM = vi.fn();
+		app.editTaskFromDOM = vi.fn();
 		app.completeTaskFromDOM = vi.fn();
 		app.deleteTaskFromDOM = vi.fn();
+		app.deleteUserFromDOM = vi.fn();
+
 		const adminUser = {
 			username: "bobTheAdmin",
 			flags: {
@@ -51,7 +54,7 @@ describe("App.chatHandler", () => {
 		});
 
 		describe("Admin commands", () => {
-			describe("!clearList", () => {
+			describe("!clearList command", () => {
 				it("should return a success message when an Admin user submits !clearList ", () => {
 					const response = app.chatHandler(
 						adminUser.username,
@@ -81,7 +84,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			it("!clearDone", () => {
+			it("!clearDone command", () => {
 				const response = app.chatHandler(
 					adminUser.username,
 					adminUser.command.CLEARDONE,
@@ -90,12 +93,13 @@ describe("App.chatHandler", () => {
 					adminUser.extra
 				);
 				expect(userList.users[0].getTasks().length).toBe(1);
+				expect(response.error).toBe(false);
 				expect(response.message).toBe(
 					"bobTheAdmin, All done tasks have been cleared"
 				);
 			});
 
-			it("!clearUser", () => {
+			it("!clearUser command", () => {
 				const response = app.chatHandler(
 					adminUser.username,
 					adminUser.command.CLEARUSER,
