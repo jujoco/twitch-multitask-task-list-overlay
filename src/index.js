@@ -26,11 +26,11 @@ window.addEventListener("load", () => {
 		const { user, command, message, flags, extra } = data;
 		const response = app.chatHandler(user, command, message, flags, extra);
 		if (response.error) {
-			console.error(response);
+			console.error(response.message);
 		}
-		console.log(response);
+		console.log(response.message);
 		if (!testMode) {
-			client.say(response, extra.messageId);
+			client.say(response.message, extra.messageId);
 		}
 	});
 	client.connect();
