@@ -25,12 +25,11 @@ window.addEventListener("load", () => {
 	client.on("command", (data) => {
 		const { user, command, message, flags, extra } = data;
 		const response = app.chatHandler(user, command, message, flags, extra);
-		if (response.error) {
-			console.error(response.message);
-		}
-		console.log(response.message);
-		if (!testMode) {
+		if (!response.error) {
 			client.say(response.message, extra.messageId);
+		} else {
+			// these error logs get sent to OBS logs
+			console.error(response.message);
 		}
 	});
 	client.connect();

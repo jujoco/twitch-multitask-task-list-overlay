@@ -86,7 +86,6 @@ export default class TwitchChat extends EventEmitter {
 		messages.forEach((message) => {
 			const parsedMessage = parseIRCMessage(message);
 			if (parsedMessage) {
-				// console.log(`\n${JSON.stringify(parsedMessage, null, 3)}`);
 				switch (parsedMessage.command.command) {
 					case "PRIVMSG":
 						if (parsedMessage.parameters.startsWith("!")) {
