@@ -11,8 +11,6 @@ import UserList from "./classes/UserList.js";
  * @method chatHandler - Handles chat commands and responses
  */
 export default class App {
-	#tasksCompleted = 0;
-	#totalTasks = 0;
 	/**
 	 * @constructor
 	 * @param {UserList} userList - The user list
@@ -78,8 +76,8 @@ export default class App {
 	 * @returns {void}
 	 */
 	renderTaskCount() {
-		let completedTasksCount = this.#tasksCompleted;
-		let totalTasksCount = this.#totalTasks;
+		let completedTasksCount = this.userList.tasksCompleted;
+		let totalTasksCount = this.userList.totalTasks;
 		const totalTasksElement = document.querySelector(".task-count");
 		totalTasksElement.innerText = `${completedTasksCount}/${totalTasksCount}`;
 	}
@@ -199,15 +197,16 @@ export default class App {
 				tasks.forEach(({ id }) => {
 					this.deleteTaskFromDOM(id);
 				});
-				responseDetail = tasks
-					.map((task) => task.description)
-					.join(", ");
+				responseDetail = message;
 				template = userConfig.responseTo[languageCode].deleteTask;
 			} else if (userConfig.commands.check.includes(command)) {
 				// CHECK TASKS
-				responseDetail = this.userList
-					.checkUserTasks(username)
-					.join(", ");
+				const taskMap = this.userList.checkUserTasks(username);
+				const list = [];
+				for (let [taskNumber, task] of taskMap) {
+					list.push(`${taskNumber + 1}. ${task.description}`);
+				}
+				responseDetail = list.join(" | ");
 				if (responseDetail === "") {
 					template = userConfig.responseTo[languageCode].noTaskFound;
 				} else {
@@ -226,7 +225,6 @@ export default class App {
 
 			return respondMessage(template, username, responseDetail);
 		} catch (error) {
-			console.log(error);
 			return respondMessage(
 				userConfig.responseTo[languageCode].invalidCommand,
 				username,
@@ -245,8 +243,6 @@ export default class App {
 		);
 		primaryContainer.innerHTML = "";
 		secondaryContainer.innerHTML = "";
-		this.#tasksCompleted = 0;
-		this.#totalTasks = 0;
 		this.renderTaskCount();
 	}
 
@@ -285,7 +281,6 @@ export default class App {
 			.querySelector(`[data-user="${user.username}"] .tasks`)
 			.appendChild(cloneTaskElement);
 
-		this.#totalTasks++;
 		this.renderTaskCount();
 		animateScroll();
 	}
@@ -316,7 +311,6 @@ export default class App {
 		for (const taskElement of taskElements) {
 			taskElement.classList.add("done");
 		}
-		this.#tasksCompleted++;
 		this.renderTaskCount();
 	}
 
@@ -337,8 +331,6 @@ export default class App {
 				taskElement.remove();
 			}
 		}
-		this.#totalTasks--;
-		this.#tasksCompleted--;
 		this.renderTaskCount();
 	}
 
@@ -359,9 +351,7 @@ export default class App {
 		}
 		tasks.forEach((t) => {
 			if (t.isComplete()) {
-				this.#tasksCompleted--;
 			}
-			this.#totalTasks--;
 		});
 		this.renderTaskCount();
 	}

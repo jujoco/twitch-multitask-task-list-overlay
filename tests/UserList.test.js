@@ -170,7 +170,9 @@ describe("UserList", () => {
 			]);
 			const tasks = userList.completeUserTasks("user1", [0, 2, 3]);
 			expect(tasks.length).toEqual(3);
-			expect(userList.checkUserTasks("user1")).toEqual(["Task 2"]);
+			expect(tasks[0].description).toEqual("Task 1");
+			expect(tasks[1].description).toEqual("Task 3");
+			expect(tasks[2].description).toEqual("Task 4");
 		});
 
 		test("should throw an error if task does not exist", () => {
@@ -224,8 +226,12 @@ describe("UserList", () => {
 	describe("checkUserTasks", () => {
 		test("should return all tasks for the user", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			userList.addUserTasks("user1", "Task 1");
-			expect(userList.checkUserTasks("user1")).toEqual(["Task 1"]);
+			userList.addUserTasks("user1", ["Task 1", "Task 2"]);
+			const taskMap = userList.checkUserTasks("user1");
+			expect(taskMap.size).toEqual(2);
+			expect(taskMap).instanceOf(Map);
+			expect(taskMap.get(0).description).toEqual("Task 1");
+			expect(taskMap.get(1).description).toEqual("Task 2");
 		});
 
 		test("should throw an error if user does not exist", () => {
