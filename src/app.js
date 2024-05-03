@@ -3,23 +3,33 @@ import { fadeInOutHelpCommands } from "./animations/fadeCommands.js";
 import { loadStyles } from "./styleLoader.js";
 import UserList from "./classes/UserList.js";
 
+/** @typedef {import("./classes/User").default} User */
+/**
+ * @class App
+ * @property {UserList} userList - The user list
+ * @method render - Render the task list to the DOM
+ * @method chatHandler - Handles chat commands and responses
+ */
 export default class App {
-	constructor() {
+	#tasksCompleted = 0;
+	#totalTasks = 0;
+	/**
+	 * @constructor
+	 * @param {UserList} userList - The user list
+	 */
+	constructor(storeName = "userList") {
+		this.userList = new UserList(storeName);
 		loadStyles();
-		this.userList = new UserList();
-		this.tasksCompleted = 0;
-		this.totalTasks = 0;
 	}
 
 	/**
-	 * Render the task list to the DOM
+	 * Initial render the components to the DOM. Should only be called once.
 	 * @returns {void}
 	 */
 	render() {
+		fadeInOutHelpCommands();
 		this.renderTaskList();
 		this.renderTaskCount();
-		animateScroll();
-		fadeInOutHelpCommands();
 	}
 
 	/**
@@ -27,47 +37,40 @@ export default class App {
 	 * @returns {void}
 	 */
 	renderTaskList() {
+		if (this.userList.users.length === 0) {
+			return;
+		}
 		const fragment = document.createDocumentFragment();
-
 		this.userList.getAllUsers().forEach((user) => {
-			const cardDiv = document.createElement("div");
-			cardDiv.classList.add("card");
-			cardDiv.dataset.user = user.username;
-			const userNameDiv = document.createElement("div");
-			userNameDiv.classList.add("username");
-			userNameDiv.innerText = user.username;
-			userNameDiv.style.color = window.configs.settings.showUsernameColor
-				? user.userColor
-				: "";
-			cardDiv.appendChild(userNameDiv);
-			const list = document.createElement("ol");
-			list.classList.add("tasks");
-			user.tasks.forEach((task, i) => {
+			const cardEl = createUserCard(user);
+			const list = cardEl.querySelector("ol");
+			user.tasks.forEach((task) => {
 				const listItem = document.createElement("li");
 				listItem.classList.add("task");
-				listItem.dataset.taskId = `${user.username}-${task.id}`;
+				listItem.dataset.taskId = `${task.id}`;
 				listItem.innerText = task.description;
 				if (task.isComplete()) {
 					listItem.classList.add("done");
 				}
 				list.appendChild(listItem);
 			});
-			cardDiv.appendChild(list);
-			fragment.appendChild(cardDiv);
+			fragment.appendChild(cardEl);
 		});
-
-		const clonedFragment = fragment.cloneNode(true);
+		const primaryClone = fragment.cloneNode(true);
 		const primaryContainer = document.querySelector(
 			".task-container.primary"
 		);
 		primaryContainer.innerHTML = "";
-		primaryContainer.appendChild(fragment);
+		primaryContainer.appendChild(primaryClone);
 
+		const secondaryClone = fragment.cloneNode(true);
 		const secondaryContainer = document.querySelector(
 			".task-container.secondary"
 		);
 		secondaryContainer.innerHTML = "";
-		secondaryContainer.appendChild(clonedFragment);
+		secondaryContainer.appendChild(secondaryClone);
+
+		animateScroll();
 	}
 
 	/**
@@ -75,8 +78,8 @@ export default class App {
 	 * @returns {void}
 	 */
 	renderTaskCount() {
-		let completedTasksCount = this.userList.tasksCompleted;
-		let totalTasksCount = this.userList.totalTasks;
+		let completedTasksCount = this.#tasksCompleted;
+		let totalTasksCount = this.#totalTasks;
 		const totalTasksElement = document.querySelector(".task-count");
 		totalTasksElement.innerText = `${completedTasksCount}/${totalTasksCount}`;
 	}
@@ -106,17 +109,22 @@ export default class App {
 			if (isMod(flags)) {
 				if (adminConfig.commands.clearList.includes(command)) {
 					this.userList.clearUserList();
+					this.clearListFromDOM();
 					template = adminConfig.responseTo[languageCode].clearList;
 					return respondMessage(template, username, responseDetail);
 				}
 				if (adminConfig.commands.clearDone.includes(command)) {
-					this.userList.clearDoneTasks();
+					const tasks = this.userList.clearDoneTasks();
+					tasks.forEach(({ id }) => {
+						this.deleteTaskFromDOM(id);
+					});
 					template = adminConfig.responseTo[languageCode].clearDone;
 					return respondMessage(template, username, responseDetail);
 				}
 				if (adminConfig.commands.clearUser.includes(command)) {
-					this.userList.deleteUser(message);
-					responseDetail = message;
+					const user = this.userList.deleteUser(message);
+					this.deleteUserFromDOM(user);
+					responseDetail = user.username;
 					template = adminConfig.responseTo[languageCode].clearUser;
 					return respondMessage(template, username, responseDetail);
 				}
@@ -147,7 +155,7 @@ export default class App {
 						taskDescriptions
 					);
 					tasks.forEach((task) => {
-						this.addTaskToDOM(username, task);
+						this.addTaskToDOM(user, task);
 					});
 					responseDetail = message;
 					template = userConfig.responseTo[languageCode].addTask;
@@ -167,7 +175,7 @@ export default class App {
 					parseTaskIndex(taskNumber),
 					newDescription
 				);
-				this.updateTaskFromDOM(username, task);
+				this.editTaskFromDOM(task);
 				responseDetail = taskNumber;
 				template = userConfig.responseTo[languageCode].editTask;
 			} else if (userConfig.commands.finishTask.includes(command)) {
@@ -178,7 +186,7 @@ export default class App {
 					indices
 				);
 				tasks.forEach(({ id }) => {
-					this.completeTaskFromDOM(username, id);
+					this.completeTaskFromDOM(id);
 				});
 				responseDetail = message;
 				template = userConfig.responseTo[languageCode].finishTask;
@@ -189,7 +197,7 @@ export default class App {
 					.map((i) => parseTaskIndex(i));
 				const tasks = this.userList.deleteUserTasks(username, indices);
 				tasks.forEach(({ id }) => {
-					this.deleteTaskFromDOM(username, id);
+					this.deleteTaskFromDOM(id);
 				});
 				responseDetail = tasks
 					.map((task) => task.description)
@@ -218,6 +226,7 @@ export default class App {
 
 			return respondMessage(template, username, responseDetail);
 		} catch (error) {
+			console.log(error);
 			return respondMessage(
 				userConfig.responseTo[languageCode].invalidCommand,
 				username,
@@ -227,64 +236,133 @@ export default class App {
 		}
 	}
 
-	/**
-	 * Add the task to the DOM
-	 * @param {string} username
-	 * @param {{description: string, id: string}} task
-	 * @returns {void}
-	 */
-	addTaskToDOM(username, task) {
-		const userElement = document.querySelector(`data-user="${username}"`);
-		const taskElement = document.createElement("li");
-		taskElement.classList.add("task");
-		taskElement.dataset.taskId = `${username}-${task.id}`;
-		taskElement.innerText = task.description;
-		userElement.querySelector(".tasks").appendChild(taskElement);
-		this.totalTasks++;
+	clearListFromDOM() {
+		const primaryContainer = document.querySelector(
+			".task-container.primary"
+		);
+		const secondaryContainer = document.querySelector(
+			".task-container.secondary"
+		);
+		primaryContainer.innerHTML = "";
+		secondaryContainer.innerHTML = "";
+		this.#tasksCompleted = 0;
+		this.#totalTasks = 0;
 		this.renderTaskCount();
 	}
 
 	/**
-	 * Edit the task in the DOM
-	 * @param {string} username
+	 * Add the task to the DOM
+	 * @param {User} user
 	 * @param {{description: string, id: string}} task
 	 * @returns {void}
 	 */
-	updateTaskFromDOM(username, task) {
-		const taskElement = document.querySelector(
-			`data-task-id="${username}-${task.id}"`
+	addTaskToDOM(user, task) {
+		const primaryContainer = document.querySelector(
+			".task-container.primary"
 		);
+		const secondaryContainer = document.querySelector(
+			".task-container.secondary"
+		);
+		const userCardEls = document.querySelectorAll(
+			`[data-user="${user.username}"]`
+		);
+		if (userCardEls.length === 0) {
+			const userCard = createUserCard(user);
+			const clonedUserCard = userCard.cloneNode(true);
+			primaryContainer.appendChild(userCard);
+			secondaryContainer.appendChild(clonedUserCard);
+		}
+		const taskElement = document.createElement("li");
+		taskElement.classList.add("task");
+		taskElement.dataset.taskId = `${task.id}`;
 		taskElement.innerText = task.description;
+		const cloneTaskElement = taskElement.cloneNode(true);
+
+		primaryContainer
+			.querySelector(`[data-user="${user.username}"] .tasks`)
+			.appendChild(taskElement);
+		secondaryContainer
+			.querySelector(`[data-user="${user.username}"] .tasks`)
+			.appendChild(cloneTaskElement);
+
+		this.#totalTasks++;
+		this.renderTaskCount();
+		animateScroll();
+	}
+
+	/**
+	 * Edit the task description in the DOM
+	 * @param {{description: string, id: string}} task
+	 * @returns {void}
+	 */
+	editTaskFromDOM(task) {
+		const taskElements = document.querySelectorAll(
+			`[data-task-id="${task.id}"]`
+		);
+		for (const taskElement of taskElements) {
+			taskElement.innerText = task.description;
+		}
 	}
 
 	/**
 	 * Complete the task in the DOM
-	 * @param {string} username
 	 * @param {string} taskId
 	 * @returns {void}
 	 */
-	completeTaskFromDOM(username, taskId) {
-		const taskElement = document.querySelector(
-			`data-task-id="${username}-${taskId}"`
+	completeTaskFromDOM(taskId) {
+		const taskElements = document.querySelectorAll(
+			`[data-task-id="${taskId}"]`
 		);
-		taskElement.classList.add("done");
-		this.tasksCompleted++;
+		for (const taskElement of taskElements) {
+			taskElement.classList.add("done");
+		}
+		this.#tasksCompleted++;
 		this.renderTaskCount();
 	}
 
 	/**
 	 * Delete the task in the DOM
-	 * @param {string} username
 	 * @param {string} taskId
 	 * @returns {void}
 	 */
-	deleteTaskFromDOM(username, taskId) {
-		const taskElement = document.querySelector(
-			`data-task-id="${username}-${taskId}"`
+	deleteTaskFromDOM(taskId) {
+		const taskElements = document.querySelectorAll(
+			`[data-task-id="${taskId}"]`
 		);
-		taskElement.remove();
-		this.totalTasks--;
-		this.tasksCompleted--;
+		for (const taskElement of taskElements) {
+			if (taskElement.parentElement.children.length === 1) {
+				// remove the user card if there is only one task
+				taskElement.parentElement.parentElement.remove();
+			} else {
+				taskElement.remove();
+			}
+		}
+		this.#totalTasks--;
+		this.#tasksCompleted--;
+		this.renderTaskCount();
+	}
+
+	/**
+	 * Delete the user in the DOM
+	 * @param {User} user
+	 * @returns {void}
+	 * @private
+	 */
+	deleteUserFromDOM(user) {
+		// remove user card and reduce total tasks count
+		const { username, tasks } = user;
+		const userCardEls = document.querySelectorAll(
+			`[data-user="${username}"]`
+		);
+		for (let card of userCardEls) {
+			card.remove();
+		}
+		tasks.forEach((t) => {
+			if (t.isComplete()) {
+				this.#tasksCompleted--;
+			}
+			this.#totalTasks--;
+		});
 		this.renderTaskCount();
 	}
 }
@@ -323,4 +401,26 @@ function isMod(flags) {
  */
 function parseTaskIndex(index) {
 	return parseInt(index, 10) - 1;
+}
+
+/**
+ * Create a user card element
+ * @param {{username: string, userColor: string}}
+ * @returns {HTMLDivElement}
+ */
+function createUserCard({ username, userColor }) {
+	const cardEl = document.createElement("div");
+	cardEl.classList.add("card");
+	cardEl.dataset.user = username;
+	const userNameDiv = document.createElement("div");
+	userNameDiv.classList.add("username");
+	userNameDiv.innerText = username;
+	userNameDiv.style.color = window.configs.settings.showUsernameColor
+		? userColor
+		: "";
+	cardEl.appendChild(userNameDiv);
+	const list = document.createElement("ol");
+	list.classList.add("tasks");
+	cardEl.appendChild(list);
+	return cardEl;
 }

@@ -2,6 +2,7 @@
 let primaryAnimation;
 /** @type {Animation} */
 let secondaryAnimation;
+let isScrolling = false;
 
 /**
  * Animates the scroll of the task list
@@ -18,16 +19,12 @@ export function animateScroll() {
 		".task-container.secondary"
 	);
 
-	// hide 2nd container & cancel animation OR show it & play animation
-	if (containerHeight < wrapperHeight) {
-		containerSecondary.style.display = "none";
-		cancelAnimation();
-	} else {
+	if (containerHeight > wrapperHeight && !isScrolling) {
 		containerSecondary.style.display = "flex";
 		const scrollSpeed = configs.settings.scrollSpeed;
 		let parsedSpeed = parseInt(scrollSpeed, 10);
 		let duration = (containerHeight / parsedSpeed) * 1000;
-		let options = {
+		let animationOptions = {
 			duration: duration,
 			iterations: 1,
 			easing: "linear",
@@ -46,13 +43,20 @@ export function animateScroll() {
 			{ transform: `translateY(-${adjustedHight}px)` },
 		];
 		// store and apply animations
-		primaryAnimation = containerPrimary.animate(primaryKeyFrames, options);
+		primaryAnimation = containerPrimary.animate(
+			primaryKeyFrames,
+			animationOptions
+		);
 		secondaryAnimation = containerSecondary.animate(
 			secondaryKeyFrames,
-			options
+			animationOptions
 		);
 
+		isScrolling = true;
 		addAnimationListeners();
+	} else if (containerHeight <= wrapperHeight) {
+		containerSecondary.style.display = "none";
+		cancelAnimation();
 	}
 }
 
@@ -63,6 +67,7 @@ function cancelAnimation() {
 	if (secondaryAnimation) {
 		secondaryAnimation.cancel();
 	}
+	isScrolling = false;
 }
 
 function addAnimationListeners() {
@@ -73,5 +78,6 @@ function addAnimationListeners() {
 }
 
 function animationFinished() {
+	isScrolling = false;
 	animateScroll();
 }

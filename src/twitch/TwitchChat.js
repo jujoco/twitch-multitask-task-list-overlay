@@ -65,10 +65,7 @@ export default class TwitchChat extends EventEmitter {
 	 */
 	say(message, messageId) {
 		if (this.#ws.readyState === WebSocket.OPEN) {
-			let reply = "";
-			if (messageId) {
-				reply = messageId ? `@reply-parent-msg-id=${messageId}` : "";
-			}
+			let reply = messageId ? `@reply-parent-msg-id=${messageId}` : "";
 			const fullMessage = [reply, "PRIVMSG", this.channel, `:${message}`]
 				.join(" ")
 				.trim();
