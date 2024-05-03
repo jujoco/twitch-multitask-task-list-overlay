@@ -4,6 +4,8 @@ import Task from "./Task.js";
 /**
  * @class UserList
  * @property {User[]} users
+ * @property {number} tasksCompleted
+ * @property {number} totalTasks
  * @method getUser - Get the user at the specified index
  * @method getAllUsers - Get all users
  * @method createUser - Create a new user
@@ -25,6 +27,8 @@ export default class UserList {
 	 */
 	constructor(localStoreName = "userList") {
 		this.#localStoreName = localStoreName;
+		this.tasksCompleted = 0;
+		this.totalTasks = 0;
 		this.users = this.#loadUserListFromLocalStorage();
 	}
 
@@ -45,8 +49,10 @@ export default class UserList {
 					const newTask = user.addTask(
 						new Task(task.description, task.id)
 					);
+					this.totalTasks++;
 					if (task.completionStatus) {
 						newTask.setCompletionStatus(task.completionStatus);
+						this.tasksCompleted++;
 					}
 				});
 				return user;
@@ -120,8 +126,8 @@ export default class UserList {
 		const tasks = [];
 		descriptions.forEach((taskDesc) => {
 			tasks.push(user.addTask(new Task(taskDesc)));
+			this.totalTasks++;
 		});
-
 		this.#commitToLocalStorage();
 		return tasks;
 	}
@@ -157,7 +163,14 @@ export default class UserList {
 			throw new Error(`${username} has no tasks`);
 		}
 		const items = [].concat(indices);
-		const tasks = items.map((i) => user.completeTask(i));
+		const tasks = items.map((i) => {
+			const task = user.getTask(i);
+			if (!task.isComplete()) {
+				task.setCompletionStatus(true);
+				this.tasksCompleted++;
+			}
+			return task;
+		});
 		this.#commitToLocalStorage();
 		return tasks;
 	}
@@ -176,25 +189,33 @@ export default class UserList {
 		}
 		const items = [].concat(indices);
 		const tasks = user.deleteTask(items);
+		this.decreaseTaskCount(tasks);
 		this.#commitToLocalStorage();
 		return tasks;
 	}
 
 	/**
-	 * Get incomplete tasks from a user
+	 * Get tasks specified by status of a user
 	 * @param {string} username - The username of the user
+	 * @param {string} status - The completion status of the task
 	 * @throws {Error} If the user has no tasks
-	 * @returns {string[]} The incomplete tasks of the user
+	 * @returns {Map<number, Task>} The tasks specified by status
 	 */
-	checkUserTasks(username) {
+	checkUserTasks(username, status = "incomplete") {
 		const user = this.getUser(username);
 		if (!user) {
 			throw new Error(`${username} has no tasks`);
 		}
-		return user
-			.getTasks()
-			.filter((task) => !task.isComplete())
-			.map((task) => task.description);
+		const map = new Map();
+		user.getTasks().forEach((task, i) => {
+			if (status === "incomplete" && !task.isComplete()) {
+				map.set(i, task);
+			}
+			if (status === "complete" && task.isComplete()) {
+				map.set(i, task);
+			}
+		});
+		return map;
 	}
 
 	/**
@@ -203,6 +224,8 @@ export default class UserList {
 	 */
 	clearUserList() {
 		this.users = [];
+		this.tasksCompleted = 0;
+		this.totalTasks = 0;
 		this.#commitToLocalStorage();
 	}
 
@@ -214,6 +237,7 @@ export default class UserList {
 		let tasks = [];
 		this.users.forEach((user) => {
 			let removedTasks = user.removeCompletedTasks();
+			this.decreaseTaskCount(removedTasks);
 			tasks = tasks.concat(removedTasks);
 		});
 		this.#commitToLocalStorage();
@@ -234,8 +258,23 @@ export default class UserList {
 			throw new Error(`${username} not found`);
 		}
 		const user = this.users[userIndex];
-		this.users.splice(userIndex, 1);
+		const deletedUser = this.users.splice(userIndex, 1)[0];
+		this.decreaseTaskCount(deletedUser.getTasks());
 		this.#commitToLocalStorage();
 		return user;
+	}
+
+	/**
+	 * Adjust the task count
+	 * @param {Task[]} removedTasks - The tasks to remove
+	 * @returns {void}
+	 */
+	decreaseTaskCount(removedTasks) {
+		removedTasks.forEach((t) => {
+			if (t.isComplete()) {
+				this.tasksCompleted--;
+			}
+			this.totalTasks--;
+		});
 	}
 }

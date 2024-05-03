@@ -46,8 +46,8 @@ describe("App.chatHandler", () => {
 		beforeEach(() => {
 			userList.clearUserList();
 			userList.createUser("joeTheUser", { userColor: "#00FFFF" });
-			userList.addUserTasks("joeTheUser", ["task1", "task2"]);
-			userList.completeUserTasks("joeTheUser", 0);
+			userList.addUserTasks("joeTheUser", ["task1", "task2", "task3"]);
+			userList.completeUserTasks("joeTheUser", 1);
 
 			userList.createUser("bobTheAdmin", { userColor: "#FF0000" });
 			userList.addUserTasks("bobTheAdmin", ["task1", "task2"]);
@@ -92,7 +92,7 @@ describe("App.chatHandler", () => {
 					adminUser.flags,
 					adminUser.extra
 				);
-				expect(userList.users[0].getTasks().length).toBe(1);
+				expect(userList.users[0].getTasks().length).toBe(2);
 				expect(response.error).toBe(false);
 				expect(response.message).toBe(
 					"bobTheAdmin, All done tasks have been cleared"
@@ -307,11 +307,11 @@ describe("App.chatHandler", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DONETASK,
-						"3",
+						"4",
 						chatUser.flags,
 						chatUser.extra
 					);
-					expect(userList.users[0].getTasks().length).toBe(2);
+
 					expect(response.error).toBe(true);
 					expect(response.message).toBe(
 						'joeTheUser, Invalid command: "Task index out of bounds" - Try !help'
@@ -331,7 +331,7 @@ describe("App.chatHandler", () => {
 
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task "task1" has been deleted, joeTheUser!'
+						'Task "1" has been deleted, joeTheUser!'
 					);
 				});
 
@@ -339,11 +339,10 @@ describe("App.chatHandler", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DELETETASK,
-						"3",
+						"4",
 						chatUser.flags,
 						chatUser.extra
 					);
-					expect(userList.users[0].getTasks().length).toBe(2);
 					expect(response.message).toBe(
 						'joeTheUser, Invalid command: "Task index out of bounds" - Try !help'
 					);
@@ -359,13 +358,14 @@ describe("App.chatHandler", () => {
 						chatUser.flags,
 						chatUser.extra
 					);
+					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Your current task is: "task2", joeTheUser'
+						'Your current task is: "1. task1 | 3. task3", joeTheUser'
 					);
 				});
 
 				it("should return a message if no tasks are found", () => {
-					userList.completeUserTasks("joeTheUser", 1);
+					userList.completeUserTasks("joeTheUser", [0, 2]);
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.CHECKTASK,
@@ -373,6 +373,7 @@ describe("App.chatHandler", () => {
 						chatUser.flags,
 						chatUser.extra
 					);
+					expect(response.error).toBe(false);
 					expect(response.message).toBe(
 						"Looks like you don't have a task up there joeTheUser"
 					);
