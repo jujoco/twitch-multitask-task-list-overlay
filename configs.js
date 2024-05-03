@@ -122,9 +122,9 @@ window.configs = {
 				editTask: 'Task "{message}" updated, {user}!',
 				finishTask:
 					'Good job on completing task(s) "{message}" {user}!',
-				deleteTask: 'Task "{message}" has been deleted, {user}!',
+				deleteTask: 'Task(s) "{message}" has been deleted, {user}!',
 				check: 'Your current task is: "{message}", {user}',
-				help: "Try using these commands - !add !edit !done !delete",
+				help: "Try using these commands - !add !edit !done !delete, !check",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
