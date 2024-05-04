@@ -1,6 +1,6 @@
 # Twitch Chatbot Multitask Task List Overlay
 
-<img src="./images/stream-sample.png" width="990" height="540">
+<img src="./images/stream-sample.png">
 <br >
 <img src="./images/customize-sample.png">
 
