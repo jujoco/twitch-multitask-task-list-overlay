@@ -77,29 +77,24 @@ window.configs = {
 		},
 		responseTo: {
 			EN: {
-				clearList: "{user}, All tasks have been cleared",
-				clearDone: "{user}, All done tasks have been cleared",
-				clearUser: "{user}, All tasks for {message} have been cleared",
+				clearList: "All tasks have been cleared",
+				clearDone: "All done tasks have been cleared",
+				clearUser: "All tasks for {message} have been cleared",
 			},
 			ES: {
-				clearList: "{user}, Todas las tareas han sido eliminadas",
-				clearDone:
-					"{user}, Todas las tareas terminadas han sido eliminadas",
-				clearUser:
-					"{user}, Todas las tareas de {message} han sido eliminadas",
+				clearList: "Todas las tareas han sido eliminadas",
+				clearDone: "Todas las tareas completadas han sido eliminadas",
+				clearUser: "Todas las tareas de {message} han sido eliminadas",
 			},
 			FR: {
-				clearList: "{user}, Toutes les tâches ont été effacées",
-				clearDone:
-					"{user}, Toutes les tâches terminées ont été effacées",
-				clearUser:
-					"{user}, Toutes les tâches de {message} ont été effacées",
+				clearList: "Toutes les tâches ont été effacées",
+				clearDone: "Toutes les tâches terminées ont été effacées",
+				clearUser: "Toutes les tâches de {message} ont été effacées",
 			},
 			JP: {
-				clearList: "{user}, すべてのタスクがクリアされました",
-				clearDone: "{user}, 完了したすべてのタスクがクリアされました",
-				clearUser:
-					"{user}, {message} のすべてのタスクがクリアされました",
+				clearList: "すべてのタスクがクリアされました",
+				clearDone: "完了したすべてのタスクがクリアされました",
+				clearUser: "{message} のすべてのタスクがクリアされました",
 			},
 		},
 	},
@@ -119,66 +114,67 @@ window.configs = {
 		},
 		responseTo: {
 			EN: {
-				addTask: 'Task(s) "{message}" added, {user}!',
-				editTask: 'Task "{message}" updated, {user}!',
-				finishTask:
-					'Good job on completing task(s) "{message}" {user}!',
-				deleteTask: 'Task(s) "{message}" has been deleted, {user}!',
-				check: 'Your current task is: "{message}", {user}',
+				addTask: 'Task(s) "{message}" added!',
+				editTask: 'Task "{message}" updated!',
+				finishTask: 'Good job on completing task(s) "{message}"!',
+				deleteTask: 'Task(s) "{message}" has been deleted!',
+				check: 'Your current task(s) are: "{message}"',
 				help: "Try using these commands - !add !edit !done !delete, !check",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"{user}, maximum number of tasks reached, try removing some first.",
-				noTaskFound: "Looks like you don't have a task up there {user}",
-				invalidCommand: "{user}, Invalid command: {message}. Try !help",
+					"Maximum number of tasks reached, try deleting old tasks.",
+				noTaskFound:
+					"Looks like you don't have a task up there, try adding one!",
+				invalidCommand: "Invalid command: {message}. Try !help",
 			},
 			ES: {
-				addTask: 'La tarea "{message}" ha sido añadida, {user}!',
-				editTask: 'Tarea actualizada a "{message}", {user}!',
-				finishTask: '¡Buen trabajo al terminar "{message}" {user}!',
-				deleteTask: 'La tarea "{message}" ha sido eliminada, {user}!',
-				check: 'Tu tarea actual es: "{message}", {user}',
-				help: "Prueba a usar estos comandos - !add !edit !done !delete",
+				addTask: 'Tarea(s) "{message}" añadida(s)!',
+				editTask: 'Tarea "{message}" actualizada!',
+				finishTask:
+					'¡Buen trabajo completando la(s) tarea(s) "{message}"!',
+				deleteTask: 'La(s) tarea(s) "{message}" ha sido eliminada(s)!',
+				check: 'Tus tareas actuales son: "{message}"',
+				help: "Prueba a usar estos comandos - !add !edit !done !delete, !check",
 				additional:
-					"Jujoco es el creador de este bot, mira su Twitch en: https://www.twitch.tv/JujocoCS",
+					"Jujoco es el creador de este bot, visita su Twitch en: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"Parece que has alcanzado el máximo de tareas {user}, intenta eliminar tareas antiguas",
-				noTaskFound: "Parece que no tienes una tarea ahí arriba {user}",
-				invalidCommand:
-					"{user}, Comando inválido: {message}. ¡Intenta !help",
+					"Número máximo de tareas alcanzado, intenta eliminar tareas antiguas.",
+				noTaskFound:
+					"Parece que no tienes ninguna tarea, ¡intenta añadir una!",
+				invalidCommand: "Comando inválido: {message}. Prueba !help",
 			},
 			FR: {
-				addTask: 'Tâche "{message}" a été ajoutée, {user}!',
-				editTask: 'Tâche mise à jour en "{message}", {user}!',
+				addTask: 'Tâche(s) "{message}" ajoutée(s)!',
+				editTask: 'Tâche "{message}" mise à jour!',
 				finishTask:
-					'Bon travail pour avoir terminé "{message}" {user}!',
-				deleteTask: 'La tâche "{message}" a été supprimée, {user}!',
-				check: 'Votre tâche actuelle est : "{message}", {user}',
-				help: "Essayez d'utiliser ces commandes - !add !edit !done !delete",
+					'Bon travail pour avoir terminé la tâche "{message}"!',
+				deleteTask: 'La tâche "{message}" a été supprimée!',
+				check: 'Vos tâches actuelles sont: "{message}"',
+				help: "Essayez d'utiliser ces commandes - !add !edit !done !delete, !check",
 				additional:
 					"Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"Vous avez atteint le nombre maximal de tâches {user}, essayez de supprimer les anciennes tâches",
+					"Nombre maximum de tâches atteint, essayez de supprimer les anciennes tâches.",
 				noTaskFound:
-					"On dirait que vous n'avez pas de tâche là-haut {user}",
-				invalidCommand:
-					"{user}, Commande invalide: {message}. Essayez !help",
+					"Vous n'avez pas de tâche, essayez d'en ajouter une!",
+				invalidCommand: "Commande invalide: {message}. Essayez !help",
 			},
 			JP: {
-				addTask: "タスク「{message}」が追加されました、{user}!",
-				editTask: "タスクが「{message}」に更新されました、{user}!",
-				finishTask: "「{message}」を終了してよくやった、{user}!",
-				deleteTask: "タスク「{message}」が削除されました、{user}!",
-				check: "現在のタスクは「{message}」です、{user}",
-				help: "これらのコマンドを試してみてください - !add !edit !done !delete",
+				addTask: 'タスク "{message}" が追加されました!',
+				editTask: 'タスク "{message}" が更新されました!',
+				finishTask: 'タスク "{message}" を完了しました!',
+				deleteTask: 'タスク "{message}" が削除されました!',
+				check: '現在のタスクは "{message}" です',
+				help: "これらのコマンドを試してみてください - !add !edit !done !delete, !check",
 				additional:
-					"このボットの作成者はJujocoです、彼のTwitchは: https://www.twitch.tv/JujocoCS",
+					"Jujoco はこのボットの作成者です、彼の Twitch をチェックしてください: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
-					"最大タスク数に達しました {user}、古いタスクを削除してみてください",
-				noTaskFound: "上にタスクがないようです {user}",
+					"最大タスク数に達しました、古いタスクを削除してみてください。",
+				noTaskFound:
+					"タスクが見つかりません、タスクを追加してみてください!",
 				invalidCommand:
-					"{user}、無効なコマンド: {message}。!help を試してみてください",
+					"無効なコマンド: {message}。!help を試してみてください",
 			},
 		},
 	},
