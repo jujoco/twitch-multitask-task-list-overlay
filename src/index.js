@@ -28,7 +28,7 @@ window.addEventListener("load", () => {
 		if (!response.error) {
 			client.say(response.message, extra.messageId);
 		} else {
-			// these error logs get sent to OBS logs
+			// error logs also are added to OBS logs
 			console.error(response.message);
 		}
 	});
