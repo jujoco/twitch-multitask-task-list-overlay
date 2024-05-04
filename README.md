@@ -224,4 +224,4 @@ For aliases, see [here](#aliases)
 
 **Author:** [**@JujocoCS**](https://twitch.tv/JujocoCS)
 
-**Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev) & [**@MohFocus**](https://twitch.tv/MohFocus)
+**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev) & [**@JPStudyTime**](https://twitch.tv/JPStudyTime) & [**@MohFocus**](https://twitch.tv/MohFocus)
