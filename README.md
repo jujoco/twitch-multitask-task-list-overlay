@@ -12,7 +12,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This bot
 -   Free to use
 -   Easy setup
 -   Easy to customize
--   Fast performance
+-   Fast performance & super lightweight (16.98 kB bundle size)
 -   No coding required
 -   Customizable Multi-language support
 -   No third-party database required
