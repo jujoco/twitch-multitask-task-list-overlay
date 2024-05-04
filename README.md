@@ -1,6 +1,6 @@
 # Twitch Chatbot Multitask Task List Overlay
 
-<img src="./images/preview.png" width="530" height="660">
+<img src="./images/preview.png" width="350" height="460">
 
 ## What and Why?
 
@@ -56,100 +56,121 @@ Open the `configs.js` file and modify the following settings to customized the T
 
 1. Get auth token from https://twitchapps.com/tmi
 2. open `configs.js` file
-3. Replace `OAUTH_HERE` with your token
-4. Replace `CHANNEL_HERE` with your channel name
-5. Replace `USERNAME_HERE` with your username — in most cases it is the same as your channel name.
+3. Replace `OAUTHTOKEN` with your token
+4. Replace `CHANNEL` with your channel name
+5. Replace `USERNAME` with your username — in most cases it is the same as your channel name.
 
 ```js
-twitch_oauth = "OAUTH_HERE";
-twitch_channel = "CHANNEL_HERE",
-twitch_username = "USERNAME_HERE",
+twitch_oauth = "OAUTHTOKEN";
+twitch_channel = "CHANNEL",
+twitch_username = "USERNAME",
 ```
 
 ### Behavior Settings
 
-`languageCode`: default **EN**
+`languageCode`: Default = **"EN"**
 
--   **EN**: English translation
--   **ES**: Spanish translation
--   **FR**: French translation
--   **JP**: Japanese translation
+-   **"EN"**: English translation
+-   **"ES"**: Spanish translation
+-   **"FR"**: French translation
+-   **"JP"**: Japanese translation
 
-`maxTasksPerUser`: default **5**
+`maxTasksPerUser`: Default = **5**
 
 -   **number**: A value between 1 - 10.
 
-`scrollSpeed`: default **50**
+`scrollSpeed`: Default = **50**
 
 -   **number**: A value between 1 - 100.
 
-`showUsernameColor`: default **true**
+`showUsernameColor`: Default = **true**
 
 -   **true**: will shows the user's twitch chat color
 -   **false**: will show the color you set in the `username-color` style
 
-`testMode`: default **false**
+`testMode`: Default = **false**
 
 -   **false**: turn OFF test mode.
 -   **true**: turn ON test mode.
 
+Use this to test the bot without affecting the real task list and visually see the style changes you make. When test mode is OFF, the bot will work as normal and remove any test tasks.
+
 ### Styles Settings
+
+The following settings are for styling the TaskBot. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
 
 **Font Family** - selection available @ https://fonts.google.com
 
--   headerFontFamily: "Roboto Mono",
--   cardFontFamily: "Roboto Mono",
+-   headerFontFamily: "Roboto Mono"
+-   cardFontFamily: "Roboto Mono"
 
 **App Styles**
 
--   appBorderRadius:
--   appPadding
--   appBackgroundImage
--   appBackgroundColor
+-   appBorderRadius: Default = **"5px"**
+-   appPadding: Default = **"8px"**
+-   appBackgroundImage: Default = **"url(../images/transparent-image.png)"**
+-   appBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
 
 **Header Styles**
 
--   headerBorderRadius
--   headerMarginBottom
--   headerBackgroundColor
--   headerFontSize
--   headerFontColor
--   headerFontWeight
+-   headerDisplay: Default = **"flex"**
+-   headerBorderRadius: Default = **"6px"**
+-   headerMarginBottom: Default = **"6px"**
+-   headerBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
+-   headerFontSize: Default = **"20px"**
+-   headerFontColor: Default = **"#FFFFFF"**
+-   headerFontWeight: Default = **"normal"**
 
 **Body Styles**
 
--   bodyBackgroundColor
+-   bodyBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
 
 **Card Styles**
 
--   cardGapBetween
--   cardBorderRadius
--   cardBackgroundColor
+-   cardGapBetween: Default = **"6px"**
+-   cardBorderRadius: Default = **"6px"**
+-   cardBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
 
 **Username Styles**
 
--   usernameFontSize
--   usernameColor
--   usernameFontWeight
+-   usernameFontSize: Default = **"18px"**
+-   usernameColor: Default = **"#FFFFFF"**
+-   usernameFontWeight: Default = **"normal"**
 
 **Task Styles**
 
--   taskFontSize
--   taskFontColor
--   taskFontWeight
--   taskDoneFontColor
--   taskDoneFontStyle
--   taskDoneTextDecoration
+-   taskFontSize: Default = **"16px"**
+-   taskFontColor: Default = **"#FFFFFF"**
+-   taskFontWeight: Default = **"normal"**
+-   taskDoneFontColor: Default = **"#aaaaaa"**
+-   taskDoneFontStyle: Default = **"#italic"**
+-   taskDoneTextDecoration: Default = **"none"**
 
 ## Commands
 
 ### Commands for Everyone
 
--   `!task` \<task\>, \<task\> - Add task(s) (multiple tasks must be separated by a comma)
--   `!edit` \<number\> \<updatedTask\> - Edit a single task
--   `!done` \<number\>, \<number> - Mark task(s) as done (multiple tasks must be separated by a comma)
--   `!delete` \<number\>, \<number> - Delete task(s) (multiple tasks must be separated by a comma)
--   `!check` - Check your unfinished tasks
+-   `!task` - Add task(s) (multiple tasks must be separated by a comma)
+
+    -   example: `!task read ch. 3`
+    -   example: `!task prep for exam, walk dog`
+
+-   `!edit` - Edit a single task
+
+    -   example: `!edit 1 read ch. 4`
+    -   example: `!edit 2 walk cat`
+
+-   `!done` - Mark task(s) as done (multiple tasks must be separated by a comma)
+
+    -   example: `!done 1`
+    -   example: `!done 2, 3`
+
+-   `!delete` - Delete task(s) (multiple tasks must be separated by a comma)
+
+    -   example: `!delete 1`
+    -   example: `!delete 2, 3`
+
+-   `!check` - Check your remaining tasks
 
 ### Commands for Broadcasters and Moderators
 
@@ -165,10 +186,10 @@ For aliases, see [here](#aliases)
 
 **add task commands:**
 
--   `!addtask`
--   `!add`
 -   `!task`
+-   `!add`
 -   `!taskadd`
+-   `!addtask`
 
 **edit task commands:**
 

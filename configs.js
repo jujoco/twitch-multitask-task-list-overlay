@@ -1,20 +1,21 @@
 window.configs = {
 	// ========================================
 	// Authentication and channel - Required
-	// Get your oauth token from https://twitchapps.com/tmi
+	// Before you start modifying these settings,
+	// get your oauth token from https://twitchapps.com/tmi
 	// ========================================
 	auth: {
+		twitch_oauth: "OAUTHTOKEN", // Replace OAUTHTOKEN with your Twitch oauth token
 		twitch_channel: "CHANNEL", // Replace CHANNEL with a Twitch channel name
 		twitch_username: "USERNAME", // Replace USERNAME with your Twitch username
-		twitch_oauth: "OAUTHTOKEN", // Replace OAUTHTOKEN with your Twitch oauth token
 	},
 	// ========================================
 	// Bot Behavior Settings
 	// ========================================
 	settings: {
 		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
-		maxTasksPerUser: 5, // default 5
-		scrollSpeed: 50, // default 50
+		maxTasksPerUser: 5, // default number 5
+		scrollSpeed: 50, // default number 50
 		showUsernameColor: true, // true or false
 		testMode: false, // true or false - for testing purposes
 	},
@@ -31,7 +32,7 @@ window.configs = {
 		appBorderRadius: "5px", // px value
 		appPadding: "8px", // px value
 		appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
-		appBackgroundColor: "rgba(130, 130, 130, 0)", // rgba or hex value https://rgbcolorpicker.com
+		appBackgroundColor: "rgba(0, 0, 0, 0)", // rgba or hex value https://rgbcolorpicker.com
 
 		//  Header Styles
 		headerDisplay: "flex", // "none" to hide header or "flex" to show header
@@ -48,7 +49,7 @@ window.configs = {
 		// Card Styles
 		cardGapBetween: "6px", // px value
 		cardBorderRadius: "6px", // px value
-		cardBackgroundColor: "rgba(45, 45, 45, 0.6)", // rgba or hex value https://rgbcolorpicker.com/
+		cardBackgroundColor: "rgba(45, 45, 45, 0.7)", // rgba or hex value https://rgbcolorpicker.com/
 
 		// Username Styles
 		usernameFontSize: "18px", // px value
@@ -60,7 +61,7 @@ window.configs = {
 		taskFontColor: "#FFFFFF", // hex value
 		taskFontWeight: "normal", // "normal", "lighter", "bold"
 
-		taskDoneFontColor: "#aaaaaa", // hex value
+		taskDoneFontColor: "#b0b0b0", // hex value
 		taskDoneFontStyle: "italic", // "italic" or "normal"
 		taskDoneTextDecoration: "none", // "line-through" or "none"
 	},
