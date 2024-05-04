@@ -1,17 +1,23 @@
 /**
- * @typedef {object} ParsedMessage
- * @property {object} command
- * @property {object} source
- * @property {object} tags
- * @property {string} parameters
+ * @typedef {object} parsedMessage
+ * @property {object | null} command
+ * @property {object | null} source
+ * @property {object | null} tags
+ * @property {string | null} parameters
  */
 
 /**
  * Parses an IRC message and returns a parsed object containing the message's component parts.
  * @param {string} message
- * @returns {ParsedMessage | null}
+ * @returns {parsedMessage | null}
  */
 export function parseIRCMessage(message) {
+	const parsedMessage = {
+		command: null,
+		parameters: null,
+		source: null,
+		tags: null,
+	};
 	let idx = 0;
 	let rawTagsComponent = null;
 	let rawSourceComponent = null;
@@ -50,12 +56,6 @@ export function parseIRCMessage(message) {
 		rawParametersComponent = message.slice(idx);
 	}
 
-	let parsedMessage = {
-		command: null,
-		parameters: null,
-		source: null,
-		tags: null,
-	};
 	// Parse the command component of the IRC message.
 	parsedMessage.command = parseCommand(rawCommandComponent);
 
@@ -124,15 +124,13 @@ function parseCommand(rawCommandComponent) {
 			};
 			break;
 		case "RECONNECT":
-			console.log(
-				"The Twitch IRC server is about to terminate the connection for maintenance."
-			);
+			// "The Twitch server is about to terminate the connection for maintenance."
 			parsedCommand = {
 				command: commandParts[0],
 			};
 			break;
 		case "421":
-			console.log(`Unsupported IRC command: ${commandParts[2]}`);
+			console.error(`Unsupported IRC command: ${commandParts[2]}`);
 			return null;
 		case "001":
 			parsedCommand = {
@@ -144,8 +142,8 @@ function parseCommand(rawCommandComponent) {
 		case "004":
 		case "353":
 		case "366":
-		case "375":
 		case "372":
+		case "375":
 		case "376":
 			// console.log(`numeric message: ${commandParts[0]}`);
 			return null;
@@ -246,7 +244,7 @@ function parseTags(tags) {
 /**
  * Parses the source (nick and host) components of the IRC message.
  * @param {string} rawSourceComponent
- * @returns {object}
+ * @returns {object | null}
  */
 function parseSource(rawSourceComponent) {
 	if (null == rawSourceComponent) {
