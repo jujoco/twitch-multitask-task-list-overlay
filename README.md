@@ -81,7 +81,7 @@ twitch_username = "USERNAME",
 
 -   **number**: A value between 1 - 10.
 
-`scrollSpeed`: Default = **50**
+`scrollSpeed`: Default = **40**
 
 -   **number**: A value between 1 - 100.
 

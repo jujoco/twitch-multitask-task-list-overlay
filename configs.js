@@ -15,7 +15,7 @@ window.configs = {
 	settings: {
 		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
 		maxTasksPerUser: 5, // default number 5
-		scrollSpeed: 50, // default number 50
+		scrollSpeed: 40, // default number 40
 		showUsernameColor: true, // true or false
 		testMode: false, // true or false - for testing purposes
 	},
