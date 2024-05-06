@@ -71,27 +71,32 @@ window.configs = {
 	// ========================================
 	admin: {
 		commands: {
+			timer: ["!timer"],
 			clearList: ["!clearlist"],
 			clearDone: ["!cleardone"],
 			clearUser: ["!clearuser"],
 		},
 		responseTo: {
 			EN: {
+				timer: "Timer has been reset to {message} minutes",
 				clearList: "All tasks have been cleared",
 				clearDone: "All done tasks have been cleared",
 				clearUser: "All tasks for {message} have been cleared",
 			},
 			ES: {
+				timer: "El temporizador ha sido restablecido a {message} minutos",
 				clearList: "Todas las tareas han sido eliminadas",
 				clearDone: "Todas las tareas completadas han sido eliminadas",
 				clearUser: "Todas las tareas de {message} han sido eliminadas",
 			},
 			FR: {
+				timer: "Le minuteur a été réinitialisé à {message} minutes",
 				clearList: "Toutes les tâches ont été effacées",
 				clearDone: "Toutes les tâches terminées ont été effacées",
 				clearUser: "Toutes les tâches de {message} ont été effacées",
 			},
 			JP: {
+				timer: "タイマーが {message} 分にリセットされました",
 				clearList: "すべてのタスクがクリアされました",
 				clearDone: "完了したすべてのタスクがクリアされました",
 				clearUser: "{message} のすべてのタスクがクリアされました",
@@ -107,7 +112,7 @@ window.configs = {
 			addTask: ["!add", "!task", "!addtask", "!taskadd"],
 			editTask: ["!edit", "!edittask", "!taskedit"],
 			finishTask: ["!done", "!donetask", "!taskdone"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete"],
+			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove"],
 			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
 			help: ["!help", "!taskhelp", "!helptask"],
 			additional: ["!credit", "!taskbot"],

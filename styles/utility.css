@@ -1,0 +1,7 @@
+.transition-opacity {
+	transition-property: opacity;
+}
+
+.duration-300 {
+	transition-duration: 300ms;
+}

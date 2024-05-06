@@ -11,6 +11,7 @@ describe("App.chatHandler", () => {
 		app.completeTaskFromDOM = vi.fn();
 		app.deleteTaskFromDOM = vi.fn();
 		app.deleteUserFromDOM = vi.fn();
+		app.renderTimer = vi.fn();
 
 		const adminUser = {
 			username: "bobTheAdmin",
@@ -20,6 +21,7 @@ describe("App.chatHandler", () => {
 			},
 			extra: { color: "#FF0000" },
 			command: {
+				TIMER: "timer",
 				CLEARLIST: "clearList",
 				CLEARDONE: "clearDone",
 				CLEARUSER: "clearUser",
@@ -54,6 +56,21 @@ describe("App.chatHandler", () => {
 		});
 
 		describe("Admin commands", () => {
+			describe("!timer command", () => {
+				it("should return a success message when an Admin user submits !timer ", () => {
+					const response = app.chatHandler(
+						adminUser.username,
+						adminUser.command.TIMER,
+						"60",
+						adminUser.flags,
+						adminUser.extra
+					);
+					expect(response.message).toBe(
+						"Timer has been reset to 60 minutes"
+					);
+				});
+			});
+
 			describe("!clearList command", () => {
 				it("should return a success message when an Admin user submits !clearList ", () => {
 					const response = app.chatHandler(

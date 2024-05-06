@@ -37,10 +37,6 @@
 	font-weight: var(--header-font-weight);
 }
 
-.command-code {
-	transition: opacity 300ms;
-}
-
 .task-wrapper {
 	display: flex;
 	flex-direction: column;
