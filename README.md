@@ -174,11 +174,30 @@ The following settings are for styling the TaskBot. Default values are provided 
 
 -   `!check` - Check your remaining tasks
 
+    -   example: `!check`
+
+-   `!credit` - Show the credits
+
+    -   example: `!credit`
+
 ### Commands for Broadcasters and Moderators
 
+-   `!timer` - Start a timer for a focus session (in minutes)
+
+    -   example: `!timer 60`
+    -   example: `!timer 90`
+
 -   `!clearall` - Clear all tasks
+
+    -   example: `!clearall`
+
 -   `!cleardone` - Clear all done tasks
--   `!clearuser` \<username\> - Remove all tasks from a user
+
+    -   example: `!cleardone`
+
+-   `!clearuser` - Remove all tasks from a user
+
+    -   example: `!clearuser @JujocoCS` (case sensitive username)
 
 For aliases, see [here](#aliases)
 
@@ -208,6 +227,7 @@ For aliases, see [here](#aliases)
 **delete task commands:**
 
 -   `!delete`
+-   `!remove`
 -   `!taskdelete`
 -   `!deletetask`
 
@@ -221,6 +241,11 @@ For aliases, see [here](#aliases)
 -   `!help`
 -   `!taskhelp`
 -   `!helptask`
+
+**extra commands:**
+
+-   `!credit`
+-   `!taskbot`
 
 ## Credits
 
