@@ -1,9 +1,10 @@
 import { animateScroll } from "./animations/animateScroll.js";
-import { fadeInOutHelpCommands } from "./animations/fadeCommands.js";
+import { fadeInOutText } from "./animations/fadeCommands.js";
 import { loadStyles } from "./styleLoader.js";
 import UserList from "./classes/UserList.js";
 
 /** @typedef {import("./classes/User").default} User */
+
 /**
  * @class App
  * @property {UserList} userList - The user list
@@ -25,7 +26,6 @@ export default class App {
 	 * @returns {void}
 	 */
 	render() {
-		fadeInOutHelpCommands();
 		this.renderTaskList();
 		this.renderTaskCount();
 	}
@@ -83,6 +83,36 @@ export default class App {
 	}
 
 	/**
+	 * Render Pomodoro timer to the DOM
+	 * @param {number} duration - The duration of the timer in minutes
+	 * @returns {void}
+	 */
+	renderTimer(duration = 0) {
+		const timerMode = document.querySelector(".timer-title");
+		const timerElement = document.querySelector(".timer-countdown");
+		let timer = duration * 60;
+		fadeInOutText(timerMode, "Focus");
+
+		const updateTimer = () => {
+			const minutes = Math.floor(timer / 60)
+				.toString()
+				.padStart(2, "0");
+			const seconds = (timer % 60).toString().padStart(2, "0");
+			timerElement.textContent = `${minutes}:${seconds}`;
+
+			if (timer === 0) {
+				clearInterval(intervalId);
+				timerElement.textContent = "00:00";
+				fadeInOutText(timerMode, "Break");
+			} else {
+				timer--;
+			}
+		};
+
+		const intervalId = setInterval(updateTimer, 1000);
+	}
+
+	/**
 	 * Handles chat commands and responses
 	 * @param {string} username
 	 * @param {string} command
@@ -105,21 +135,31 @@ export default class App {
 		try {
 			// ADMIN COMMANDS
 			if (isMod(flags)) {
-				if (adminConfig.commands.clearList.includes(command)) {
+				if (
+					adminConfig.commands.timer.includes(command) &&
+					flags.broadcaster
+				) {
+					const duration = parseInt(message, 10);
+					if (isNaN(duration) || duration <= 0) {
+						throw new Error("Invalid timer duration");
+					}
+					this.renderTimer(duration);
+					template = adminConfig.responseTo[languageCode].timer;
+					responseDetail = duration;
+					return respondMessage(template, username, responseDetail);
+				} else if (adminConfig.commands.clearList.includes(command)) {
 					this.userList.clearUserList();
 					this.clearListFromDOM();
 					template = adminConfig.responseTo[languageCode].clearList;
 					return respondMessage(template, username, responseDetail);
-				}
-				if (adminConfig.commands.clearDone.includes(command)) {
+				} else if (adminConfig.commands.clearDone.includes(command)) {
 					const tasks = this.userList.clearDoneTasks();
 					tasks.forEach(({ id }) => {
 						this.deleteTaskFromDOM(id);
 					});
 					template = adminConfig.responseTo[languageCode].clearDone;
 					return respondMessage(template, username, responseDetail);
-				}
-				if (adminConfig.commands.clearUser.includes(command)) {
+				} else if (adminConfig.commands.clearUser.includes(command)) {
 					const user = this.userList.deleteUser(message);
 					this.deleteUserFromDOM(user);
 					responseDetail = user.username;

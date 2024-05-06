@@ -3,12 +3,14 @@ import { vi } from "vitest";
 const configs = {
 	admin: {
 		commands: {
+			timer: ["!timer"],
 			clearList: ["!clearlist"],
 			clearDone: ["!cleardone"],
 			clearUser: ["!clearuser"],
 		},
 		responseTo: {
 			EN: {
+				timer: "Timer has been reset to {message} minutes",
 				clearList: "{user}, All tasks have been cleared",
 				clearDone: "{user}, All done tasks have been cleared",
 				clearUser: "{user}, All tasks for {message} have been cleared",
@@ -20,7 +22,7 @@ const configs = {
 			addTask: ["!add", "!task", "!addtask", "!taskadd"],
 			editTask: ["!edit", "!edittask", "!taskedit"],
 			finishTask: ["!done", "!donetask", "!taskdone"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete"],
+			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove"],
 			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
 			help: ["!help", "!taskhelp", "!helptask"],
 			additional: ["!credit", "!taskbot"],
