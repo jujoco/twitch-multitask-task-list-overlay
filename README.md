@@ -195,9 +195,9 @@ The following settings are for styling the TaskBot. Default values are provided 
 
     -   example: `!cleardone`
 
--   `!clearuser` - Remove all tasks from a user
+-   `!clearuser` - Remove all tasks from a User (case sensitive username)
 
-    -   example: `!clearuser @JujocoCS` (case sensitive username)
+    -   example: `!clearuser JujocoCS`
 
 For aliases, see [here](#aliases)
 
