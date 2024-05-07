@@ -2,6 +2,6 @@
 
 ## Customizable Task bot
 
-![Task Bot preview customizable](customize-sample.png)
+![Preview sample](live-sample.png)
 
-![Preview sample](stream-sample.png)
+![Task Bot preview customizable](customize-sample.png)

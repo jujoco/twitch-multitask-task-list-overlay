@@ -1,6 +1,6 @@
 # Twitch Chatbot Multitask Task List Overlay
 
-<img src="./images/stream-sample.png">
+<img src="./images/live-sample.png">
 <br >
 <img src="./images/customize-sample.png">
 
@@ -14,7 +14,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This bot
 -   Free to use
 -   Easy setup
 -   Easy to customize
--   Fast performance & super lightweight (16.98 kB bundle size)
+-   Fast performance & super lightweight (19 kB bundle size)
 -   No coding required
 -   Customizable Multi-language support
 -   No third-party database required
@@ -89,6 +89,19 @@ twitch_username = "USERNAME",
 
 -   **true**: will shows the user's twitch chat color
 -   **false**: will show the color you set in the `username-color` style
+
+`headerDisplay`: Default = "Timer"
+
+Enable one will disable the others.
+
+-   **"Timer"**: Display a timer in the header
+-   **"None"**: Display nothing in the header
+-   **"Text"**: Display a custom text in the header
+-   **"Commands"**: Display commands tips in the header
+
+`headerText`: Default = "Custom Text"
+
+HeaderDisplay above must be set to "Text"
 
 `testMode`: Default = **false**
 

@@ -3,5 +3,13 @@
 }
 
 .duration-300 {
-	transition-duration: 300ms;
+	transition-duration: 700ms;
+}
+
+.flex {
+	display: flex;
+}
+
+.hidden {
+	display: none;
 }

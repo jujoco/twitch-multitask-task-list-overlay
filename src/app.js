@@ -12,6 +12,7 @@ import UserList from "./classes/UserList.js";
  * @method chatHandler - Handles chat commands and responses
  */
 export default class App {
+	#timerIntervalId = null;
 	/**
 	 * @constructor
 	 * @param {UserList} userList - The user list
@@ -27,7 +28,7 @@ export default class App {
 	 */
 	render() {
 		this.renderTaskList();
-		this.renderTaskCount();
+		this.renderTaskHeader();
 	}
 
 	/**
@@ -72,6 +73,22 @@ export default class App {
 	}
 
 	/**
+	 * Render the task header to the DOM
+	 * @returns {void}
+	 */
+	renderTaskHeader() {
+		this.renderTaskCount();
+		const { headerDisplay, headerText } = window.configs.settings;
+		if (headerDisplay.toLowerCase() === "timer") {
+			this.renderTimer();
+		} else if (headerDisplay.toLowerCase() === "commands") {
+			this.renderCommandTips();
+		} else if (headerDisplay.toLowerCase() === "text") {
+			this.renderCustomText(headerText);
+		}
+	}
+
+	/**
 	 * Render the task count to the DOM
 	 * @returns {void}
 	 */
@@ -88,11 +105,12 @@ export default class App {
 	 * @returns {void}
 	 */
 	renderTimer(duration = 0) {
-		const timerMode = document.querySelector(".timer-title");
-		const timerElement = document.querySelector(".timer-countdown");
+		this.#timerIntervalId && clearInterval(this.#timerIntervalId);
+		const timerEl = document.querySelector(".timer");
+		timerEl.classList.remove("hidden");
+		const timerTitleEl = timerEl.querySelector(".timer-title");
+		const timerElement = timerEl.querySelector(".timer-countdown");
 		let timer = duration * 60;
-		fadeInOutText(timerMode, "Focus");
-
 		const updateTimer = () => {
 			const minutes = Math.floor(timer / 60)
 				.toString()
@@ -101,15 +119,41 @@ export default class App {
 			timerElement.textContent = `${minutes}:${seconds}`;
 
 			if (timer === 0) {
-				clearInterval(intervalId);
+				clearInterval(this.#timerIntervalId);
 				timerElement.textContent = "00:00";
-				fadeInOutText(timerMode, "Break");
+				fadeInOutText(timerTitleEl, "Break");
 			} else {
+				fadeInOutText(timerTitleEl, "Focus");
 				timer--;
 			}
 		};
+		this.#timerIntervalId = setInterval(updateTimer, 1000);
+	}
 
-		const intervalId = setInterval(updateTimer, 1000);
+	/**
+	 * Render command tips to the DOM
+	 * @returns {void}
+	 */
+	renderCommandTips() {
+		const tips = ["!add", "!edit", "!done", "!remove", "!check", "!help"];
+		const commandTipEl = document.querySelector(".command-tips");
+		commandTipEl.classList.remove("hidden");
+		let tipIdx = 0;
+		setInterval(() => {
+			const commandCodeEl = commandTipEl.querySelector(".command-code");
+			fadeInOutText(commandCodeEl, tips[tipIdx]);
+			tipIdx = (tipIdx + 1) % tips.length;
+		}, 6000);
+	}
+
+	/**
+	 * Render custom text to the DOM
+	 * @param {string} text - The custom text to display
+	 * @returns {void}
+	 */
+	renderCustomText(text) {
+		document.querySelector(".custom-header").classList.remove("hidden");
+		document.querySelector(".custom-text").textContent = text;
 	}
 
 	/**
@@ -126,7 +170,7 @@ export default class App {
 		const {
 			admin: adminConfig,
 			user: userConfig,
-			settings: { languageCode, maxTasksPerUser },
+			settings: { languageCode, maxTasksPerUser, headerDisplay },
 		} = window.configs;
 
 		let template = "";
@@ -136,6 +180,7 @@ export default class App {
 			// ADMIN COMMANDS
 			if (isMod(flags)) {
 				if (
+					headerDisplay.toLowerCase() === "timer" &&
 					adminConfig.commands.timer.includes(command) &&
 					flags.broadcaster
 				) {
