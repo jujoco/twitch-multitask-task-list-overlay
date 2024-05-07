@@ -17,6 +17,8 @@ window.configs = {
 		maxTasksPerUser: 5, // default number 5
 		scrollSpeed: 40, // default number 40
 		showUsernameColor: true, // true or false
+		headerDisplay: "Timer", // "Timer", "None", "Commands", "Text"
+		headerText: "Custom Text", // HeaderDisplay above must be "Text"
 		testMode: false, // true or false - for testing purposes
 	},
 

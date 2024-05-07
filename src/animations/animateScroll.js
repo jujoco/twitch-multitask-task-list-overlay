@@ -15,6 +15,7 @@ export function animateScroll() {
 	const containerPrimary = document.querySelector(".task-container.primary");
 	const containerHeight = containerPrimary.scrollHeight;
 
+	/** @type {HTMLElement} */
 	const containerSecondary = document.querySelector(
 		".task-container.secondary"
 	);
