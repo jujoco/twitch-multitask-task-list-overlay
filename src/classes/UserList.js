@@ -189,6 +189,9 @@ export default class UserList {
 		}
 		const items = [].concat(indices);
 		const tasks = user.deleteTask(items);
+		if (user.getTasks().length === 0) {
+			this.deleteUser(username);
+		}
 		this.decreaseTaskCount(tasks);
 		this.#commitToLocalStorage();
 		return tasks;

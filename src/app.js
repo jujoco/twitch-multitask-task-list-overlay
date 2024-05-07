@@ -263,7 +263,10 @@ export default class App {
 				template = userConfig.responseTo[languageCode].editTask;
 			} else if (userConfig.commands.finishTask.includes(command)) {
 				// COMPLETE/DONE TASK
-				let indices = message.split(", ").map((i) => parseTaskIndex(i));
+				const indices = message.split(",").reduce((acc, i) => {
+					if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
+					return acc;
+				}, []);
 				const tasks = this.userList.completeUserTasks(
 					username,
 					indices
@@ -275,9 +278,10 @@ export default class App {
 				template = userConfig.responseTo[languageCode].finishTask;
 			} else if (userConfig.commands.deleteTask.includes(command)) {
 				// DELETE/REMOVE TASK
-				const indices = message
-					.split(", ")
-					.map((i) => parseTaskIndex(i));
+				const indices = message.split(",").reduce((acc, i) => {
+					if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
+					return acc;
+				}, []);
 				const tasks = this.userList.deleteUserTasks(username, indices);
 				tasks.forEach(({ id }) => {
 					this.deleteTaskFromDOM(id);

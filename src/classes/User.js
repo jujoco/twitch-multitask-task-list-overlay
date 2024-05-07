@@ -85,12 +85,13 @@ export default class User {
 	 */
 	deleteTask(indices) {
 		const items = [].concat(indices);
+		const taskForDeletion = [];
 		items.forEach((index) => this.validateTaskIndex(index));
 
-		const taskForDeletion = [];
 		this.tasks = this.tasks.filter((task, i) => {
 			if (items.includes(i)) {
 				taskForDeletion.push(task);
+				return false;
 			} else {
 				return true;
 			}
