@@ -200,9 +200,9 @@ The following settings are for styling the TaskBot. Default values are provided 
     -   example: `!timer 60`
     -   example: `!timer 90`
 
--   `!clearall` - Clear all tasks
+-   `!clearlist` - Clear all tasks from the list
 
-    -   example: `!clearall`
+    -   example: `!clearlist`
 
 -   `!cleardone` - Clear all done tasks
 
