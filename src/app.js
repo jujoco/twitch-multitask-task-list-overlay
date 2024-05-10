@@ -228,7 +228,7 @@ export default class App {
 				const taskDescriptions = message.split(", ");
 				if (
 					user.getTasks().length + taskDescriptions.length >
-					maxTasksPerUser
+					parseInt(maxTasksPerUser, 10)
 				) {
 					template =
 						userConfig.responseTo[languageCode].maxTasksAdded;
