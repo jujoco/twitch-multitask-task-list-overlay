@@ -352,6 +352,20 @@ describe("App.chatHandler", () => {
 					);
 				});
 
+				it("should return a message indicating all of the users tasks have been deleted", () => {
+					const response = app.chatHandler(
+						chatUser.username,
+						chatUser.command.DELETETASK,
+						"all",
+						chatUser.flags,
+						chatUser.extra
+					);
+					expect(response.error).toBe(false);
+					expect(response.message).toBe(
+						"All of your tasks have been deleted!"
+					);
+				});
+
 				it("should return an error if the task is not found", () => {
 					const response = app.chatHandler(
 						chatUser.username,
