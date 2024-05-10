@@ -125,6 +125,7 @@ window.configs = {
 				editTask: 'Task "{message}" updated!',
 				finishTask: 'Good job on completing task(s) "{message}"!',
 				deleteTask: 'Task(s) "{message}" has been deleted!',
+				deleteAll: "All of your tasks have been deleted!",
 				check: 'Your current task(s) are: "{message}"',
 				help: "Try using these commands - !add !edit !done !delete, !check",
 				additional:
@@ -141,6 +142,7 @@ window.configs = {
 				finishTask:
 					'¡Buen trabajo completando la(s) tarea(s) "{message}"!',
 				deleteTask: 'La(s) tarea(s) "{message}" ha sido eliminada(s)!',
+				deleteAll: "Todas tus tareas han sido eliminadas!",
 				check: 'Tus tareas actuales son: "{message}"',
 				help: "Prueba a usar estos comandos - !add !edit !done !delete, !check",
 				additional:
@@ -157,6 +159,7 @@ window.configs = {
 				finishTask:
 					'Bon travail pour avoir terminé la tâche "{message}"!',
 				deleteTask: 'La tâche "{message}" a été supprimée!',
+				deleteAll: "Toutes vos tâches ont été supprimées!",
 				check: 'Vos tâches actuelles sont: "{message}"',
 				help: "Essayez d'utiliser ces commandes - !add !edit !done !delete, !check",
 				additional:
@@ -172,6 +175,7 @@ window.configs = {
 				editTask: 'タスク "{message}" が更新されました!',
 				finishTask: 'タスク "{message}" を完了しました!',
 				deleteTask: 'タスク "{message}" が削除されました!',
+				deleteAll: "すべてのタスクが削除されました!",
 				check: '現在のタスクは "{message}" です',
 				help: "これらのコマンドを試してみてください - !add !edit !done !delete, !check",
 				additional:

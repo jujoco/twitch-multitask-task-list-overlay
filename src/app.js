@@ -278,16 +278,25 @@ export default class App {
 				template = userConfig.responseTo[languageCode].finishTask;
 			} else if (userConfig.commands.deleteTask.includes(command)) {
 				// DELETE/REMOVE TASK
-				const indices = message.split(",").reduce((acc, i) => {
-					if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
-					return acc;
-				}, []);
-				const tasks = this.userList.deleteUserTasks(username, indices);
-				tasks.forEach(({ id }) => {
-					this.deleteTaskFromDOM(id);
-				});
+				if (message.toLowerCase() === "all") {
+					const user = this.userList.deleteUser(username);
+					this.deleteUserFromDOM(user);
+					template = userConfig.responseTo[languageCode].deleteAll;
+				} else {
+					const indices = message.split(",").reduce((acc, i) => {
+						if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
+						return acc;
+					}, []);
+					const tasks = this.userList.deleteUserTasks(
+						username,
+						indices
+					);
+					tasks.forEach(({ id }) => {
+						this.deleteTaskFromDOM(id);
+					});
+					template = userConfig.responseTo[languageCode].deleteTask;
+				}
 				responseDetail = message;
-				template = userConfig.responseTo[languageCode].deleteTask;
 			} else if (userConfig.commands.check.includes(command)) {
 				// CHECK TASKS
 				const taskMap = this.userList.checkUserTasks(username);
@@ -438,10 +447,6 @@ export default class App {
 		for (let card of userCardEls) {
 			card.remove();
 		}
-		tasks.forEach((t) => {
-			if (t.isComplete()) {
-			}
-		});
 		this.renderTaskCount();
 	}
 }

@@ -34,6 +34,7 @@ const configs = {
 				finishTask:
 					'Good job on completing task(s) "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
+				deleteAll: "All of your tasks have been deleted!",
 				check: 'Your current task is: "{message}", {user}',
 				help: "Try using these commands - !add !edit !done !delete",
 				additional:
