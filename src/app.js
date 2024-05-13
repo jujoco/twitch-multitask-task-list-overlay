@@ -19,7 +19,7 @@ export default class App {
 	 */
 	constructor(storeName = "userList") {
 		this.userList = new UserList(storeName);
-		loadStyles();
+		loadStyles(window.configs.styles);
 	}
 
 	/**
