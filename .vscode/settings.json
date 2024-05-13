@@ -1,0 +1,11 @@
+{
+	"editor.formatOnSave": true,
+	"files.autoSave": "afterDelay",
+	"files.autoSaveDelay": 2000,
+	"editor.defaultFormatter": "vscode.typescript-language-features",
+	"editor.tabSize": 3,
+	"editor.fontSize": 13,
+	"window.zoomLevel": 1,
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 4
+}
