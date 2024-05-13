@@ -63,7 +63,7 @@ Open the `configs.js` file and modify the following settings to customized the T
 5. Replace `USERNAME` with your username — in most cases it is the same as your channel name.
 
 ```js
-twitch_oauth = "OAUTHTOKEN";
+twitch_oauth = "OAUTHTOKEN",
 twitch_channel = "CHANNEL",
 twitch_username = "USERNAME",
 ```
