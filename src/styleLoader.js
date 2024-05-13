@@ -1,10 +1,11 @@
 /**
  * Load custom styles from configs.
+ * @param {Object} styles - Custom styles.
  * @returns {void}
  */
-export function loadStyles() {
+export function loadStyles(styles) {
 	const root = document.querySelector(":root");
-	for (let [key, val] of Object.entries(configs.styles)) {
+	for (let [key, val] of Object.entries(styles)) {
 		if (key.includes("FontFamily")) {
 			loadGoogleFont(val);
 		}
