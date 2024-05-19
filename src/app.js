@@ -16,9 +16,9 @@ export default class App {
 	#timerIntervalId = null;
 	/**
 	 * @constructor
-	 * @param {UserList} userList - The user list
+	 * @param {string} storeName - The store name
 	 */
-	constructor(storeName = "userList") {
+	constructor(storeName) {
 		this.userList = new UserList(storeName);
 		loadStyles(configs.styles);
 	}
@@ -96,6 +96,7 @@ export default class App {
 	renderTaskCount() {
 		let completedTasksCount = this.userList.tasksCompleted;
 		let totalTasksCount = this.userList.totalTasks;
+		/** @type {HTMLElement} */
 		const totalTasksElement = document.querySelector(".task-count");
 		totalTasksElement.innerText = `${completedTasksCount}/${totalTasksCount}`;
 	}
@@ -118,6 +119,7 @@ export default class App {
 	startTimer(FocusDuration = 0, breakDuration = 10) {
 		this.#timerIntervalId && clearInterval(this.#timerIntervalId);
 		const timerEl = document.querySelector(".timer");
+		/** @type {HTMLElement} */
 		const timerTitleEl = timerEl.querySelector(".timer-title");
 		const timerElement = timerEl.querySelector(".timer-countdown");
 		let timer = FocusDuration * 60;
@@ -156,6 +158,7 @@ export default class App {
 		commandTipEl.classList.remove("hidden");
 		let tipIdx = 0;
 		setInterval(() => {
+			/** @type {HTMLElement} */
 			const commandCodeEl = commandTipEl.querySelector(".command-code");
 			fadeInOutText(commandCodeEl, tips[tipIdx]);
 			tipIdx = (tipIdx + 1) % tips.length;
@@ -179,7 +182,7 @@ export default class App {
 	 * @param {string} message
 	 * @param {{broadcaster: boolean, mod: boolean}} flags
 	 * @param {{userColor: string, messageId: string}} extra
-	 * @returns {{success: boolean, message: string}} - Response message
+	 * @returns {{error: boolean, message: string}} - Response message
 	 */
 	chatHandler(username, command, message, flags, extra) {
 		command = `!${command.toLowerCase()}`;
@@ -251,7 +254,7 @@ export default class App {
 				const taskDescriptions = message.split(", ");
 				if (
 					user.getTasks().length + taskDescriptions.length >
-					parseInt(maxTasksPerUser, 10)
+					parseInt(maxTasksPerUser.toString(), 10)
 				) {
 					template =
 						userConfig.responseTo[languageCode].maxTasksAdded;
@@ -412,6 +415,7 @@ export default class App {
 	 * @returns {void}
 	 */
 	editTaskFromDOM(task) {
+		/** @type {NodeListOf<HTMLElement>} */
 		const taskElements = document.querySelectorAll(
 			`[data-task-id="${task.id}"]`
 		);

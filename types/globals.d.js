@@ -18,8 +18,8 @@
 /**
  * @typedef {Object} SettingsConfigs
  * @property {string} settings.languageCode - The language code
- * @property {string} settings.maxTasksPerUser - The maximum tasks per user
- * @property {string} settings.scrollSpeed - The scroll speed
+ * @property {number} settings.maxTasksPerUser - The maximum tasks per user
+ * @property {number} settings.scrollSpeed - The scroll speed
  * @property {boolean} settings.showUsernameColor - The show username color
  * @property {string} settings.headerDisplay - The header display
  * @property {string} settings.headerText - The header text

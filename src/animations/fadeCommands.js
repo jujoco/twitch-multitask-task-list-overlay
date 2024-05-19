@@ -7,9 +7,9 @@
 export function fadeInOutText(element, innerText) {
 	if (element.innerText === innerText) return;
 
-	element.style.opacity = 0;
+	element.style.opacity = "0";
 	setTimeout(() => {
 		element.textContent = innerText;
-		element.style.opacity = 1;
+		element.style.opacity = "1";
 	}, 700);
 }

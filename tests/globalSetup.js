@@ -1,5 +1,6 @@
 import { vi } from "vitest";
 
+/** @type {Configs} */
 const configs = {
 	admin: {
 		commands: {

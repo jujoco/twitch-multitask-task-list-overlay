@@ -12,7 +12,7 @@
  * @method removeCompletedTasks - Remove all completed tasks
  * @method getTask - Get the task at the specified index
  * @method getTasks - Get all tasks of the user
- * @method validateTaskIndex - Validates the task index
+ * @method validTaskIndex - Validates the task index
  */
 export default class User {
 	/**
@@ -57,25 +57,29 @@ export default class User {
 	 * Edit the task at the specified index
 	 * @param {number} index - The index of the task to get
 	 * @param {string} description - The new task description
-	 * @throws {Error} If the index is out of bounds
-	 * @returns {Task} The task that was edited
+	 * @returns {Task | null} The task that was edited
 	 */
 	editTask(index, description) {
 		let task = this.getTask(index);
-		task.setDescription(description);
-		return task;
+		if (task) {
+			task.setDescription(description);
+			return task;
+		}
+		return null;
 	}
 
 	/**
 	 * Mark the task at the specified index as complete
 	 * @param {number} index - The index of the task to complete
-	 * @throws {Error} If the index is out of bounds
-	 * @returns {Task} The task that was completed
+	 * @returns {Task | null} The task that was completed
 	 */
 	completeTask(index) {
 		let task = this.getTask(index);
-		task.setCompletionStatus(true);
-		return task;
+		if (task) {
+			task.setCompletionStatus(true);
+			return task;
+		}
+		return null;
 	}
 
 	/**
@@ -84,9 +88,10 @@ export default class User {
 	 * @returns {Task[]}	The task that was deleted
 	 */
 	deleteTask(indices) {
-		const items = [].concat(indices);
+		const items = [].concat(indices).filter((i) => {
+			return this.validTaskIndex(i);
+		});
 		const taskForDeletion = [];
-		items.forEach((index) => this.validateTaskIndex(index));
 
 		this.tasks = this.tasks.filter((task, i) => {
 			if (items.includes(i)) {
@@ -120,11 +125,10 @@ export default class User {
 	/**
 	 * Get the task at the specified index
 	 * @param {number} index - The index of the task to get
-	 * @returns {Task} The task at the specified index
+	 * @returns {Task | null} The task at the specified index
 	 */
 	getTask(index) {
-		this.validateTaskIndex(index);
-		return this.tasks[index];
+		return this.validTaskIndex(index) ? this.tasks[index] : null;
 	}
 
 	/**
@@ -138,15 +142,16 @@ export default class User {
 	/**
 	 * Validates the task index.
 	 * @param {number} index - The index of the task.
-	 * @throws {Error} If the index is out of bounds.
 	 * @returns {boolean}
 	 */
-	validateTaskIndex(index) {
-		if (typeof index !== "number" || isNaN(index)) {
-			throw new Error("Task index must be a number");
-		}
-		if (index < 0 || index >= this.tasks.length) {
-			throw new Error("Task index out of bounds");
+	validTaskIndex(index) {
+		if (
+			typeof index !== "number" ||
+			isNaN(index) ||
+			index < 0 ||
+			index >= this.tasks.length
+		) {
+			return false;
 		}
 		return true;
 	}

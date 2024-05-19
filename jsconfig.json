@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"noEmit": true,
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Bundler"
+	},
+	"include": ["src", "types", "tests", "configs.js"],
+	"exclude": ["node_modules"]
+}
