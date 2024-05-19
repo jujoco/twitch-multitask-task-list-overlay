@@ -11,7 +11,6 @@ import EventEmitter from "../classes/EventEmitter";
 export default class TwitchChat extends EventEmitter {
 	/**
 	 * @type {WebSocket | null}
-	 * @private
 	 */
 	#ws = null;
 	#connectionState = {
@@ -101,7 +100,7 @@ export default class TwitchChat extends EventEmitter {
 	/**
 	 * Sends a message to the Twitch channel
 	 * @param {string} message
-	 * @param {string} id
+	 * @param {string} messageId
 	 * @returns {void}
 	 */
 	say(message, messageId) {
@@ -124,13 +123,12 @@ export default class TwitchChat extends EventEmitter {
 	 */
 	disconnect(code = 1000, reason = "") {
 		if (this.#getWSState() === "OPEN") {
-			this.#ws.close({ code, reason });
+			this.#ws.close(code, reason);
 		}
 	}
 
 	/**
 	 * Parses the IRC message and emits a "command" event
-	 * @private
 	 * @param {string} ircMessage
 	 * @returns {void}
 	 */

@@ -1,3 +1,4 @@
+/** @type {Configs} */
 const configs = {
 	// ========================================
 	// Authentication and channel - Required

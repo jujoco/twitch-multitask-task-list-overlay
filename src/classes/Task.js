@@ -13,7 +13,6 @@ export default class Task {
 	/**
 	 * @constructor
 	 * @param {string} description - The description of the task.
-	 * @param {number} id - The id of the task.
 	 */
 	constructor(description) {
 		this.description = this.validateDescription(description);
@@ -41,7 +40,6 @@ export default class Task {
 	/**
 	 * Assign the current date as id to the task.
 	 * @returns {string}
-	 * @private
 	 */
 	#assignId() {
 		const now = new Date();
