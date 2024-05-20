@@ -5,8 +5,8 @@ import { loadTestUsers } from "./twitch/loadTestUsers.js";
 const {
 	auth: { twitch_channel, twitch_oauth, twitch_username },
 	settings: { testMode },
-} = window.configs;
-	
+} = configs;
+
 const client = new TwitchChat({
 	username: twitch_username,
 	authToken: twitch_oauth,

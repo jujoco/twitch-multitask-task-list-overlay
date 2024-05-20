@@ -7,5 +7,11 @@
 	"editor.fontSize": 13,
 	"window.zoomLevel": 1,
 	"prettier.useTabs": true,
-	"prettier.tabWidth": 4
+	"prettier.tabWidth": 4,
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.tree.indent": 12
 }
+
+
