@@ -19,7 +19,7 @@ export default class App {
 	 */
 	constructor(storeName = "userList") {
 		this.userList = new UserList(storeName);
-		loadStyles(window.configs.styles);
+		loadStyles(configs.styles);
 	}
 
 	/**
@@ -78,7 +78,7 @@ export default class App {
 	 */
 	renderTaskHeader() {
 		this.renderTaskCount();
-		const { headerDisplay, headerText } = window.configs.settings;
+		const { headerDisplay, headerText } = configs.settings;
 		if (headerDisplay.toLowerCase() === "timer") {
 			this.renderTimer();
 		} else if (headerDisplay.toLowerCase() === "commands") {
@@ -171,7 +171,7 @@ export default class App {
 			admin: adminConfig,
 			user: userConfig,
 			settings: { languageCode, maxTasksPerUser, headerDisplay },
-		} = window.configs;
+		} = configs;
 
 		let template = "";
 		let responseDetail = "";
@@ -499,7 +499,7 @@ function createUserCard({ username, userColor }) {
 	const userNameDiv = document.createElement("div");
 	userNameDiv.classList.add("username");
 	userNameDiv.innerText = username;
-	userNameDiv.style.color = window.configs.settings.showUsernameColor
+	userNameDiv.style.color = configs.settings.showUsernameColor
 		? userColor
 		: "";
 	cardEl.appendChild(userNameDiv);
