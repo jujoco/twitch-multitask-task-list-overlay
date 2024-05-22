@@ -2,6 +2,7 @@ import { animateScroll } from "./animations/animateScroll.js";
 import { fadeInOutText } from "./animations/fadeCommands.js";
 import { loadStyles } from "./styleLoader.js";
 import UserList from "./classes/UserList.js";
+import { playAlarm } from "./audioPlayer.js";
 
 /** @typedef {import("./classes/User").default} User */
 
@@ -122,6 +123,7 @@ export default class App {
 				clearInterval(this.#timerIntervalId);
 				timerElement.textContent = "00:00";
 				fadeInOutText(timerTitleEl, "Break");
+				playAlarm();
 			} else {
 				fadeInOutText(timerTitleEl, "Focus");
 				timer--;
