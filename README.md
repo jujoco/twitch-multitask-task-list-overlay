@@ -6,8 +6,8 @@
 
 ## What and Why?
 
-A simple chat bot that allows users to interact with your stream.
-Viewers can create, edit, mark as done, and delete tasks from the list. This bot is designed to help streamers and their viewers to keep track of tasks, goals, or objectives during a stream. The bot is designed to be simple, easy to use, and fast to setup. The bot is designed to be used in OBS or other streaming software as a Browser Source.
+A TaskList Widget for Twitch TV which allows users to interact with the broadcaster's stream.
+Viewers can create, edit, mark as done, and delete tasks from the list. This TaskList widget is designed to help streamers and their viewers to keep track of tasks, goals, or objectives during a stream. It is easy to use, and fast to setup. The TaskList widget is designed to be used in OBS or other streaming software as a Browser Source.
 
 ## **APP Features ✨**
 
@@ -52,7 +52,7 @@ Download this repo and Add & Setup a `Browser Source` in your OBS or other strea
 
 ## Customization settings
 
-Open the `configs.js` file and modify the following settings to customized the TaskBot Behavior & Appearance.
+Open the `configs.js` file and modify the following settings to customized the TaskList widget Behavior & Appearance.
 
 ### Twitch oAuth - Required
 
@@ -108,11 +108,11 @@ HeaderDisplay above must be set to "Text"
 -   **false**: turn OFF test mode.
 -   **true**: turn ON test mode.
 
-Use this to test the bot without affecting the real task list and visually see the style changes you make. When test mode is OFF, the bot will work as normal and remove any test tasks.
+Use this to test the TaskList without affecting the real task list and visually see the style changes you make. When test mode is OFF, the TaskList will work as normal and remove any test tasks.
 
 ### Styles Settings
 
-The following settings are for styling the TaskBot. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
+The following settings are for styling the TaskList. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
 
 **Font Family** - selection available @ https://fonts.google.com
 
@@ -258,7 +258,6 @@ For aliases, see [here](#aliases)
 **extra commands:**
 
 -   `!credit`
--   `!taskbot`
 
 ## Credits
 
