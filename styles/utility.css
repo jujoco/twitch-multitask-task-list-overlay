@@ -2,8 +2,8 @@
 	transition-property: opacity;
 }
 
-.duration-300 {
-	transition-duration: 700ms;
+.duration-600 {
+	transition-duration: 600ms;
 }
 
 .flex {

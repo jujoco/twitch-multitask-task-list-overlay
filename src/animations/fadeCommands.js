@@ -11,5 +11,5 @@ export function fadeInOutText(element, innerText) {
 	setTimeout(() => {
 		element.textContent = innerText;
 		element.style.opacity = 1;
-	}, 1000);
+	}, 700);
 }

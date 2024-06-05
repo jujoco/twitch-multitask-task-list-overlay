@@ -2,6 +2,7 @@ import { animateScroll } from "./animations/animateScroll.js";
 import { fadeInOutText } from "./animations/fadeCommands.js";
 import { loadStyles } from "./styleLoader.js";
 import UserList from "./classes/UserList.js";
+import { timerAudioEl } from "./Timer.js";
 
 /** @typedef {import("./classes/User").default} User */
 
@@ -101,29 +102,44 @@ export default class App {
 
 	/**
 	 * Render Pomodoro timer to the DOM
-	 * @param {number} duration - The duration of the timer in minutes
 	 * @returns {void}
 	 */
-	renderTimer(duration = 0) {
-		this.#timerIntervalId && clearInterval(this.#timerIntervalId);
+	renderTimer() {
 		const timerEl = document.querySelector(".timer");
 		timerEl.classList.remove("hidden");
+	}
+
+	/**
+	 * Start a focus session timer
+	 * @param {number} FocusDuration - The duration of the timer in minutes
+	 * @param {number} breakDuration - The duration of the timer in minutes
+	 * @return {void}
+	 */
+	startTimer(FocusDuration = 0, breakDuration = 10) {
+		this.#timerIntervalId && clearInterval(this.#timerIntervalId);
+		const timerEl = document.querySelector(".timer");
 		const timerTitleEl = timerEl.querySelector(".timer-title");
 		const timerElement = timerEl.querySelector(".timer-countdown");
-		let timer = duration * 60;
+		let timer = FocusDuration * 60;
+		fadeInOutText(timerTitleEl, "Focus");
+		let firstPass = true;
 		const updateTimer = () => {
 			const minutes = Math.floor(timer / 60)
 				.toString()
 				.padStart(2, "0");
 			const seconds = (timer % 60).toString().padStart(2, "0");
 			timerElement.textContent = `${minutes}:${seconds}`;
-
 			if (timer === 0) {
 				clearInterval(this.#timerIntervalId);
-				timerElement.textContent = "00:00";
 				fadeInOutText(timerTitleEl, "Break");
+				timerElement.textContent = "00:00";
+				timerAudioEl.play();
+				timer = breakDuration * 60;
+				if (firstPass) {
+					this.#timerIntervalId = setInterval(updateTimer, 1000);
+					firstPass = false;
+				}
 			} else {
-				fadeInOutText(timerTitleEl, "Focus");
 				timer--;
 			}
 		};
@@ -184,13 +200,20 @@ export default class App {
 					adminConfig.commands.timer.includes(command) &&
 					flags.broadcaster
 				) {
-					const duration = parseInt(message, 10);
-					if (isNaN(duration) || duration <= 0) {
+					const [focusTime, breakTime] = message.split("/");
+					const focusDuration = parseInt(focusTime, 10);
+					const breakDuration = parseInt(breakTime, 10) || 10;
+					if (
+						isNaN(focusDuration) ||
+						focusDuration < 0 ||
+						isNaN(breakDuration) ||
+						breakDuration < 0
+					) {
 						throw new Error("Invalid timer duration");
 					}
-					this.renderTimer(duration);
+					this.startTimer(focusDuration, breakDuration);
 					template = adminConfig.responseTo[languageCode].timer;
-					responseDetail = duration;
+					responseDetail = focusTime;
 					return respondMessage(template, username, responseDetail);
 				} else if (adminConfig.commands.clearList.includes(command)) {
 					this.userList.clearUserList();
