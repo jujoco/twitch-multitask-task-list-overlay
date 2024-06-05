@@ -195,10 +195,10 @@ The following settings are for styling the TaskBot. Default values are provided 
 
 ### Commands for Broadcasters and Moderators
 
--   `!timer` - Start a timer for a focus session (in minutes)
+-   `!timer` - Set the focus and break timer for a session (in minutes)
 
-    -   example: `!timer 60`
-    -   example: `!timer 90`
+    -   example: `!timer 60/10`
+    -   example: `!timer 90/15`
 
 -   `!clearlist` - Clear all tasks from the list
 
