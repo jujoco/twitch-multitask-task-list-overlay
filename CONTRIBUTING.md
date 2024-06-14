@@ -26,30 +26,31 @@ If you want to contribute code, you can do so by following these 3 steps:
 
 ### Step #1: Fork the Repository
 
-1. **Fork the Repository**: Click the "Fork" button in the upper right corner of the repository's page.
+1. **Fork the Repository**: Click the "Fork" button in the upper right corner of the repository's home page.
 
 2. **Clone Your Fork**: Once you have forked the repository, clone your fork to your local machine.
 
-3. **Create a branch** for your edits.
+3. **Create a branch** for your contributions.
     ```bash
     git checkout -b feat/my-feature
     ```
+    example: `git checkout -b feat/new-translation`
 
 ### Step #2: Make Your Changes
 
-1. **Make Your Changes**: Make the necessary changes in your branch.
+1. **Make Your Changes**: Make the necessary changes in your fork's files.
 
 2. **Run the Tests**: Make sure all tests pass.
 
     ```bash
-    pnpm test
+    pnpm test  or  npm run test
     ```
 
 3. **Commit Your Changes**: Write clear and concise commit messages.
 
     ```bash
     git add .
-    git commit -m "Description of the changes made"
+    git commit -m "feat(translation): add Ukrainian translation for the app"
     ```
 
 4. **Push Your Changes**: Push your changes to Your fork on GitHub.
@@ -62,7 +63,43 @@ If you want to contribute code, you can do so by following these 3 steps:
 
 1. Open a Pull Request: Go to the "Pull Requests" tab of the original repository and click "New Pull Request" to open a new pull request.
 
+2. Fill out the pull request form by adding a title and description for your pull request. Be descriptive about what changes you made and why.
+
+3. Submit the Pull Request: Click the "Create Pull Request" button to submit your pull request.
+
 All code will be reviewed before being merged into the main branch and tested for security vulnerabilities.
+
+#### Commit Message Format
+
+```
+<type>(<detail>): <short summary>
+  │       │             │
+  │       │             └─⫸ Very short detailed message of the change you made
+  │       │
+  │       └─⫸ Commit Scope: One word detail of the change you made. examples:
+  │                         twitch | browser | styles | commands | youtube | etc.
+  │
+  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test
+```
+
+commit example:
+
+```
+feat(translation): add Ukrainian translation for the app
+```
+
+The `<type>` and `<short summary>` fields are mandatory, the `(<scope>)` field is optional.
+
+##### Type must be one of the following:
+
+-   **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+-   **ci**: Changes to our CI configuration files and scripts (examples: CircleCi, SauceLabs)
+-   **docs**: Documentation only changes
+-   **feat**: A new feature <- most common, use this if you're not sure.
+-   **fix**: A bug fix
+-   **perf**: A code change that improves performance
+-   **refactor**: A code change that neither fixes a bug nor adds a feature
+-   **test**: Adding missing tests or correcting existing tests
 
 ## Code of Conduct
 
