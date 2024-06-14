@@ -21,14 +21,11 @@
 
 .header {
 	display: var(--header-display, flex);
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	padding: 18px 22px 22px 22px;
 	margin-bottom: var(--header-margin-bottom);
 	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	border-left: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--header-border-radius);
+	padding: var(--header-padding, 16px);
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	background-color: var(--header-background-color);
 	font-family: var(--header-font-family, "arial");
@@ -37,13 +34,21 @@
 	font-weight: var(--header-font-weight);
 }
 
+.header-features {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin-top: -4px;
+}
+
 .task-wrapper {
 	display: flex;
 	flex-direction: column;
 	gap: var(--card-gap-between);
 	overflow: hidden;
 	height: 100%;
-	background-color: var(--body-background-color);
 	border-radius: var(--card-border-radius);
 }
 
@@ -59,7 +64,7 @@
 	border-radius: var(--card-border-radius);
 	background-color: var(--card-background-color);
 	margin: 0 1px;
-	padding: 18px 22px 22px 22px;
+	padding: var(--card-padding, 16px);
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	font-family: var(--card-font-family, "arial");
 }
@@ -68,11 +73,12 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	margin-top: -4px;
 	max-width: 90%;
 	width: fit-content;
 	color: var(--username-color);
-	font-size: var(--username-font-size);
-	font-weight: var(--username-font-weight);
+	font-size: var(--username-font-size, 18px);
+	font-weight: var(--username-font-weight, normal);
 }
 
 .tasks {
@@ -83,13 +89,13 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: var(--task-font-size);
+	font-size: var(--task-font-size, 16px);
 	color: var(--task-font-color);
-	font-weight: var(--task-font-weight);
+	font-weight: var(--task-font-weight, normal);
 }
 
 .done {
-	color: var(--task-done-font-color);
-	text-decoration-line: var(--task-done-text-decoration);
-	font-style: var(--task-done-font-style);
+	color: var(--task-done-font-color, #aaaaaa);
+	text-decoration-line: var(--task-done-text-decoration, none);
+	font-style: var(--task-done-font-style, italic);
 }

@@ -79,13 +79,13 @@ export default class App {
 	 */
 	renderTaskHeader() {
 		this.renderTaskCount();
-		const { headerDisplay, headerText } = configs.settings;
-		if (headerDisplay.toLowerCase() === "timer") {
+		const { headerFeature, headerCustomText } = configs.settings;
+		if (headerFeature.toLowerCase() === "timer") {
 			this.renderTimer();
-		} else if (headerDisplay.toLowerCase() === "commands") {
+		} else if (headerFeature.toLowerCase() === "commands") {
 			this.renderCommandTips();
-		} else if (headerDisplay.toLowerCase() === "text") {
-			this.renderCustomText(headerText);
+		} else if (headerFeature.toLowerCase() === "text") {
+			this.renderCustomText(headerCustomText);
 		}
 	}
 
@@ -189,7 +189,7 @@ export default class App {
 		const {
 			admin: adminConfig,
 			user: userConfig,
-			settings: { languageCode, maxTasksPerUser, headerDisplay },
+			settings: { languageCode, maxTasksPerUser, headerFeature },
 		} = configs;
 
 		let template = "";
@@ -199,7 +199,7 @@ export default class App {
 			// ADMIN COMMANDS
 			if (isMod(flags)) {
 				if (
-					headerDisplay.toLowerCase() === "timer" &&
+					headerFeature.toLowerCase() === "timer" &&
 					adminConfig.commands.timer.includes(command) &&
 					flags.broadcaster
 				) {

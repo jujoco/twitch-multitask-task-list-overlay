@@ -30,11 +30,12 @@ export function loadTestUsers(twitchClient) {
 		"dodgerblue",
 		"blueviolet",
 	];
+	const { maxTasksPerUser } = configs.settings;
 	for (let i = 1; i <= 8; i++) {
 		const userName = `Username${i}`;
 		const userColor = colorOptions[i - 1];
 
-		for (let j = 0; j < 3; j++) {
+		for (let j = 0; j < maxTasksPerUser; j++) {
 			const data = {
 				user: userName,
 				command: "taskadd",

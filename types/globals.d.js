@@ -21,8 +21,8 @@
  * @property {number} settings.maxTasksPerUser - The maximum tasks per user
  * @property {number} settings.scrollSpeed - The scroll speed
  * @property {boolean} settings.showUsernameColor - The show username color
- * @property {string} settings.headerDisplay - The header display
- * @property {string} settings.headerText - The header text
+ * @property {string} settings.headerFeature - The header display
+ * @property {string} settings.headerCustomText - The header text
  * @property {boolean} settings.testMode - The test mode
  */
 
@@ -36,15 +36,16 @@
  * @property {string} styles.appBackgroundColor - The app background color
  * @property {string} styles.headerDisplay - The header display
  * @property {string} styles.headerBorderRadius - The header border radius
+ * @property {string} styles.headerPadding - The header padding
  * @property {string} styles.headerMarginBottom - The header margin bottom
  * @property {string} styles.headerBackgroundColor - The header background color
  * @property {string} styles.headerFontSize - The header font size
  * @property {string} styles.headerFontColor - The header font color
  * @property {string} styles.headerFontWeight - The header font weight
- * @property {string} styles.bodyBackgroundColor - The body background color
  * @property {string} styles.cardGapBetween - The card gap between
  * @property {string} styles.cardBorderRadius - The card border radius
  * @property {string} styles.cardBackgroundColor - The card background color
+ * @property {string} styles.cardPadding - The card padding
  * @property {string} styles.usernameFontSize - The username font size
  * @property {string} styles.usernameColor - The username color
  * @property {string} styles.usernameFontWeight - The username font weight

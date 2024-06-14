@@ -13,18 +13,17 @@
 	--header-display: flex;
 	--header-border-radius: 6px;
 	--header-margin-bottom: 6px;
+	--header-padding: 16px;
 	--header-background-color: rgba(45, 45, 45, 0.7);
-	--header-font-size: 20px;
+	--header-font-size: 18px;
 	--header-font-color: white;
 	--header-font-weight: normal;
-
-	/* Body */
-	--body-background-color: rgba(0, 0, 0, 0);
 
 	/* Card */
 	--card-gap-between: 6px;
 	--card-border-radius: 6px;
 	--card-background-color: rgba(100, 100, 100, 0.6);
+	--card-padding: 16px;
 
 	/* User Name */
 	--username-font-size: 18px;

@@ -10,7 +10,6 @@ const configs = {
 		twitch_channel: "CHANNEL", // Replace CHANNEL with a Twitch channel name
 		twitch_username: "USERNAME", // Replace USERNAME with your Twitch username
 	},
-
 	// ========================================
 	// Bot Behavior Settings
 	// ========================================
@@ -19,8 +18,8 @@ const configs = {
 		maxTasksPerUser: 5, // default number 5
 		scrollSpeed: 40, // default number 40
 		showUsernameColor: true, // true or false
-		headerDisplay: "Timer", // "Timer", "None", "Commands", "Text"
-		headerText: "Custom Text", // HeaderDisplay above must be "Text"
+		headerFeature: "timer", // "timer", "commands", "text", "tasks-only"
+		headerCustomText: "Custom Text", // HeaderFeature above must be "text"
 		testMode: false, // true or false - for testing purposes
 	},
 
@@ -36,24 +35,23 @@ const configs = {
 		appBorderRadius: "5px", // px value
 		appPadding: "8px", // px value
 		appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
-		appBackgroundColor: "rgba(0, 0, 0, 0)", // rgba or hex value https://rgbcolorpicker.com
+		appBackgroundColor: "rgba(0, 0, 0, 0)", // rgba value https://rgbcolorpicker.com
 
 		//  Header Styles
 		headerDisplay: "flex", // "none" to hide header or "flex" to show header
 		headerBorderRadius: "6px", // px value
 		headerMarginBottom: "6px", // px value
-		headerBackgroundColor: "rgba(45, 45, 45, 0.7)", // rgba or hex value https://rgbcolorpicker.com/
-		headerFontSize: "20px", // px value
+		headerPadding: "16px", // px value
+		headerBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
+		headerFontSize: "18px", // px value
 		headerFontColor: "#FFFFFF", // hex value
 		headerFontWeight: "normal", // "normal", "lighter", "bold"
-
-		// Body Styles
-		bodyBackgroundColor: "rgba(0, 0, 0, 0)", // rgba or hex value https://rgbcolorpicker.com/
 
 		// Card Styles
 		cardGapBetween: "6px", // px value
 		cardBorderRadius: "6px", // px value
-		cardBackgroundColor: "rgba(45, 45, 45, 0.7)", // rgba or hex value https://rgbcolorpicker.com/
+		cardPadding: "16px", // px value
+		cardBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
 
 		// Username Styles
 		usernameFontSize: "18px", // px value

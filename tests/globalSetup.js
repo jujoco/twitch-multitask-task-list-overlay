@@ -53,8 +53,8 @@ const configs = {
 		maxTasksPerUser: 5, // default 5
 		scrollSpeed: 50, // default 50
 		showUsernameColor: true, // true or false
-		headerDisplay: "Timer", // "Timer", "None", "Commands", "Text"
-		headerText: "Custom Text", // HeaderDisplay above must be "Text"
+		headerFeature: "timer", // "timer", "commands", "text", "tasks-only"
+		headerCustomText: "Custom Text", // HeaderFeature above must be "Text"
 		testMode: false, // true or false - for testing purposes
 	},
 	styles: {},

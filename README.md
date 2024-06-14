@@ -38,7 +38,6 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
     -   [Fonts Styles](#fonts-styles)
     -   [App Styles](#app-styles)
     -   [Header Styles](#header-styles)
-    -   [Body Styles](#body-styles)
     -   [Card Styles (individual cards)](#card-styles-individual-cards)
 -   [Commands](#commands)
     -   [Commands for Everyone](#commands-for-everyone)
@@ -90,18 +89,18 @@ twitch_username = "USERNAME",
 -   **true**: will shows the user's twitch chat color
 -   **false**: will show the color you set in the `username-color` style
 
-`headerDisplay`: Default = "Timer"
+`headerFeature`: Default = "timer"
 
 Enable one will disable the others.
 
--   **"Timer"**: Display a timer in the header
--   **"None"**: Display nothing in the header
--   **"Text"**: Display a custom text in the header
--   **"Commands"**: Display commands tips in the header
+-   **"timer"**: Display a timer in the header
+-   **"text"**: Display a custom text in the header
+-   **"commands"**: Display commands tips in the header
+-   **"tasks-only"**: Display only the tasks count in the header
 
-`headerText`: Default = "Custom Text"
+`headerCustomText`: Default = "Custom Text"
 
-HeaderDisplay above must be set to "Text"
+HeaderFeature above must be set to "Text"
 
 `testMode`: Default = **false**
 
@@ -135,10 +134,6 @@ The following settings are for styling the TaskList. Default values are provided
 -   headerFontSize: Default = **"20px"**
 -   headerFontColor: Default = **"#FFFFFF"**
 -   headerFontWeight: Default = **"normal"**
-
-**Body Styles**
-
--   bodyBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
 
 **Card Styles**
 
