@@ -1,9 +1,13 @@
 {
-	"name": "twitch-chatbot-multitask-task-list-overlay",
+	"name": "witch-multitask-task-list-overlay",
 	"version": "1.0.0",
-	"description": "Interactive multitask task list overlay chatbot for Twitch streamer",
+	"description": "Interactive multitask task list overlay for streamer",
 	"author": "Jujoco",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jujoco/twitch-multitask-task-list-overlay.git"
+	},
 	"keywords": [
 		"twitch overlay",
 		"chatbot",
@@ -12,7 +16,7 @@
 		"streamer"
 	],
 	"engines": {
-		"node": ">=18.0.0",
+		"node": ">=20.0.0",
 		"npm": ">=10.0.0",
 		"pnpm": ">=8.0.0"
 	},
