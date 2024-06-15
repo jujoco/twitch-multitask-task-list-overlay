@@ -40,7 +40,7 @@ export function loadTestUsers(twitchClient) {
 				user: userName,
 				command: "taskadd",
 				message: `test task description ${
-					j === 2 ? "with longer text for example" : ""
+					j === 2 ? "longer text example" : ""
 				}`,
 				flags: { broadcaster: true, mod: false },
 				extra: {
