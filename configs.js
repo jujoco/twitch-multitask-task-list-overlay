@@ -14,7 +14,7 @@ const configs = {
 	// Bot Behavior Settings
 	// ========================================
 	settings: {
-		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
+		languageCode: "EN", // "EN", "ES", "FR", "JP", "UA", etc.
 		maxTasksPerUser: 5, // default number 5
 		scrollSpeed: 40, // default number 40
 		showUsernameColor: true, // true or false
@@ -103,6 +103,12 @@ const configs = {
 				clearDone: "完了したすべてのタスクがクリアされました",
 				clearUser: "{message} のすべてのタスクがクリアされました",
 			},
+			UA: {
+				timer: "Таймер виставлено до {message} хвилин",
+				clearList: "Усі завдання видалено",
+				clearDone: "Усі виконані завдання видалено",
+				clearUser: "Усі завдання {message} видалено",
+			},
 		},
 	},
 
@@ -111,13 +117,13 @@ const configs = {
 	// ========================================
 	user: {
 		commands: {
-			addTask: ["!add", "!task", "!addtask", "!taskadd"],
-			editTask: ["!edit", "!edittask", "!taskedit"],
-			finishTask: ["!done", "!donetask", "!taskdone"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove"],
-			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
-			help: ["!help", "!taskhelp", "!helptask"],
-			additional: ["!credit", "!taskbot"],
+			addTask: ["!add", "!task", "!addtask", "!taskadd", "!додати"],
+			editTask: ["!edit", "!edittask", "!taskedit", "!змінити"],
+			finishTask: ["!done", "!donetask", "!taskdone", "!готово"],
+			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove", "!видалити"],
+			check: ["!check", "!taskcheck", "!checktask", "!mytask", "!завдання"],
+			help: ["!help", "!taskhelp", "!helptask", "!команди"],
+			additional: ["!credit", "!taskbot", "!бот", "!автор"],
 		},
 		responseTo: {
 			EN: {
@@ -186,6 +192,22 @@ const configs = {
 					"タスクが見つかりません、タスクを追加してみてください!",
 				invalidCommand:
 					"無効なコマンド: {message}。!help を試してみてください",
+			},
+			UA: {
+				addTask: 'Завдання "{message}" додано!',
+				editTask: 'Завдання "{message}" змінено!',
+				finishTask: 'Вітаю з виконанням завдання "{message}"!',
+				deleteTask: 'Завдання "{message}" видалено!',
+				deleteAll: "Всі твої завдання видалено!",
+				check: 'Твої завдання наразі : "{message}"',
+				help: "Спробуй такі команди -!додати !змінити !готово !видалити !завдання",
+				additional:
+					"Jujoco створив цей бот, глянь його стрім : https://www.twitch.tv/JujocoCS",
+				maxTasksAdded:
+					"Додано максимальну кількість завдань. Спробуй видалити щось старе.",
+				noTaskFound:
+					"Наче в тебе наразі нема завдань, спробуй щось додати!",
+				invalidCommand: "Неправильна команда: {message}. Переглянь !команди",
 			},
 		},
 	},
