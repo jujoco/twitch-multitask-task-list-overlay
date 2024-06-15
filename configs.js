@@ -33,33 +33,33 @@ const configs = {
 
 		// App Styles
 		appBorderRadius: "5px", // px value
-		appPadding: "12px", // px value
+		appPadding: "6px", // px value
 		appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
 		appBackgroundColor: "rgba(0, 0, 0, 0)", // rgba value https://rgbcolorpicker.com
 
 		//  Header Styles
 		headerDisplay: "flex", // "none" to hide header or "flex" to show header
 		headerBorderRadius: "6px", // px value
-		headerMarginBottom: "12px", // px value
-		headerPadding: "22px", // px value
+		headerMarginBottom: "6px", // px value
+		headerPadding: "12px", // px value
 		headerBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
-		headerFontSize: "36px", // px value
+		headerFontSize: "18px", // px value
 		headerFontColor: "#FFFFFF", // hex value
 		headerFontWeight: "normal", // "normal", "lighter", "bold"
 
 		// Card Styles
-		cardGapBetween: "12px", // px value
+		cardGapBetween: "6px", // px value
 		cardBorderRadius: "6px", // px value
-		cardPadding: "22px", // px value
+		cardPadding: "12px", // px value
 		cardBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
 
 		// Username Styles
-		usernameFontSize: "36px", // px value
+		usernameFontSize: "18px", // px value
 		usernameColor: "#FFFFFF", // hex value
 		usernameFontWeight: "normal", // "normal", "lighter", "bold"
 
 		// Task Styles
-		taskFontSize: "32px", // px value
+		taskFontSize: "16px", // px value
 		taskFontColor: "#FFFFFF", // hex value
 		taskFontWeight: "normal", // "normal", "lighter", "bold"
 

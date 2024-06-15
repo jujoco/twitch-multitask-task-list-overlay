@@ -12,7 +12,7 @@
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	padding: var(--app-padding);
+	padding: calc(var(--app-padding) * 2);
 	border-radius: var(--app-border-radius);
 	background-color: var(--app-background-color);
 	background-image: var(--app-background-image);
@@ -21,16 +21,16 @@
 
 .header {
 	display: var(--header-display, flex);
-	margin-bottom: var(--header-margin-bottom);
+	margin-bottom: calc(var(--header-margin-bottom) * 2);
 	border-top: 1px solid rgba(255, 255, 255, 0.2);
 	border-left: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--header-border-radius);
-	padding: var(--header-padding, 16px);
+	padding: calc(var(--header-padding, 12px) * 2);
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	background-color: var(--header-background-color);
 	font-family: var(--header-font-family, "arial");
 	color: var(--header-font-color);
-	font-size: var(--header-font-size);
+	font-size: calc(var(--header-font-size, 18) * 2);
 	font-weight: var(--header-font-weight);
 }
 
@@ -55,7 +55,7 @@
 .task-container {
 	display: flex;
 	flex-direction: column;
-	gap: var(--card-gap-between);
+	gap: calc(var(--card-gap-between) * 2);
 }
 
 .card {
@@ -64,7 +64,7 @@
 	border-radius: var(--card-border-radius);
 	background-color: var(--card-background-color);
 	margin: 0 1px;
-	padding: var(--card-padding, 16px);
+	padding: calc(var(--card-padding, 10px) * 2);
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	font-family: var(--card-font-family, "arial");
 }
@@ -73,11 +73,11 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	margin-top: -4px;
+	margin-top: -6px;
 	max-width: 90%;
 	width: fit-content;
 	color: var(--username-color);
-	font-size: var(--username-font-size, 18px);
+	font-size: calc(var(--username-font-size, 18px) * 2);
 	font-weight: var(--username-font-weight, normal);
 }
 
@@ -89,7 +89,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: var(--task-font-size, 16px);
+	font-size: calc(var(--task-font-size, 16px) * 2);
 	color: var(--task-font-color);
 	font-weight: var(--task-font-weight, normal);
 }
