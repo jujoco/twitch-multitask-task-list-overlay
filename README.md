@@ -28,6 +28,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
     -   ES - Español
     -   FR - française
     -   JP - 日本語
+    -   UA - українська
 
 ## Content
 
@@ -75,6 +76,7 @@ twitch_username = "USERNAME",
 -   **"ES"**: Spanish translation
 -   **"FR"**: French translation
 -   **"JP"**: Japanese translation
+-   **"UA"**: Ukrainian translation
 
 `maxTasksPerUser`: Default = **5**
 
