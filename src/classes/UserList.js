@@ -46,16 +46,14 @@ export default class UserList {
 					userColor: lsUser.userColor,
 				});
 				lsUser.tasks.map((task) => {
-					const newTask = user.addTask(
-						new Task(task.description)
-					);
+					const newTask = user.addTask(new Task(task.description));
 					this.totalTasks++;
 					if (task.completionStatus) {
 						newTask.setCompletionStatus(task.completionStatus);
 						this.tasksCompleted++;
 					}
 				});
-				userList.push(user)
+				userList.push(user);
 			});
 		} else {
 			localStorage.setItem(
@@ -201,13 +199,12 @@ export default class UserList {
 	 * Get tasks specified by status of a user
 	 * @param {string} username - The username of the user
 	 * @param {string} status - The completion status of the task
-	 * @throws {Error} If the user has no tasks
 	 * @returns {Map<number, Task>} The tasks specified by status
 	 */
 	checkUserTasks(username, status = "incomplete") {
 		const user = this.getUser(username);
 		if (!user) {
-			throw new Error(`${username} has no tasks`);
+			return new Map();
 		}
 		const map = new Map();
 		user.getTasks().forEach((task, i) => {
