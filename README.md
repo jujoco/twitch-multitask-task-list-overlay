@@ -237,7 +237,7 @@ For aliases, see [here](#aliases)
 -   `!hecho` (Spanish)
 -   `!terminé` (French)
 -   `!完了` (Japanese)
--   `!виконано` (Ukrainian)
+-   `!готово` (Ukrainian)
 
 **delete task commands:**
 

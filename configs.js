@@ -141,7 +141,7 @@ const configs = {
 					"!チェック",
 					"!перевірити",
 				],
-				help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!команди"],
+				help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
 				additional: [
 					"!credit",
 					"!crédito",
