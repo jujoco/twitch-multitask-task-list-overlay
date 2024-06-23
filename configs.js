@@ -42,7 +42,7 @@ const configs = {
 		headerBorderRadius: "6px", // px value
 		headerMarginBottom: "6px", // px value
 		headerPadding: "12px", // px value
-		headerBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
+		headerBackgroundColor: "rgba(45, 45, 45, 0.6)", // rgba value https://rgbcolorpicker.com/
 		headerFontSize: "18px", // px value
 		headerFontColor: "#FFFFFF", // hex value
 		headerFontWeight: "normal", // "normal", "lighter", "bold"
@@ -51,7 +51,7 @@ const configs = {
 		cardGapBetween: "6px", // px value
 		cardBorderRadius: "6px", // px value
 		cardPadding: "12px", // px value
-		cardBackgroundColor: "rgba(45, 45, 45, 0.5)", // rgba value https://rgbcolorpicker.com/
+		cardBackgroundColor: "rgba(45, 45, 45, 0.6)", // rgba value https://rgbcolorpicker.com/
 
 		// Username Styles
 		usernameFontSize: "18px", // px value
@@ -117,13 +117,39 @@ const configs = {
 	// ========================================
 	user: {
 		commands: {
-			addTask: ["!add", "!task", "!addtask", "!taskadd", "!додати"],
-			editTask: ["!edit", "!edittask", "!taskedit", "!змінити"],
-			finishTask: ["!done", "!donetask", "!taskdone", "!готово"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!видалити"],
-			check: ["!check", "!taskcheck", "!checktask", "!завдання"],
-			help: ["!help", "!taskhelp", "!helptask", "!команди"],
-			additional: ["!credit", "!taskbot", "!бот", "!автор"],
+			commands: {
+				addTask: ["!task", "!añadir", "!ajouter", "!追加", "!додати"],
+				editTask: [
+					"!edit",
+					"!editar",
+					"!modifier",
+					"!編集",
+					"!редагувати",
+				],
+				finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
+				deleteTask: [
+					"!delete",
+					"!eliminar",
+					"!supprimer",
+					"!削除",
+					"!видалити",
+				],
+				check: [
+					"!check",
+					"!comprobar",
+					"!vérifier",
+					"!チェック",
+					"!перевірити",
+				],
+				help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!команди"],
+				additional: [
+					"!credit",
+					"!crédito",
+					"!crédit",
+					"!クレジット",
+					"!кредит",
+				],
+			},
 		},
 		responseTo: {
 			EN: {

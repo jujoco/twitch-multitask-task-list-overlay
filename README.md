@@ -218,46 +218,61 @@ For aliases, see [here](#aliases)
 **add task commands:**
 
 -   `!task`
--   `!add`
--   `!taskadd`
--   `!addtask`
+-   `!añadir` (Spanish)
+-   `!ajouter` (French)
+-   `!追加` (Japanese)
+-   `!додати` (Ukrainian)
 
 **edit task commands:**
 
 -   `!edit`
--   `!taskedit`
--   `!edittask`
+-   `!editar` (Spanish)
+-   `!modifier` (French)
+-   `!編集` (Japanese)
+-   `!редагувати` (Ukrainian)
 
 **complete task commands:**
 
 -   `!done`
--   `!donetask`
--   `!taskdone`
+-   `!hecho` (Spanish)
+-   `!terminé` (French)
+-   `!完了` (Japanese)
+-   `!виконано` (Ukrainian)
 
 **delete task commands:**
 
 -   `!delete`
--   `!taskdelete`
--   `!deletetask`
+-   `!eliminar` (Spanish)
+-   `!supprimer` (French)
+-   `!削除` (Japanese)
+-   `!видалити` (Ukrainian)
 
 **check commands:**
 
 -   `!check`
--   `!checktask`
--   `!taskcheck`
+-   `!comprobar` (Spanish)
+-   `!vérifier` (French)
+-   `!チェック` (Japanese)
+-   `!перевірити` (Ukrainian)
 
 **help commands:**
 
 -   `!help`
--   `!taskhelp`
--   `!helptask`
+-   `!ayuda` (Spanish)
+-   `!aide` (French)
+-   `!ヘルプ` (Japanese)
+-   `!допомога` (Ukrainian)
 
 **extra commands:**
 
 -   `!credit`
+-   `!crédito` (Spanish)
+-   `!crédit` (French)
+-   `!クレジット` (Japanese)
+-   `!кредит` (Ukrainian)
 
 ## Credits
 
 **Author:** [**@JujocoCS**](https://twitch.tv/JujocoCS)
 
-**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev) & [**@JPStudyTime**](https://twitch.tv/JPStudyTime)
+**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev)
