@@ -120,8 +120,8 @@ const configs = {
 			addTask: ["!add", "!task", "!addtask", "!taskadd", "!додати"],
 			editTask: ["!edit", "!edittask", "!taskedit", "!змінити"],
 			finishTask: ["!done", "!donetask", "!taskdone", "!готово"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove", "!видалити"],
-			check: ["!check", "!taskcheck", "!checktask", "!mytask", "!завдання"],
+			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!видалити"],
+			check: ["!check", "!taskcheck", "!checktask", "!завдання"],
 			help: ["!help", "!taskhelp", "!helptask", "!команди"],
 			additional: ["!credit", "!taskbot", "!бот", "!автор"],
 		},
@@ -207,7 +207,8 @@ const configs = {
 					"Додано максимальну кількість завдань. Спробуй видалити щось старе.",
 				noTaskFound:
 					"Наче в тебе наразі нема завдань, спробуй щось додати!",
-				invalidCommand: "Неправильна команда: {message}. Переглянь !команди",
+				invalidCommand:
+					"Неправильна команда: {message}. Переглянь !команди",
 			},
 		},
 	},

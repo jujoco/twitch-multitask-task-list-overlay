@@ -237,14 +237,14 @@ For aliases, see [here](#aliases)
 **delete task commands:**
 
 -   `!delete`
--   `!remove`
 -   `!taskdelete`
 -   `!deletetask`
 
 **check commands:**
 
 -   `!check`
--   `!mytasks`
+-   `!checktask`
+-   `!taskcheck`
 
 **help commands:**
 
@@ -260,4 +260,4 @@ For aliases, see [here](#aliases)
 
 **Author:** [**@JujocoCS**](https://twitch.tv/JujocoCS)
 
-**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev) & [**@JPStudyTime**](https://twitch.tv/JPStudyTime) & [**@MohFocus**](https://twitch.tv/MohFocus)
+**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev) & [**@JPStudyTime**](https://twitch.tv/JPStudyTime)
