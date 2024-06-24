@@ -117,39 +117,31 @@ const configs = {
 	// ========================================
 	user: {
 		commands: {
-			commands: {
-				addTask: ["!task", "!añadir", "!ajouter", "!追加", "!додати"],
-				editTask: [
-					"!edit",
-					"!editar",
-					"!modifier",
-					"!編集",
-					"!редагувати",
-				],
-				finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
-				deleteTask: [
-					"!delete",
-					"!eliminar",
-					"!supprimer",
-					"!削除",
-					"!видалити",
-				],
-				check: [
-					"!check",
-					"!comprobar",
-					"!vérifier",
-					"!チェック",
-					"!перевірити",
-				],
-				help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
-				additional: [
-					"!credit",
-					"!crédito",
-					"!crédit",
-					"!クレジット",
-					"!кредит",
-				],
-			},
+			addTask: ["!task", "!añadir", "!ajouter", "!追加", "!додати"],
+			editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати"],
+			finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
+			deleteTask: [
+				"!delete",
+				"!eliminar",
+				"!supprimer",
+				"!削除",
+				"!видалити",
+			],
+			check: [
+				"!check",
+				"!comprobar",
+				"!vérifier",
+				"!チェック",
+				"!перевірити",
+			],
+			help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
+			additional: [
+				"!credit",
+				"!crédito",
+				"!crédit",
+				"!クレジット",
+				"!кредит",
+			],
 		},
 		responseTo: {
 			EN: {
