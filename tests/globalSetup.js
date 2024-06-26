@@ -20,13 +20,13 @@ const configs = {
 	},
 	user: {
 		commands: {
-			addTask: ["!add", "!task", "!addtask", "!taskadd"],
-			editTask: ["!edit", "!edittask", "!taskedit"],
-			finishTask: ["!done", "!donetask", "!taskdone"],
-			deleteTask: ["!delete", "!deletetask", "!taskdelete", "!remove"],
-			check: ["!check", "!taskcheck", "!checktask", "!mytask"],
-			help: ["!help", "!taskhelp", "!helptask"],
-			additional: ["!credit", "!taskbot"],
+			addTask: ["!task"],
+			editTask: ["!edit"],
+			finishTask: ["!done"],
+			deleteTask: ["!delete"],
+			check: ["!check"],
+			help: ["!help"],
+			additional: ["!credit"],
 		},
 		responseTo: {
 			EN: {
@@ -37,7 +37,7 @@ const configs = {
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				deleteAll: "All of your tasks have been deleted!",
 				check: 'Your current task is: "{message}", {user}',
-				help: "Try using these commands - !add !edit !done !delete",
+				help: "Try using these commands - !task !edit !done !delete",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:

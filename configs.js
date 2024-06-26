@@ -151,7 +151,7 @@ const configs = {
 				deleteTask: 'Task(s) "{message}" has been deleted!',
 				deleteAll: "All of your tasks have been deleted!",
 				check: 'Your current task(s) are: "{message}"',
-				help: "Try using these commands - !add !edit !done !delete, !check",
+				help: "Try using these commands - !task !edit !done !delete, !check",
 				additional:
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -168,7 +168,7 @@ const configs = {
 				deleteTask: 'La(s) tarea(s) "{message}" ha sido eliminada(s)!',
 				deleteAll: "Todas tus tareas han sido eliminadas!",
 				check: 'Tus tareas actuales son: "{message}"',
-				help: "Prueba a usar estos comandos - !add !edit !done !delete, !check",
+				help: "Prueba a usar estos comandos - !añadir !editar !hecho !eliminar, !comprobar",
 				additional:
 					"Jujoco es el creador de este bot, visita su Twitch en: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -185,7 +185,7 @@ const configs = {
 				deleteTask: 'La tâche "{message}" a été supprimée!',
 				deleteAll: "Toutes vos tâches ont été supprimées!",
 				check: 'Vos tâches actuelles sont: "{message}"',
-				help: "Essayez d'utiliser ces commandes - !add !edit !done !delete, !check",
+				help: "Essayez d'utiliser ces commandes - !ajouter !modifier !terminé !supprimer, !vérifier",
 				additional:
 					"Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -201,7 +201,7 @@ const configs = {
 				deleteTask: 'タスク "{message}" が削除されました!',
 				deleteAll: "すべてのタスクが削除されました!",
 				check: '現在のタスクは "{message}" です',
-				help: "これらのコマンドを試してみてください - !add !edit !done !delete, !check",
+				help: "これらのコマンドを試してみてください - !追加 !編集 !完了 !削除, !チェック",
 				additional:
 					"Jujoco はこのボットの作成者です、彼の Twitch をチェックしてください: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
@@ -218,7 +218,7 @@ const configs = {
 				deleteTask: 'Завдання "{message}" видалено!',
 				deleteAll: "Всі твої завдання видалено!",
 				check: 'Твої завдання наразі : "{message}"',
-				help: "Спробуй такі команди -!додати !змінити !готово !видалити !завдання",
+				help: "Спробуй такі команди -!додати !редагувати !готово !видалити !перевірити",
 				additional:
 					"Jujoco створив цей бот, глянь його стрім : https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
