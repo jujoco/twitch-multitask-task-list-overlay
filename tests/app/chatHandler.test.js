@@ -35,11 +35,11 @@ describe("App.chatHandler", () => {
 			},
 			extra: { color: "#00FFFF" },
 			command: {
-				ADDTASK: "addTask",
-				EDITTASK: "editTask",
-				DONETASK: "doneTask",
-				DELETETASK: "deleteTask",
-				CHECKTASK: "checkTask",
+				ADDTASK: "task",
+				EDITTASK: "edit",
+				DONETASK: "done",
+				DELETETASK: "delete",
+				CHECKTASK: "check",
 				HELP: "help",
 				ADDITIONAL: "credit",
 			},
@@ -161,7 +161,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			describe("!addTask command", () => {
+			describe("!task command", () => {
 				it("should create a new user if the user does not exist and add their task", () => {
 					const response = app.chatHandler(
 						"newUser22",
@@ -234,7 +234,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			describe("!editTask command", () => {
+			describe("!edit command", () => {
 				it("should return a message indicating the edited task number", () => {
 					const response = app.chatHandler(
 						chatUser.username,
@@ -291,7 +291,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			describe("!doneTask command", () => {
+			describe("!done command", () => {
 				it("should return a success message when marking task as done", () => {
 					const response = app.chatHandler(
 						chatUser.username,
@@ -336,7 +336,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			describe("!deleteTask command", () => {
+			describe("!delete command", () => {
 				it("should return a message indicating the task has been delete", () => {
 					const response = app.chatHandler(
 						chatUser.username,
@@ -380,7 +380,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			describe("!checkTask command", () => {
+			describe("!check command", () => {
 				it("should return a message listing user's uncompleted tasks", () => {
 					const response = app.chatHandler(
 						chatUser.username,
@@ -421,7 +421,7 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						"Try using these commands - !add !edit !done !delete"
+						"Try using these commands - !task !edit !done !delete"
 					);
 				});
 			});

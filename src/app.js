@@ -153,7 +153,7 @@ export default class App {
 	 * @returns {void}
 	 */
 	renderCommandTips() {
-		const tips = ["!add", "!edit", "!done", "!remove", "!check", "!help"];
+		const tips = ["!task", "!edit", "!done", "!remove", "!check", "!help"];
 		const commandTipEl = document.querySelector(".command-tips");
 		commandTipEl.classList.remove("hidden");
 		let tipIdx = 0;
