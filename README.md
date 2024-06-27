@@ -30,9 +30,9 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
     -   JP - 日本語
     -   UA - українська
 
-## Content
+## Table of Contents
 
--   [Installation](#installation)
+-   [Installation Instructions](#installation-instructions)
 -   [Customization settings](#customization-settings)
     -   [Behavior Settings](#behavior-settings)
     -   [Styles Settings](#styles-settings)
@@ -46,9 +46,17 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 -   [Aliases](#aliases)
 -   [Credits](#credits)
 
-## Installation
+## Installation Introduction
 
-Download this repo and Add & Setup a `Browser Source` in your OBS or other streaming software with the local file source pointing to `index.html` in this repo.
+1. **Download this repo** - Download this repo by clicking on the green `Code` button and selecting `Download ZIP`.
+
+2. **Unzip the Download** - Once the download is complete, unzip the downloaded file to a location on your computer where you can easily access it and remember where it is.
+
+3. **Setup a Browser Source in OBS** - Open OBS and add a new `Browser Source` to your scene. Name it `TaskList overlay` or something you can easily remember.
+
+4. **Select the Local file checkbox** - In the Browser Source settings, select `Local file` and browse to the location where you unzipped the downloaded file. Select the `index.html` file and click `Open`.
+
+5. **Done!** - Next, read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
 
 ## Customization settings
 
@@ -66,6 +74,14 @@ Open the `configs.js` file and modify the following settings to customized the T
 twitch_oauth = "OAUTHTOKEN",
 twitch_channel = "CHANNEL",
 twitch_username = "USERNAME",
+```
+
+When you are done, it should look something like this:
+
+```js
+twitch_oauth = "oauth:138kjl2a0r3dpaf93asdf",
+twitch_channel = "jujococs",
+twitch_username = "jujococs",
 ```
 
 ### Behavior Settings
