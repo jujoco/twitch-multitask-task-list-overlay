@@ -252,7 +252,7 @@ export default class UserList {
 	 */
 	deleteUser(username) {
 		const userIndex = this.users.findIndex(
-			(user) => user.username === username
+			(user) => user.username.toLowerCase() === username.toLowerCase()
 		);
 		if (userIndex === -1) {
 			throw new Error(`${username} not found`);
