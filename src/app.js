@@ -300,7 +300,16 @@ export default class App {
 				tasks.forEach(({ id }) => {
 					this.completeTaskFromDOM(id);
 				});
-				responseDetail = message;
+				responseDetail = tasks.reduce((acc, task, i, list) => {
+					let taskDesc =
+						i === list.length - 1
+							? task.description
+							: i === list.length - 2
+							? `${task.description}, & `
+							: `${task.description}, `;
+					acc = acc.concat(taskDesc);
+					return acc;
+				}, "");
 				template = userConfig.responseTo[languageCode].finishTask;
 			} else if (userConfig.commands.deleteTask.includes(command)) {
 				// DELETE/REMOVE TASK
@@ -516,7 +525,7 @@ function parseTaskIndex(index) {
 
 /**
  * Create a user card element
- * @param {{username: string, userColor: string}}
+ * @param {{username: string, userColor: string}} user
  * @returns {HTMLDivElement}
  */
 function createUserCard({ username, userColor }) {
