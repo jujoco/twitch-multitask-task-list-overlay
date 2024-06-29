@@ -54,13 +54,19 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 
 3. **Setup a Browser Source in OBS** - Open OBS and add a new `Browser Source` to your scene. Name it `TaskList overlay` or something you can easily remember.
 
-4. **Select the Local file checkbox** - In the Browser Source settings, select `Local file` and browse to the location where you unzipped the downloaded file. Select the `index.html` file and click `Open`.
+4. **Select the Local file checkbox** - In the Browser Source settings, select `Local file` and then `Browse` to the location where you unzipped the downloaded files. Select the `index.html` file and click `Open`.
 
-5. **Done!** - Next, read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
+5. **Set the Width and Height** - Next, in the Browser Source, set the width and height. I recommend 660px Width and 1600px Height. Adjust as needed.
+
+6. **Done!** - Select OK to save!. Read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
+
+<img width="500px" src="./images/obs-source-example.png"/>
 
 ## Customization settings
 
 Open the `configs.js` file and modify the following settings to customized the TaskList widget Behavior & Appearance.
+
+> IMPORTANT! — Any changes you make to the `configs.js` file will require you to click the `Refresh Cache of Current Page` button in Browser Source you just created to see the style changes you make. (see image above, #5.)
 
 ### Twitch oAuth - Required
 
@@ -225,8 +231,6 @@ The following settings are for styling the TaskList. Default values are provided
 
     -   example: `!clearuser JujocoCS`
 
-For aliases, see [here](#aliases)
-
 ## Aliases
 
 ### User Commands
@@ -290,5 +294,3 @@ For aliases, see [here](#aliases)
 ## Credits
 
 **Author:** [**@JujocoCS**](https://twitch.tv/JujocoCS)
-
-**App Inspired by:** [**@RythonDev**](https://twitch.tv/RythonDev)
