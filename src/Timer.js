@@ -1,4 +1,3 @@
-/**
- * @type {HTMLAudioElement}
- */
-export const timerAudioEl = document.getElementById("audioSample");
+export const timerAudioEl = /** @type {HTMLAudioElement} */ (
+	document.getElementById("audioSample")
+);
