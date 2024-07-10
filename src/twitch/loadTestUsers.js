@@ -38,7 +38,7 @@ export function loadTestUsers(twitchClient) {
 		for (let j = 0; j < maxTasksPerUser; j++) {
 			const data = {
 				user: userName,
-				command: "taskadd",
+				command: "task",
 				message: `test task description ${
 					j === 2 ? "longer text example" : ""
 				}`,
@@ -56,7 +56,7 @@ export function loadTestUsers(twitchClient) {
 		setTimeout(() => {
 			const data = {
 				user: userName,
-				command: "taskdone",
+				command: "done",
 				message: "1",
 				flags: { broadcaster: true, mod: false },
 				extra: {
