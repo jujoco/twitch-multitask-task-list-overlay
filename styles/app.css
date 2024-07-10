@@ -46,7 +46,7 @@
 .task-wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: var(--card-gap-between);
+	gap: calc(var(--card-gap-between) * 2);
 	overflow: hidden;
 	height: 100%;
 	border-radius: var(--card-border-radius);
