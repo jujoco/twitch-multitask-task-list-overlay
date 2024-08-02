@@ -46,13 +46,15 @@ describe("User", () => {
 			user.addTask(new Task("test task 1"));
 			user.addTask(new Task("test task 2"));
 			user.addTask(new Task("test task 3"));
-			expect(user.editTask(2, "task 3 updated").description).toBe(
-				"task 3 updated"
-			);
+			const updatedTask = user.editTask(2, "task 3 updated");
+			expect(updatedTask).toBeInstanceOf(Task);
+			expect(updatedTask.description).toBe("task 3 updated");
 		});
 
-		test("should throw an error if the index is out of bounds", () => {
-			expect(() => user.editTask(0, "updated task")).toThrow(Error);
+		test("should return null if the task index is out of bounds", () => {
+			user.addTask(new Task("test task 1"));
+			const updatedTask = user.editTask(3, "task 3 updated");
+			expect(updatedTask).toBeNull();
 		});
 	});
 
@@ -63,8 +65,10 @@ describe("User", () => {
 			expect(user.getTasks()[0].isComplete()).toBe(true);
 		});
 
-		test("should throw an error if the index is out of bounds", () => {
-			expect(() => user.completeTask(0)).toThrow(Error);
+		test("should return null if the task index is out of bounds", () => {
+			user.addTask(new Task("test task 1"));
+			const task = user.completeTask(3);
+			expect(task).toBeNull();
 		});
 	});
 
@@ -86,10 +90,10 @@ describe("User", () => {
 			expect(deletedTasks[1].description).toBe("test task 2");
 		});
 
-		test("should throw an error if the index is out of bounds", () => {
-			expect(() => user.deleteTask([10])).toThrow(
-				"Task index out of bounds"
-			);
+		test("returns empty array if the index is out of bounds", () => {
+			const deletedTasks = user.deleteTask(10);
+			expect(deletedTasks).toHaveLength(0);
+			expect(Array.isArray(deletedTasks)).toBe(true);
 		});
 	});
 
@@ -109,12 +113,14 @@ describe("User", () => {
 	describe("getTask", () => {
 		test("should return the task at the specified index", () => {
 			user.addTask(new Task("test task 1"));
-			expect(user.getTask(0)).toBeInstanceOf(Task);
-			expect(user.getTask(0).description).toBe("test task 1");
+			const task = user.getTask(0);
+			expect(task).toBeInstanceOf(Task);
+			expect(task.description).toBe("test task 1");
 		});
 
-		test("should throw an error if the index is out of bounds", () => {
-			expect(() => user.getTask(0)).toThrow("Task index out of bounds");
+		test("return Null if the index is out of bounds", () => {
+			const task = user.getTask(3);
+			expect(task).toBeNull;
 		});
 	});
 
@@ -126,23 +132,18 @@ describe("User", () => {
 		});
 	});
 
-	describe("validateTaskIndex", () => {
-		test("should throw an error if the index is not a number", () => {
-			expect(() => user.validateTaskIndex("0")).toThrow(
-				"Task index must be a number"
-			);
+	describe("validTaskIndex", () => {
+		test("returns false if index is not of type Number", () => {
+			expect(user.validTaskIndex("0")).toBe(false);
 		});
 
-		test("should throw an error if the index is out of bounds", () => {
-			expect(() => user.validateTaskIndex(4)).toThrow(
-				"Task index out of bounds"
-			);
+		test("returns false if index is out of bounds", () => {
+			expect(user.validTaskIndex(4)).toBe(false);
 		});
 
-		test("should Not throw an error if the index is within bounds", () => {
+		test("returns true if index is within bounds", () => {
 			user.addTask(new Task("test task 1"));
-			expect(() => user.validateTaskIndex(0)).not.toThrow(Error);
-			expect(user.validateTaskIndex(0)).toBe(true);
+			expect(user.validTaskIndex(0)).toBe(true);
 		});
 	});
 });
