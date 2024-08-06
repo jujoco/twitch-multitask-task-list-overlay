@@ -156,8 +156,7 @@ const configs = {
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Maximum number of tasks reached, try deleting old tasks.",
-				noTaskFound:
-					"Looks like you don't have a task up there, try adding one!",
+				noTaskFound: "That task doesn't seem to exist, try adding one!",
 				invalidCommand: "Invalid command: {message}. Try !help",
 			},
 			ES: {
@@ -174,7 +173,7 @@ const configs = {
 				maxTasksAdded:
 					"Número máximo de tareas alcanzado, intenta eliminar tareas antiguas.",
 				noTaskFound:
-					"Parece que no tienes ninguna tarea, ¡intenta añadir una!",
+					"Esa tarea no parece existir, ¡intenta añadir una!",
 				invalidCommand: "Comando inválido: {message}. Prueba !help",
 			},
 			FR: {
@@ -191,7 +190,7 @@ const configs = {
 				maxTasksAdded:
 					"Nombre maximum de tâches atteint, essayez de supprimer les anciennes tâches.",
 				noTaskFound:
-					"Vous n'avez pas de tâche, essayez d'en ajouter une!",
+					"Cette tâche ne semble pas exister, essayez d'en ajouter une!",
 				invalidCommand: "Commande invalide: {message}. Essayez !help",
 			},
 			JP: {
@@ -207,7 +206,7 @@ const configs = {
 				maxTasksAdded:
 					"最大タスク数に達しました、古いタスクを削除してみてください。",
 				noTaskFound:
-					"タスクが見つかりません、タスクを追加してみてください!",
+					"そのタスクは存在しないようです、追加してみてください!",
 				invalidCommand:
 					"無効なコマンド: {message}。!help を試してみてください",
 			},
@@ -223,8 +222,7 @@ const configs = {
 					"Jujoco створив цей бот, глянь його стрім : https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"Додано максимальну кількість завдань. Спробуй видалити щось старе.",
-				noTaskFound:
-					"Наче в тебе наразі нема завдань, спробуй щось додати!",
+				noTaskFound: "Це завдання не існує, спробуй додати нове!",
 				invalidCommand:
 					"Неправильна команда: {message}. Переглянь !команди",
 			},

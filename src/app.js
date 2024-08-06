@@ -181,7 +181,7 @@ export default class App {
 	 * @param {string} command
 	 * @param {string} message
 	 * @param {{broadcaster: boolean, mod: boolean}} flags
-	 * @param {{userColor: string, messageId: string}} extra
+	 * @param {{userColor: string, messageId?: string}} extra
 	 * @returns {{error: boolean, message: string}} - Response message
 	 */
 	chatHandler(username, command, message, flags, extra) {
@@ -300,19 +300,25 @@ export default class App {
 				tasks.forEach(({ id }) => {
 					this.completeTaskFromDOM(id);
 				});
-				responseDetail = tasks.reduce((acc, task, i, list) => {
-					let taskDesc =
-						i === list.length - 1
-							? task.description
-							: i === list.length - 2
-							? `${task.description}, & `
-							: `${task.description}, `;
-					acc = acc.concat(taskDesc);
-					return acc;
-				}, "");
-				template = userConfig.responseTo[languageCode].finishTask;
+				if (tasks.length === 0) {
+					template = userConfig.responseTo[languageCode].noTaskFound;
+				} else {
+					responseDetail = tasks.reduce((acc, task, i, list) => {
+						let taskDesc =
+							i === list.length - 1
+								? task.description
+								: i === list.length - 2
+								? `${task.description}, & `
+								: `${task.description}, `;
+						acc = acc.concat(taskDesc);
+						return acc;
+					}, "");
+
+					template = userConfig.responseTo[languageCode].finishTask;
+				}
 			} else if (userConfig.commands.deleteTask.includes(command)) {
 				// DELETE/REMOVE TASK
+				responseDetail = message;
 				if (message.toLowerCase() === "all") {
 					const user = this.userList.deleteUser(username);
 					this.deleteUserFromDOM(user);
@@ -329,9 +335,14 @@ export default class App {
 					tasks.forEach(({ id }) => {
 						this.deleteTaskFromDOM(id);
 					});
-					template = userConfig.responseTo[languageCode].deleteTask;
+					if (tasks.length === 0) {
+						template =
+							userConfig.responseTo[languageCode].noTaskFound;
+					} else {
+						template =
+							userConfig.responseTo[languageCode].deleteTask;
+					}
 				}
-				responseDetail = message;
 			} else if (userConfig.commands.check.includes(command)) {
 				// CHECK TASKS
 				const taskMap = this.userList.checkUserTasks(username);
@@ -472,7 +483,6 @@ export default class App {
 	 * Delete the user in the DOM
 	 * @param {User} user
 	 * @returns {void}
-	 * @private
 	 */
 	deleteUserFromDOM(user) {
 		// remove user card and reduce total tasks count

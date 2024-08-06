@@ -42,7 +42,7 @@ const configs = {
 					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
 				maxTasksAdded:
 					"{user}, maximum number of tasks reached, try removing some first.",
-				noTaskFound: "Looks like you don't have a task up there {user}",
+				noTaskFound: "That task doesn't seem to exist, try adding one!",
 				invalidCommand:
 					'{user}, Invalid command: "{message}" - Try !help',
 			},

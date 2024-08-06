@@ -1,17 +1,20 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import App from "../../src/app";
 
 describe("App.chatHandler", () => {
 	describe("chatHandler", () => {
-		const app = new App();
+		const app = new App("TestStore");
 		const userList = app.userList;
+		app.renderTimer = vi.fn();
+		app.startTimer = vi.fn();
+		app.renderCommandTips = vi.fn();
+		app.renderCustomText = vi.fn();
 		app.clearListFromDOM = vi.fn();
 		app.addTaskToDOM = vi.fn();
 		app.editTaskFromDOM = vi.fn();
 		app.completeTaskFromDOM = vi.fn();
 		app.deleteTaskFromDOM = vi.fn();
 		app.deleteUserFromDOM = vi.fn();
-		app.renderTimer = vi.fn();
 
 		const adminUser = {
 			username: "bobTheAdmin",
@@ -19,7 +22,9 @@ describe("App.chatHandler", () => {
 				broadcaster: true,
 				mod: false,
 			},
-			extra: { color: "#FF0000" },
+			extra: {
+				userColor: "#FF0000",
+			},
 			command: {
 				TIMER: "timer",
 				CLEARLIST: "clearList",
@@ -33,7 +38,7 @@ describe("App.chatHandler", () => {
 				broadcaster: false,
 				mod: false,
 			},
-			extra: { color: "#00FFFF" },
+			extra: { userColor: "#00FFFF" },
 			command: {
 				ADDTASK: "task",
 				EDITTASK: "edit",
@@ -57,7 +62,7 @@ describe("App.chatHandler", () => {
 
 		describe("Admin commands", () => {
 			describe("!timer command", () => {
-				it("should return a success message when an Admin user submits !timer ", () => {
+				test("successfully execute Admin !timer command", () => {
 					const response = app.chatHandler(
 						adminUser.username,
 						adminUser.command.TIMER,
@@ -72,7 +77,7 @@ describe("App.chatHandler", () => {
 			});
 
 			describe("!clearList command", () => {
-				it("should return a success message when an Admin user submits !clearList ", () => {
+				test("should return a success message when an Admin user submits !clearList ", () => {
 					const response = app.chatHandler(
 						adminUser.username,
 						adminUser.command.CLEARLIST,
@@ -86,7 +91,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return a error when an non-Admin user submits !clearList ", () => {
+				test("should return a error when an non-Admin user submits !clearList ", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						adminUser.command.CLEARLIST,
@@ -101,7 +106,7 @@ describe("App.chatHandler", () => {
 				});
 			});
 
-			it("!clearDone command", () => {
+			test("!clearDone command", () => {
 				const response = app.chatHandler(
 					adminUser.username,
 					adminUser.command.CLEARDONE,
@@ -116,7 +121,7 @@ describe("App.chatHandler", () => {
 				);
 			});
 
-			it("!clearUser command", () => {
+			test("!clearUser command", () => {
 				const response = app.chatHandler(
 					adminUser.username,
 					adminUser.command.CLEARUSER,
@@ -133,7 +138,7 @@ describe("App.chatHandler", () => {
 
 		describe("User commands", () => {
 			describe("Invalid command", () => {
-				it("should return an error if the command is empty", () => {
+				test("should error if the command is empty", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						"",
@@ -147,7 +152,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if the command is not found", () => {
+				test("should error if the command is not found", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						"invalidCommand",
@@ -162,7 +167,7 @@ describe("App.chatHandler", () => {
 			});
 
 			describe("!task command", () => {
-				it("should create a new user if the user does not exist and add their task", () => {
+				test("should create a new user if the user does not exist and add their task", () => {
 					const response = app.chatHandler(
 						"newUser22",
 						chatUser.command.ADDTASK,
@@ -177,7 +182,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return a success message showing the added tasks", () => {
+				test("should return a success message showing the added tasks", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.ADDTASK,
@@ -191,7 +196,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should accept multiple, comma separated, tasks", () => {
+				test("should accept multiple, comma separated, tasks", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.ADDTASK,
@@ -205,7 +210,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return a message letting the user know they reached max task limit", () => {
+				test("should letting the user know they reached max task limit", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.ADDTASK,
@@ -219,7 +224,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if the message is empty", () => {
+				test("should error if the message is empty", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.ADDTASK,
@@ -235,7 +240,7 @@ describe("App.chatHandler", () => {
 			});
 
 			describe("!edit command", () => {
-				it("should return a message indicating the edited task number", () => {
+				test("should indicating the edited task number", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.EDITTASK,
@@ -249,7 +254,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if the message is empty", () => {
+				test("should error if the message is empty", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.EDITTASK,
@@ -263,7 +268,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if the task number is missing", () => {
+				test("should error if the task number is missing", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.EDITTASK,
@@ -277,7 +282,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if task description is missing", () => {
+				test("should error if task description is missing", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.EDITTASK,
@@ -292,7 +297,7 @@ describe("App.chatHandler", () => {
 			});
 
 			describe("!done command", () => {
-				it("should return a success message when marking task as done", () => {
+				test("returns a success message when marking task as done", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DONETASK,
@@ -302,11 +307,11 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Good job on completing task(s) "1" joeTheUser!'
+						'Good job on completing task(s) "task1" joeTheUser!'
 					);
 				});
 
-				it("should return a success message when marking multiple task as done", () => {
+				test("returns a success message when marking multiple task as done", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DONETASK,
@@ -316,11 +321,11 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Good job on completing task(s) "1, 2" joeTheUser!'
+						'Good job on completing task(s) "task1, & task2" joeTheUser!'
 					);
 				});
 
-				it("should return an error if the task is not found", () => {
+				test("returns generic message if 0 tasks modified", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DONETASK,
@@ -329,15 +334,15 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 
-					expect(response.error).toBe(true);
+					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task index out of bounds" - Try !help'
+						"That task doesn't seem to exist, try adding one!"
 					);
 				});
 			});
 
 			describe("!delete command", () => {
-				it("should return a message indicating the task has been delete", () => {
+				test("should indicating the task has been delete", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DELETETASK,
@@ -352,7 +357,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return a message indicating all of the users tasks have been deleted", () => {
+				test("should indicating all of the users tasks have been deleted", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DELETETASK,
@@ -366,7 +371,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return an error if the task is not found", () => {
+				test("should error if the task is not found", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.DELETETASK,
@@ -375,13 +380,13 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task index out of bounds" - Try !help'
+						"That task doesn't seem to exist, try adding one!"
 					);
 				});
 			});
 
 			describe("!check command", () => {
-				it("should return a message listing user's uncompleted tasks", () => {
+				test("should listing user's uncompleted tasks", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.CHECKTASK,
@@ -395,7 +400,7 @@ describe("App.chatHandler", () => {
 					);
 				});
 
-				it("should return a message if no tasks are found", () => {
+				test("should if no tasks are found", () => {
 					userList.completeUserTasks("joeTheUser", [0, 2]);
 					const response = app.chatHandler(
 						chatUser.username,
@@ -406,13 +411,13 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						"Looks like you don't have a task up there joeTheUser"
+						"That task doesn't seem to exist, try adding one!"
 					);
 				});
 			});
 
 			describe("!help command", () => {
-				it("should return a helpful message", () => {
+				test("should return a helpful message", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.HELP,
@@ -427,7 +432,7 @@ describe("App.chatHandler", () => {
 			});
 
 			describe("!credit command", () => {
-				it("should return info about the task bot", () => {
+				test("should return info about the task bot", () => {
 					const response = app.chatHandler(
 						chatUser.username,
 						chatUser.command.ADDITIONAL,
