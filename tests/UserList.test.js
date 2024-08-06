@@ -142,7 +142,7 @@ describe("UserList", () => {
 			userList.addUserTasks("user1", "Task 1");
 			expect(() =>
 				userList.editUserTask("user1", 1, "Updated Task 1")
-			).toThrow("Task index out of bounds");
+			).toThrow("Task 1 not found");
 		});
 
 		test("should throw an error if user does not exist", () => {
@@ -175,18 +175,18 @@ describe("UserList", () => {
 			expect(tasks[2].description).toEqual("Task 4");
 		});
 
-		test("should throw an error if task does not exist", () => {
+		test("returns an array of only existing task indices provide", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
-			expect(() => userList.completeUserTasks("user1", 1)).toThrow(
-				"Task index out of bounds"
-			);
+			userList.addUserTasks("user1", "Task 2");
+			const tasks = userList.completeUserTasks("user1", 3);
+			expect(tasks).toHaveLength(0);
 		});
 
 		test("should throw an error if user does not exist", () => {
 			expect(() =>
 				userList.completeUserTasks("nonExistentUser", 0)
-			).toThrow("nonExistentUser has no tasks");
+			).toThrow("User nonExistentUser not found");
 		});
 	});
 
@@ -211,15 +211,13 @@ describe("UserList", () => {
 		test("should throw an error if task does not exist", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
 			userList.addUserTasks("user1", "Task 1");
-			expect(() => userList.deleteUserTasks("user1", [1])).toThrow(
-				"Task index out of bounds"
-			);
+			expect(userList.deleteUserTasks("user1", [1])).toEqual([]);
 		});
 
 		test("should throw an error if user does not exist", () => {
 			expect(() =>
 				userList.deleteUserTasks("nonExistentUser", [0])
-			).toThrow("nonExistentUser has no tasks");
+			).toThrow("User nonExistentUser not found");
 		});
 	});
 
@@ -235,9 +233,9 @@ describe("UserList", () => {
 		});
 
 		test("should throw an error if user does not exist", () => {
-			expect(() => userList.checkUserTasks("nonExistentUser")).toThrow(
-				"nonExistentUser has no tasks"
-			);
+			const taskMap = userList.checkUserTasks("nonExistentUser");
+			expect(taskMap.size).toEqual(0);
+			expect(taskMap).instanceOf(Map);
 		});
 	});
 

@@ -132,7 +132,7 @@ export default class UserList {
 	 * @param {string} username - The username of the user
 	 * @param {number} taskIndex - The index of the task to edit
 	 * @param {string} taskDescription - The new task value
-	 * @throws {Error} If user has no tasks
+	 * @throws {Error} User or Index not found
 	 * @returns {Task} The edited task
 	 */
 	editUserTask(username, taskIndex, taskDescription) {
@@ -152,23 +152,24 @@ export default class UserList {
 	 * Mark the user tasks as complete
 	 * @param {string} username - The username of the user
 	 * @param {number | number[]} indices - The index of the task to complete
-	 * @throws {Error} If user has no tasks
+	 * @throws {Error} User not found
 	 * @returns {Task[]} The description of the completed task
 	 */
 	completeUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
-			throw new Error(`${username} has no tasks`);
+			throw new Error(`User ${username} not found`);
 		}
-		const items = [].concat(indices);
-		const tasks = items.map((i) => {
-			const task = user.getTask(i);
-			if (task && !task.isComplete()) {
+		const tasks = [].concat(indices).reduce((acc, curr) => {
+			const task = user.getTask(curr);
+			if (!task) return acc;
+			if (!task.isComplete()) {
 				task.setCompletionStatus(true);
 				this.tasksCompleted++;
 			}
-			return task;
-		});
+			acc.push(task);
+			return acc;
+		}, []);
 		this.#commitToLocalStorage();
 		return tasks;
 	}
@@ -177,13 +178,13 @@ export default class UserList {
 	 * Delete the user tasks
 	 * @param {string} username - The username of the user
 	 * @param {number | number[]} indices - The index of the task to delete
-	 * @throws {Error} If user has no tasks
+	 * @throws {Error} User not found
 	 * @returns {Task[]} The deleted task description
 	 */
 	deleteUserTasks(username, indices) {
 		const user = this.getUser(username);
 		if (!user) {
-			throw new Error(`${username} has no tasks`);
+			throw new Error(`User ${username} not found`);
 		}
 		const items = [].concat(indices);
 		const tasks = user.deleteTask(items);
