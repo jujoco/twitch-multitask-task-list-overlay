@@ -32,8 +32,7 @@ const configs = {
 			EN: {
 				addTask: 'Task(s) "{message}" added, {user}!',
 				editTask: 'Task "{message}" updated, {user}!',
-				finishTask:
-					'Good job on completing task(s) "{message}" {user}!',
+				finishTask: 'Good job on completing task(s) "{message}" {user}!',
 				deleteTask: 'Task "{message}" has been deleted, {user}!',
 				deleteAll: "All of your tasks have been deleted!",
 				check: 'Your current task is: "{message}", {user}',
@@ -43,8 +42,7 @@ const configs = {
 				maxTasksAdded:
 					"{user}, maximum number of tasks reached, try removing some first.",
 				noTaskFound: "That task doesn't seem to exist, try adding one!",
-				invalidCommand:
-					'{user}, Invalid command: "{message}" - Try !help',
+				invalidCommand: '{user}, Invalid command: "{message}" - Try !help',
 			},
 		},
 	},
