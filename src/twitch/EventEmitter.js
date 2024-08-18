@@ -8,6 +8,9 @@
  */
 class EventEmitter {
 	constructor() {
+		/**
+		 * @type {Map<string, function[]>}
+		 */
 		this.events = new Map();
 	}
 
