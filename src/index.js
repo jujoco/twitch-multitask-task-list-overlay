@@ -7,7 +7,8 @@ const {
 	settings: { testMode },
 } = configs;
 
-const client = new TwitchChat({
+const twitchIRC = "ws://irc-ws.chat.twitch.tv:80";
+const client = new TwitchChat(twitchIRC, {
 	username: twitch_username,
 	authToken: twitch_oauth,
 	channel: twitch_channel,
@@ -32,6 +33,7 @@ window.addEventListener("load", () => {
 			console.error(response.message);
 		}
 	});
+
 	client.connect();
 	if (testMode) loadTestUsers(client);
 });
