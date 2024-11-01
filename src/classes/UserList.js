@@ -253,7 +253,10 @@ export default class UserList {
 	 */
 	deleteUser(username) {
 		const userIndex = this.users.findIndex(
-			(user) => user.username.toLowerCase() === username.toLowerCase()
+			(user) => {
+				let regex = RegExp(`^${username}`, 'i');
+				return regex.test(user.username);
+			}
 		);
 		if (userIndex === -1) {
 			throw new Error(`${username} not found`);

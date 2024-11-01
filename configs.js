@@ -65,7 +65,7 @@ const configs = {
 
     taskDoneFontColor: "#b0b0b0", // hex value
     taskDoneFontStyle: "italic", // "italic" or "normal"
-    taskDoneTextDecoration: "none", // "line-through" or "none"
+    taskDoneTextDecoration: "line-through", // "line-through" or "none"
   },
 
   // ========================================
