@@ -117,7 +117,7 @@ const configs = {
   // ========================================
   user: {
     commands: {
-      addTask: ["!task", "!añadir", "!ajouter", "!追加", "!додати"],
+      addTask: ["!task", "!add", "!añadir", "!ajouter", "!追加", "!додати"],
       editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати"],
       finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
       deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити"],
