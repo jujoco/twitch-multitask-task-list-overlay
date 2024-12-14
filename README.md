@@ -1,5 +1,9 @@
 # Twitch Chatbot Multitask Task List Overlay
 
+## ⛔️ UNDER CONSTRUCTION ⛔️ updated Dec 14th 2024
+
+A recent change in the Twitch auth token validation process requires me to make a few updates to this app. ETA on fix: **Dec. 31th 2024**
+
 <img src="./images/live-sample.png">
 <br >
 <img src="./images/customize-sample.png">
@@ -9,42 +13,42 @@
 A TaskList Widget for Twitch TV which allows users to interact with the broadcaster's stream.
 Viewers can create, edit, mark as done, and delete tasks from the list. This TaskList widget is designed to help streamers and their viewers to keep track of tasks, goals, or objectives during a stream. It is easy to use, and fast to setup. The TaskList widget is designed to be used in OBS or other streaming software as a Browser Source.
 
-## **APP Features ✨**
+## App Features ✨
 
--   Free to use
--   Easy setup
--   Easy to customize
--   Fast performance & super lightweight (19 kB bundle size)
--   No coding required
--   Customizable Multi-language support
--   No third-party database required
--   User features
-    -   user can create multiple tasks
-    -   user can edit tasks
-    -   user can mark tasks as done
-    -   user can delete tasks from their list
--   Supports multiple languages translations
-    -   EN - English
-    -   ES - Español
-    -   FR - française
-    -   JP - 日本語
-    -   UA - українська
+- Free to use
+- Easy setup
+- Easy to customize
+- Fast performance & super lightweight (19 kB bundle size)
+- No coding required
+- Customizable Multi-language support
+- No third-party database required
+- User features
+  - user can create multiple tasks
+  - user can edit tasks
+  - user can mark tasks as done
+  - user can delete tasks from their list
+- Supports multiple languages translations
+  - EN - English
+  - ES - Español
+  - FR - française
+  - JP - 日本語
+  - UA - українська
 
 ## Table of Contents
 
--   [Installation Instructions](#installation-instructions)
--   [Customization settings](#customization-settings)
-    -   [Behavior Settings](#behavior-settings)
-    -   [Styles Settings](#styles-settings)
-    -   [Fonts Styles](#fonts-styles)
-    -   [App Styles](#app-styles)
-    -   [Header Styles](#header-styles)
-    -   [Card Styles (individual cards)](#card-styles-individual-cards)
--   [Commands](#commands)
-    -   [Commands for Everyone](#commands-for-everyone)
-    -   [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
--   [Aliases](#aliases)
--   [Credits](#credits)
+- [Installation Instructions](#installation-instructions)
+- [Customization settings](#customization-settings)
+  - [Behavior Settings](#behavior-settings)
+  - [Styles Settings](#styles-settings)
+  - [Fonts Styles](#fonts-styles)
+  - [App Styles](#app-styles)
+  - [Header Styles](#header-styles)
+  - [Card Styles (individual cards)](#card-styles-individual-cards)
+- [Commands](#commands)
+  - [Commands for Everyone](#commands-for-everyone)
+  - [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
+- [Aliases](#aliases)
+- [Credits](#credits)
 
 ## Installation Introduction
 
@@ -70,7 +74,7 @@ Open the `configs.js` file and modify the following settings to customized the T
 
 ### Twitch oAuth - Required
 
-1. Get auth token from https://twitchapps.com/tmi
+1. Get auth token from <https://twitchapps.com/tmi> (<- no longer working)
 2. open `configs.js` file
 3. Replace `OAUTHTOKEN` with your token
 4. Replace `CHANNEL` with your channel name
@@ -94,33 +98,33 @@ twitch_username = "jujococs",
 
 `languageCode`: Default = **"EN"**
 
--   **"EN"**: English translation
--   **"ES"**: Spanish translation
--   **"FR"**: French translation
--   **"JP"**: Japanese translation
--   **"UA"**: Ukrainian translation
+- **"EN"**: English translation
+- **"ES"**: Spanish translation
+- **"FR"**: French translation
+- **"JP"**: Japanese translation
+- **"UA"**: Ukrainian translation
 
 `maxTasksPerUser`: Default = **5**
 
--   **number**: A value between 1 - 10.
+- **number**: A value between 1 - 10.
 
 `scrollSpeed`: Default = **40**
 
--   **number**: A value between 1 - 100.
+- **number**: A value between 1 - 100.
 
 `showUsernameColor`: Default = **true**
 
--   **true**: will shows the user's twitch chat color
--   **false**: will show the color you set in the `username-color` style
+- **true**: will shows the user's twitch chat color
+- **false**: will show the color you set in the `username-color` style
 
 `headerFeature`: Default = "timer"
 
 Enable one will disable the others.
 
--   **"timer"**: Display a timer in the header
--   **"text"**: Display a custom text in the header
--   **"commands"**: Display commands tips in the header
--   **"tasks-only"**: Display only the tasks count in the header
+- **"timer"**: Display a timer in the header
+- **"text"**: Display a custom text in the header
+- **"commands"**: Display commands tips in the header
+- **"tasks-only"**: Display only the tasks count in the header
 
 `headerCustomText`: Default = "Custom Text"
 
@@ -128,8 +132,8 @@ HeaderFeature above must be set to "Text"
 
 `testMode`: Default = **false**
 
--   **false**: turn OFF test mode.
--   **true**: turn ON test mode.
+- **false**: turn OFF test mode.
+- **true**: turn ON test mode.
 
 Use this to test the TaskList without affecting the real task list and visually see the style changes you make. When test mode is OFF, the TaskList will work as normal and remove any test tasks.
 
@@ -139,97 +143,97 @@ The following settings are for styling the TaskList. Default values are provided
 
 **Font Family** - selection available @ https://fonts.google.com
 
--   headerFontFamily: "Roboto Mono"
--   cardFontFamily: "Roboto Mono"
+- headerFontFamily: "Roboto Mono"
+- cardFontFamily: "Roboto Mono"
 
 **App Styles**
 
--   appBorderRadius: Default = **"5px"**
--   appPadding: Default = **"8px"**
--   appBackgroundImage: Default = **"url(../images/transparent-image.png)"**
--   appBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
+- appBorderRadius: Default = **"5px"**
+- appPadding: Default = **"8px"**
+- appBackgroundImage: Default = **"url(../images/transparent-image.png)"**
+- appBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
 
 **Header Styles**
 
--   headerDisplay: Default = **"flex"**
--   headerBorderRadius: Default = **"6px"**
--   headerMarginBottom: Default = **"6px"**
--   headerBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
--   headerFontSize: Default = **"20px"**
--   headerFontColor: Default = **"#FFFFFF"**
--   headerFontWeight: Default = **"normal"**
+- headerDisplay: Default = **"flex"**
+- headerBorderRadius: Default = **"6px"**
+- headerMarginBottom: Default = **"6px"**
+- headerBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
+- headerFontSize: Default = **"20px"**
+- headerFontColor: Default = **"#FFFFFF"**
+- headerFontWeight: Default = **"normal"**
 
 **Card Styles**
 
--   cardGapBetween: Default = **"6px"**
--   cardBorderRadius: Default = **"6px"**
--   cardBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
+- cardGapBetween: Default = **"6px"**
+- cardBorderRadius: Default = **"6px"**
+- cardBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
 
 **Username Styles**
 
--   usernameFontSize: Default = **"18px"**
--   usernameColor: Default = **"#FFFFFF"**
--   usernameFontWeight: Default = **"normal"**
+- usernameFontSize: Default = **"18px"**
+- usernameColor: Default = **"#FFFFFF"**
+- usernameFontWeight: Default = **"normal"**
 
 **Task Styles**
 
--   taskFontSize: Default = **"16px"**
--   taskFontColor: Default = **"#FFFFFF"**
--   taskFontWeight: Default = **"normal"**
--   taskDoneFontColor: Default = **"#aaaaaa"**
--   taskDoneFontStyle: Default = **"#italic"**
--   taskDoneTextDecoration: Default = **"none"**
+- taskFontSize: Default = **"16px"**
+- taskFontColor: Default = **"#FFFFFF"**
+- taskFontWeight: Default = **"normal"**
+- taskDoneFontColor: Default = **"#aaaaaa"**
+- taskDoneFontStyle: Default = **"#italic"**
+- taskDoneTextDecoration: Default = **"none"**
 
 ## Commands
 
 ### Commands for Everyone
 
--   `!task` - Add task(s) (multiple tasks must be separated by a comma)
+- `!task` or `!add` - Add task(s) (multiple tasks must be separated by a comma)
 
-    -   example: `!task read ch. 3`
-    -   example: `!task prep for exam, walk dog`
+  - example: `!task read ch. 3`
+  - example: `!task prep for exam, walk dog`
 
--   `!edit` - Edit a single task
+- `!edit` - Edit a single task
 
-    -   example: `!edit 1 read ch. 4`
-    -   example: `!edit 2 walk cat`
+  - example: `!edit 1 read ch. 4`
+  - example: `!edit 2 walk cat`
 
--   `!done` - Mark task(s) as done (multiple tasks must be separated by a comma)
+- `!done` - Mark task(s) as done (multiple tasks must be separated by a comma)
 
-    -   example: `!done 1`
-    -   example: `!done 2, 3`
+  - example: `!done 1`
+  - example: `!done 2, 3`
 
--   `!delete` - Delete task(s) (multiple tasks must be separated by a comma)
+- `!delete` - Delete task(s) (multiple tasks must be separated by a comma)
 
-    -   example: `!delete 1`
-    -   example: `!delete 2, 3`
+  - example: `!delete 1`
+  - example: `!delete 2, 3`
 
--   `!check` - Check your remaining tasks
+- `!check` - Check your remaining tasks
 
-    -   example: `!check`
+  - example: `!check`
 
--   `!credit` - Show the credits
+- `!credit` - Show the credits
 
-    -   example: `!credit`
+  - example: `!credit`
 
 ### Commands for Broadcasters and Moderators
 
--   `!timer` - Set the focus and break timer for a session (in minutes)
+- `!timer` - Set the focus and break timer for a session (in minutes)
 
-    -   example: `!timer 60/10`
-    -   example: `!timer 90/15`
+  - example: `!timer 60/10`
+  - example: `!timer 90/15`
 
--   `!clearlist` - Clear all tasks from the list
+- `!clearlist` - Clear all tasks from the list
 
-    -   example: `!clearlist`
+  - example: `!clearlist`
 
--   `!cleardone` - Clear all done tasks
+- `!cleardone` - Clear all done tasks
 
-    -   example: `!cleardone`
+  - example: `!cleardone`
 
--   `!clearuser` - Remove all tasks from a User (case sensitive username)
+- `!clearuser` - Remove all tasks from a User (username case insensitive)
 
-    -   example: `!clearuser JujocoCS`
+  - example: `!clearuser jujoco_dev` or `Jujoco_Dev`
 
 ## Aliases
 
@@ -237,60 +241,60 @@ The following settings are for styling the TaskList. Default values are provided
 
 **add task commands:**
 
--   `!task`
--   `!añadir` (Spanish)
--   `!ajouter` (French)
--   `!追加` (Japanese)
--   `!додати` (Ukrainian)
+- `!task`
+- `!añadir` (Spanish)
+- `!ajouter` (French)
+- `!追加` (Japanese)
+- `!додати` (Ukrainian)
 
 **edit task commands:**
 
--   `!edit`
--   `!editar` (Spanish)
--   `!modifier` (French)
--   `!編集` (Japanese)
--   `!редагувати` (Ukrainian)
+- `!edit`
+- `!editar` (Spanish)
+- `!modifier` (French)
+- `!編集` (Japanese)
+- `!редагувати` (Ukrainian)
 
 **complete task commands:**
 
--   `!done`
--   `!hecho` (Spanish)
--   `!terminé` (French)
--   `!完了` (Japanese)
--   `!готово` (Ukrainian)
+- `!done`
+- `!hecho` (Spanish)
+- `!terminé` (French)
+- `!完了` (Japanese)
+- `!готово` (Ukrainian)
 
 **delete task commands:**
 
--   `!delete`
--   `!eliminar` (Spanish)
--   `!supprimer` (French)
--   `!削除` (Japanese)
--   `!видалити` (Ukrainian)
+- `!delete`
+- `!eliminar` (Spanish)
+- `!supprimer` (French)
+- `!削除` (Japanese)
+- `!видалити` (Ukrainian)
 
 **check commands:**
 
--   `!check`
--   `!comprobar` (Spanish)
--   `!vérifier` (French)
--   `!チェック` (Japanese)
--   `!перевірити` (Ukrainian)
+- `!check`
+- `!comprobar` (Spanish)
+- `!vérifier` (French)
+- `!チェック` (Japanese)
+- `!перевірити` (Ukrainian)
 
 **help commands:**
 
--   `!help`
--   `!ayuda` (Spanish)
--   `!aide` (French)
--   `!ヘルプ` (Japanese)
--   `!допомога` (Ukrainian)
+- `!help`
+- `!ayuda` (Spanish)
+- `!aide` (French)
+- `!ヘルプ` (Japanese)
+- `!допомога` (Ukrainian)
 
 **extra commands:**
 
--   `!credit`
--   `!crédito` (Spanish)
--   `!crédit` (French)
--   `!クレジット` (Japanese)
--   `!кредит` (Ukrainian)
+- `!credit`
+- `!crédito` (Spanish)
+- `!crédit` (French)
+- `!クレジット` (Japanese)
+- `!кредит` (Ukrainian)
 
 ## Credits
 
-**Author:** [**@JujocoCS**](https://twitch.tv/JujocoCS)
+**Author:** [**@Jujoco_Dev**](https://twitch.tv/Jujoco_Dev)
