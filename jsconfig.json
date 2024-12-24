@@ -7,6 +7,15 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler"
 	},
-	"include": ["src", "types", "tests", "configs.js"],
+	"include": [
+		"src",
+		"types",
+		"tests",
+		"_auth.js",
+		"_configAdmin.js",
+		"_configUser.js",
+		"_settings.js",
+		"_styles.js",
+	],
 	"exclude": ["node_modules"]
 }

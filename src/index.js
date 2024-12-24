@@ -3,9 +3,8 @@ import TwitchChat from "./twitch/TwitchChat.js";
 import { loadTestUsers } from "./twitch/loadTestUsers.js";
 
 const {
-	auth: { twitch_channel, twitch_oauth, twitch_username },
-	settings: { testMode },
-} = configs;
+	twitch_channel, twitch_oauth, twitch_username
+} = _authConfig;
 
 const twitchIRC = "ws://irc-ws.chat.twitch.tv:80";
 const client = new TwitchChat(twitchIRC, {
@@ -16,7 +15,7 @@ const client = new TwitchChat(twitchIRC, {
 
 window.addEventListener("load", () => {
 	let storeName = "userList";
-	if (testMode) {
+	if (_settings.testMode) {
 		console.log("Test mode enabled");
 		storeName = "testUserList";
 	}
@@ -35,5 +34,5 @@ window.addEventListener("load", () => {
 	});
 
 	client.connect();
-	if (testMode) loadTestUsers(client);
+	if (_settings.testMode) loadTestUsers(client);
 });

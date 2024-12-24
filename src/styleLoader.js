@@ -4,6 +4,7 @@
  * @returns {void}
  */
 export function loadStyles(styles) {
+	/** @type {HTMLElement} */
 	const root = document.querySelector(":root");
 	for (let [key, val] of Object.entries(styles)) {
 		if (key.includes("FontFamily")) {
@@ -18,7 +19,7 @@ export function loadStyles(styles) {
  * @returns {void}
  */
 function loadGoogleFont(font) {
-	WebFont.load({
+	window.WebFont.load({
 		google: {
 			families: [`${font}:100,400,700`],
 		},

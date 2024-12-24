@@ -87,7 +87,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(userList.users.length).toBe(0);
 					expect(response.message).toBe(
-						"bobTheAdmin, All tasks have been cleared"
+						"All tasks have been cleared"
 					);
 				});
 
@@ -101,7 +101,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(userList.users.length).toBe(2);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "command not found" - Try !help'
+						'Invalid command: command not found. Try !help'
 					);
 				});
 			});
@@ -117,7 +117,7 @@ describe("App.chatHandler", () => {
 				expect(userList.users[0].getTasks().length).toBe(2);
 				expect(response.error).toBe(false);
 				expect(response.message).toBe(
-					"bobTheAdmin, All done tasks have been cleared"
+					"All done tasks have been cleared"
 				);
 			});
 
@@ -131,7 +131,7 @@ describe("App.chatHandler", () => {
 				);
 				expect(userList.users.length).toBe(1);
 				expect(response.message).toBe(
-					"bobTheAdmin, All tasks for joeTheUser have been cleared"
+					"All tasks for joeTheUser have been cleared"
 				);
 			});
 		});
@@ -148,7 +148,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(true);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "command not found" - Try !help'
+						'Invalid command: command not found. Try !help'
 					);
 				});
 
@@ -161,7 +161,7 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "command not found" - Try !help'
+						'Invalid command: command not found. Try !help'
 					);
 				});
 			});
@@ -178,7 +178,7 @@ describe("App.chatHandler", () => {
 
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task(s) "newTask" added, newUser22!'
+						'Task(s) "newTask" added!'
 					);
 				});
 
@@ -192,7 +192,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task(s) "newTask" added, joeTheUser!'
+						'Task(s) "newTask" added!'
 					);
 				});
 
@@ -206,7 +206,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task(s) "newTask, newTask2" added, joeTheUser!'
+						'Task(s) "newTask, newTask2" added!'
 					);
 				});
 
@@ -220,7 +220,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						"joeTheUser, maximum number of tasks reached, try removing some first."
+						"Maximum number of tasks reached, try deleting old tasks."
 					);
 				});
 
@@ -234,7 +234,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(true);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task description is empty" - Try !help'
+						'Invalid command: Task description is empty. Try !help'
 					);
 				});
 			});
@@ -250,7 +250,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task "2" updated, joeTheUser!'
+						'Task "2" updated!'
 					);
 				});
 
@@ -264,7 +264,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(true);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task number or description format is invalid" - Try !help'
+						'Invalid command: Task number or description format is invalid. Try !help'
 					);
 				});
 
@@ -278,7 +278,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(true);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task number or description format is invalid" - Try !help'
+						'Invalid command: Task number or description format is invalid. Try !help'
 					);
 				});
 
@@ -291,7 +291,7 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						'joeTheUser, Invalid command: "Task number or description format is invalid" - Try !help'
+						'Invalid command: Task number or description format is invalid. Try !help'
 					);
 				});
 			});
@@ -307,7 +307,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Good job on completing task(s) "task1" joeTheUser!'
+						'Good job on completing task(s) "task1"!'
 					);
 				});
 
@@ -321,7 +321,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Good job on completing task(s) "task1, & task2" joeTheUser!'
+						'Good job on completing task(s) "task1, & task2"!'
 					);
 				});
 
@@ -353,7 +353,7 @@ describe("App.chatHandler", () => {
 
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Task "1" has been deleted, joeTheUser!'
+						'Task(s) "1" has been deleted!'
 					);
 				});
 
@@ -396,7 +396,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						'Your current task is: "1. task1 | 3. task3", joeTheUser'
+						'Your current task(s) are: "1. task1 | 3. task3"'
 					);
 				});
 
@@ -426,7 +426,7 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						"Try using these commands - !task !edit !done !delete"
+						"Try using these commands - !task !edit !done !delete, !check"
 					);
 				});
 			});
@@ -441,7 +441,7 @@ describe("App.chatHandler", () => {
 						chatUser.extra
 					);
 					expect(response.message).toBe(
-						"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS"
+						"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/Jujoco_Dev"
 					);
 				});
 			});

@@ -1,61 +1,68 @@
 import { vi } from "vitest";
 
-/** @type {Configs} */
-const configs = {
-	admin: {
-		commands: {
-			timer: ["!timer"],
-			clearList: ["!clearlist"],
-			clearDone: ["!cleardone"],
-			clearUser: ["!clearuser"],
-		},
-		responseTo: {
-			EN: {
-				timer: "Timer has been reset to {message} minutes",
-				clearList: "{user}, All tasks have been cleared",
-				clearDone: "{user}, All done tasks have been cleared",
-				clearUser: "{user}, All tasks for {message} have been cleared",
-			},
-		},
+/** @type {AdminConfig} */
+const _adminConfig = {
+	commands: {
+		timer: ["!timer"],
+		clearList: ["!clearlist"],
+		clearDone: ["!cleardone"],
+		clearUser: ["!clearuser"],
 	},
-	user: {
-		commands: {
-			addTask: ["!task"],
-			editTask: ["!edit"],
-			finishTask: ["!done"],
-			deleteTask: ["!delete"],
-			check: ["!check"],
-			help: ["!help"],
-			additional: ["!credit"],
-		},
-		responseTo: {
-			EN: {
-				addTask: 'Task(s) "{message}" added, {user}!',
-				editTask: 'Task "{message}" updated, {user}!',
-				finishTask: 'Good job on completing task(s) "{message}" {user}!',
-				deleteTask: 'Task "{message}" has been deleted, {user}!',
-				deleteAll: "All of your tasks have been deleted!",
-				check: 'Your current task is: "{message}", {user}',
-				help: "Try using these commands - !task !edit !done !delete",
-				additional:
-					"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/JujocoCS",
-				maxTasksAdded:
-					"{user}, maximum number of tasks reached, try removing some first.",
-				noTaskFound: "That task doesn't seem to exist, try adding one!",
-				invalidCommand: '{user}, Invalid command: "{message}" - Try !help',
-			},
-		},
+	responseTo: {
+		EN: {
+			timer: "Timer has been reset to {message} minutes",
+			clearList: "All tasks have been cleared",
+			clearDone: "All done tasks have been cleared",
+			clearUser: "All tasks for {message} have been cleared",
+		}
 	},
-	settings: {
-		languageCode: "EN", // "EN", "ES", "FR", "JP", etc.
-		maxTasksPerUser: 5, // default 5
-		scrollSpeed: 50, // default 50
-		showUsernameColor: true, // true or false
-		headerFeature: "timer", // "timer", "commands", "text", "tasks-only"
-		headerCustomText: "Custom Text", // HeaderFeature above must be "Text"
-		testMode: false, // true or false - for testing purposes
-	},
-	styles: {},
 };
 
-vi.stubGlobal("configs", configs);
+/** @type {UserConfig} */
+const _userConfig = {
+	commands: {
+		addTask: ["!task", "!add", "!añadir", "!ajouter", "!追加", "!додати"],
+		editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати"],
+		finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
+		deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити"],
+		check: ["!check", "!comprobar", "!vérifier", "!チェック", "!перевірити"],
+		help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
+		additional: ["!credit", "!crédito", "!crédit", "!クレジット", "!кредит"],
+	},
+	responseTo: {
+		EN: {
+			addTask: 'Task(s) "{message}" added!',
+			editTask: 'Task "{message}" updated!',
+			finishTask: 'Good job on completing task(s) "{message}"!',
+			deleteTask: 'Task(s) "{message}" has been deleted!',
+			deleteAll: "All of your tasks have been deleted!",
+			check: 'Your current task(s) are: "{message}"',
+			help: "Try using these commands - !task !edit !done !delete, !check",
+			additional:
+				"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/Jujoco_Dev",
+			maxTasksAdded:
+				"Maximum number of tasks reached, try deleting old tasks.",
+			noTaskFound: "That task doesn't seem to exist, try adding one!",
+			invalidCommand: "Invalid command: {message}. Try !help",
+		}
+	}
+};
+
+/** @type {SettingsConfig} */
+const _settings = {
+	languageCode: "EN", // "EN", "ES", "FR", "JP", "UA", etc.
+	maxTasksPerUser: 5, // default number 5
+	scrollSpeed: 40, // default number 40
+	showUsernameColor: true, // true or false
+	headerFeature: "timer", // "timer", "commands", "text", "tasks-only"
+	headerCustomText: "Custom Text", // HeaderFeature above must be "text"
+	testMode: false, // true or false - for testing purposes
+};
+
+/** @type {StyleConfig} */
+const _styles = {};
+
+vi.stubGlobal("_adminConfig", _adminConfig);
+vi.stubGlobal("_userConfig", _userConfig);
+vi.stubGlobal("_settings", _settings);
+vi.stubGlobal("_styles", _styles);

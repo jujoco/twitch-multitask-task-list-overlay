@@ -1,70 +1,60 @@
 /**
- * @global
- * @typedef {Object} Configs
- * @property {AuthConfigs} auth - The authentication configuration
- * @property {SettingsConfigs} settings - The settings configuration
- * @property {StyleConfigs} styles - The styles configuration
- * @property {AdminConfigs} admin - The admin configuration
- * @property {UserConfigs} user - The user configuration
+ * @typedef {Object} AuthConfig
+ * @property {string} twitch_oauth - The Twitch oauth token
+ * @property {string} twitch_channel - The Twitch channel
+ * @property {string} twitch_username - The Twitch username
  */
 
 /**
- * @typedef {Object} AuthConfigs
- * @property {string} auth.twitch_oauth - The Twitch oauth token
- * @property {string} auth.twitch_channel - The Twitch channel
- * @property {string} auth.twitch_username - The Twitch username
+ * @typedef {Object} SettingsConfig
+ * @property {string} languageCode - The language code
+ * @property {number} maxTasksPerUser - The maximum tasks per user
+ * @property {number} scrollSpeed - The scroll speed
+ * @property {boolean} showUsernameColor - The show username color
+ * @property {string} headerFeature - The header display
+ * @property {string} headerCustomText - The header text
+ * @property {boolean} testMode - The test mode
  */
 
 /**
- * @typedef {Object} SettingsConfigs
- * @property {string} settings.languageCode - The language code
- * @property {number} settings.maxTasksPerUser - The maximum tasks per user
- * @property {number} settings.scrollSpeed - The scroll speed
- * @property {boolean} settings.showUsernameColor - The show username color
- * @property {string} settings.headerFeature - The header display
- * @property {string} settings.headerCustomText - The header text
- * @property {boolean} settings.testMode - The test mode
+ * @typedef {Object} StyleConfig
+ * @property {string} headerFontFamily - The header font family
+ * @property {string} cardFontFamily - The card font family
+ * @property {string} appBorderRadius - The app border radius
+ * @property {string} appPadding - The app padding
+ * @property {string} appBackgroundImage - The app background image
+ * @property {string} appBackgroundColor - The app background color
+ * @property {string} headerDisplay - The header display
+ * @property {string} headerBorderRadius - The header border radius
+ * @property {string} headerPadding - The header padding
+ * @property {string} headerMarginBottom - The header margin bottom
+ * @property {string} headerBackgroundColor - The header background color
+ * @property {string} headerFontSize - The header font size
+ * @property {string} headerFontColor - The header font color
+ * @property {string} headerFontWeight - The header font weight
+ * @property {string} cardGapBetween - The card gap between
+ * @property {string} cardBorderRadius - The card border radius
+ * @property {string} cardBackgroundColor - The card background color
+ * @property {string} cardPadding - The card padding
+ * @property {string} usernameFontSize - The username font size
+ * @property {string} usernameColor - The username color
+ * @property {string} usernameFontWeight - The username font weight
+ * @property {string} taskFontSize - The task font size
+ * @property {string} taskFontColor - The task font color
+ * @property {string} taskFontWeight - The task font weight
+ * @property {string} taskDoneFontColor - The task done font color
+ * @property {string} taskDoneFontStyle - The task done font style
+ * @property {string} taskDoneTextDecoration - The task done text decoration
  */
 
 /**
- * @typedef {Object} StyleConfigs
- * @property {string} styles.headerFontFamily - The header font family
- * @property {string} styles.cardFontFamily - The card font family
- * @property {string} styles.appBorderRadius - The app border radius
- * @property {string} styles.appPadding - The app padding
- * @property {string} styles.appBackgroundImage - The app background image
- * @property {string} styles.appBackgroundColor - The app background color
- * @property {string} styles.headerDisplay - The header display
- * @property {string} styles.headerBorderRadius - The header border radius
- * @property {string} styles.headerPadding - The header padding
- * @property {string} styles.headerMarginBottom - The header margin bottom
- * @property {string} styles.headerBackgroundColor - The header background color
- * @property {string} styles.headerFontSize - The header font size
- * @property {string} styles.headerFontColor - The header font color
- * @property {string} styles.headerFontWeight - The header font weight
- * @property {string} styles.cardGapBetween - The card gap between
- * @property {string} styles.cardBorderRadius - The card border radius
- * @property {string} styles.cardBackgroundColor - The card background color
- * @property {string} styles.cardPadding - The card padding
- * @property {string} styles.usernameFontSize - The username font size
- * @property {string} styles.usernameColor - The username color
- * @property {string} styles.usernameFontWeight - The username font weight
- * @property {string} styles.taskFontSize - The task font size
- * @property {string} styles.taskFontColor - The task font color
- * @property {string} styles.taskFontWeight - The task font weight
- * @property {string} styles.taskDoneFontColor - The task done font color
- * @property {string} styles.taskDoneFontStyle - The task done font style
- * @property {string} styles.taskDoneTextDecoration - The task done text decoration
+ * @typedef {Object} AdminConfig
+ * @property {Object} commands - The admin commands
+ * @property {Object} responseTo - The admin response to
  */
 
 /**
- * @typedef {Object} AdminConfigs
- * @property {Object} admin.commands - The admin commands
- * @property {Object} admin.responseTo - The admin response to
- */
-
-/**
- * @typedef {Object} UserConfigs
- * @property {Object} user.commands - The user commands
- * @property {Object} user.responseTo - The user response to
+ * @typedef {Object} UserConfig
+ * @property {Object} commands - The user commands
+ * @property {Object} responseTo - The user response to
  */

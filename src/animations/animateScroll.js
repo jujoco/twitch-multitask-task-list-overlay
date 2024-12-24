@@ -22,7 +22,7 @@ export function animateScroll() {
 
 	if (containerHeight > wrapperHeight && !isScrolling) {
 		containerSecondary.style.display = "flex";
-		const scrollSpeed = configs.settings.scrollSpeed.toString();
+		const scrollSpeed = _settings.scrollSpeed.toString();
 		let parsedSpeed = parseInt(scrollSpeed, 10);
 		let duration = (containerHeight / parsedSpeed) * 1000;
 		let animationOptions = {
