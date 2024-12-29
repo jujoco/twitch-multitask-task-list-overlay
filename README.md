@@ -2,11 +2,9 @@
 
 ## 💚 UPDATED Installation instructions 💚 Dec. 29th 2024
 
-A recent change in the Twitch auth token validation process requires me to make a few updates to this app. ETA on fix: **Dec. 31th 2024**
-
-<img src="./images/live-sample.png" style="max-width: 1280px;">
+<img src="./images/live-sample.png" style="max-width: 800px;">
 <br >
-<img src="./images/customize-sample.png" style="max-width: 1280px;">
+<img src="./images/customize-sample.png" style="max-width: 800px;">
 
 ## What and Why?
 
@@ -43,10 +41,6 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 - [Customization settings](#customization-settings)
   - [App Behavior Settings](#behavior-settings)
   - [Styles Settings](#styles-settings)
-    - [Fonts Styles](#fonts-styles)
-    - [App Styles](#app-styles)
-    - [Header Styles](#header-styles)
-    - [Card Styles (individual cards)](#card-styles-individual-cards)
 - [Commands](#commands)
   - [Commands for Everyone](#commands-for-everyone)
   - [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
@@ -92,7 +86,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
    - Copy the token from the URL (it follows `#access_token=` and ends just before `&scope`).
    - Save this token in a safe place for the next step.
 
-5. **Update Your \_auth.js File**
+4. **Update Your \_auth.js File**
 
    - Navigate to the location where you unzipped the downloaded files.
    - Open the `_auth.js` file in a text editor. (Notepad works, but I recommend downloading VS Code to make it easier to read and edit the file.)
@@ -118,7 +112,7 @@ twitch_username = "jujoco_bot",
 
 4. **Done!** - Select OK to save!. Read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
 
-<img width="500px" src="./images/obs-source-example.png"/>
+<img width="480px" src="./images/obs-source-example.png"/>
 
 ## Customization settings
 
