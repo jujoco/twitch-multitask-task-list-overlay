@@ -33,7 +33,9 @@ export default class TwitchChat extends EventEmitter {
 		this.url = url;
 		this.username = username.toLowerCase();
 		this.channel = `#${channel.toLowerCase()}`;
-		this.authToken = authToken;
+		this.authToken = authToken.includes("oauth:")
+			? authToken
+			: `oauth:${authToken}`;
 		this.WebSocketService = WebSocketService;
 	}
 
@@ -57,7 +59,7 @@ export default class TwitchChat extends EventEmitter {
 		};
 
 		this.#ws.onmessage = (message) => {
-			let ircMessage = message.data;
+			let ircMessage = message?.data;
 			const messages = ircMessage.trim().split("\r\n");
 			messages.forEach((message) => {
 				const parsedMessage = parseIRCMessage(message);
@@ -78,6 +80,7 @@ export default class TwitchChat extends EventEmitter {
 						case "JOIN":
 							console.log(`Joined ${this.channel}`);
 							this.#reconnectInterval = 1000;
+							this.emit("oauthSuccess");
 							break;
 						case "RECONNECT":
 							this.disconnect(
@@ -86,31 +89,15 @@ export default class TwitchChat extends EventEmitter {
 							);
 							break;
 						case "PART":
-							console.error(
-								"The channel must have banned (/ban) the bot."
-							);
+							console.error("The channel must have banned (/ban) the bot.");
 							this.#ws.close();
 							break;
 						case "NOTICE":
 							// If the authentication failed, leave the channel.
 							// The server will close the connection.
-							if (
-								"Login authentication failed" ===
-								parsedMessage.parameters
-							) {
-								console.error(
-									`Authentication failed; left #${this.channel}`
-								);
-								this.#ws.send(`PART ${this.channel}`);
-							} else if (
-								"You don't have permission to perform that action" ===
-								parsedMessage.parameters
-							) {
-								console.error(
-									`No permission. Check if the access token is still valid. Left ${this.channel}`
-								);
-								this.#ws.send(`PART ${this.channel}`);
-							}
+							console.error(`${parsedMessage.parameters}; left ${this.channel}`);
+							this.emit("oauthError");
+							this.#ws.send(`PART ${this.channel}`);
 							break;
 						default: // Ignore all other IRC messages.
 					}
@@ -127,8 +114,7 @@ export default class TwitchChat extends EventEmitter {
 					// If your connection is dropped, try reconnecting
 					// using an exponential backoff approach.
 					console.error(
-						`Connection dropped. Reconnecting in ${
-							this.#reconnectInterval
+						`Connection dropped. Reconnecting in ${this.#reconnectInterval
 						} milliseconds...`
 					);
 					// recursive delay reconnection attempts

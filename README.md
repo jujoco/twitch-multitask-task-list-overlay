@@ -1,12 +1,12 @@
 # Twitch Chatbot Multitask Task List Overlay
 
-## ⛔️ UNDER CONSTRUCTION ⛔️ updated Dec 14th 2024
+## 💚 UPDATED Installation instructions 💚 Dec. 29th 2024
 
 A recent change in the Twitch auth token validation process requires me to make a few updates to this app. ETA on fix: **Dec. 31th 2024**
 
-<img src="./images/live-sample.png">
+<img src="./images/live-sample.png" style="max-width: 1280px;">
 <br >
-<img src="./images/customize-sample.png">
+<img src="./images/customize-sample.png" style="max-width: 1280px;">
 
 ## What and Why?
 
@@ -37,64 +37,96 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 ## Table of Contents
 
 - [Installation Instructions](#installation-instructions)
+  - [Download App](#download-app)
+  - [Get Twitch oAuth](#get-twitch-oauth)
+  - [Setup in OBS](#setup-in-obs)
 - [Customization settings](#customization-settings)
-  - [Behavior Settings](#behavior-settings)
+  - [App Behavior Settings](#behavior-settings)
   - [Styles Settings](#styles-settings)
-  - [Fonts Styles](#fonts-styles)
-  - [App Styles](#app-styles)
-  - [Header Styles](#header-styles)
-  - [Card Styles (individual cards)](#card-styles-individual-cards)
+    - [Fonts Styles](#fonts-styles)
+    - [App Styles](#app-styles)
+    - [Header Styles](#header-styles)
+    - [Card Styles (individual cards)](#card-styles-individual-cards)
 - [Commands](#commands)
   - [Commands for Everyone](#commands-for-everyone)
   - [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
 - [Aliases](#aliases)
 - [Credits](#credits)
 
-## Installation Introduction
+## Installation Instructions
 
-1. **Download this repo** - Download this repo by clicking on the green `Code` button and selecting `Download ZIP`.
+### Download App
 
-2. **Unzip the Download** - Once the download is complete, unzip the downloaded file to a location on your computer where you can easily access it and remember where it is.
+1. **Downloading this App** - Download App by clicking on the green `Code` button and selecting `Download ZIP`.
 
-3. **Setup a Browser Source in OBS** - Open OBS and add a new `Browser Source` to your scene. Name it `TaskList overlay` or something you can easily remember.
+2. **Unzip the Download** - Once the download is complete, unzip (aka open) the downloaded file to a location on your computer where you can easily access it and remember where it is.
 
-4. **Select the Local file checkbox** - In the Browser Source settings, select `Local file` and then `Browse` to the location where you unzipped the downloaded files. Select the `index.html` file and click `Open`.
+### Get Twitch oAuth
 
-5. **Set the Width and Height** - Next, in the Browser Source, set the width and height. I recommend 660px Width and 1600px Height. Adjust as needed.
+1. **Log in to Twitch Developer Console**
 
-6. **Done!** - Select OK to save!. Read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
+   - Open and log into [https://dev.twitch.tv/console](https://dev.twitch.tv/console) using your web browser.
+   - Log in using your bot account or your main Twitch account.
+
+2. **Register The App with Twitch**
+
+   - Once logged in, Click the **"Register Your Application"** button.
+   - Enter a unique name for your application in the **Name** field. (e.g., "TaskListBot123")
+   - In the **OAuth Redirect URLs** field, enter `http://localhost`
+   - In the **Category** field, select **"Chat Bot"**.
+   - For the **Client Type**, select **"Public"**.
+   - Click the **"Create"** button to complete the registration.
+   - Once the App is registered, you will see a **Client ID**. Copy this ID and save it for later. (do not share this ID with anyone)
+
+3. **Generate an OAuth Access Token**
+
+   - Copy the following URL and replace the `YOUR-APP-CLIENT-ID` with the **Client ID** from your registered app you had made in the previous step.
+
+    ```txt
+    https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=YOUR-APP-CLIENT-ID&redirect_uri=http://localhost&scope=chat:read+chat:edit+user:bot
+    ```
+
+   - Open your browser and enter the URL containing your **Client ID** into the address bar. See [Twitch Authorize page Example](./images/twitch-authorize.png)
+   - After granting Authorization, you’ll be redirected to a blank page which will show an error message. This is normal.
+   - The blank page will contain a URL in the address bar. This URL contains the access token you need. See [Access Token Example](./images/access-token-page.png)
+   - Copy the token from the URL (it follows `#access_token=` and ends just before `&scope`).
+   - Save this token in a safe place for the next step.
+
+5. **Update Your \_auth.js File**
+
+   - Navigate to the location where you unzipped the downloaded files.
+   - Open the `_auth.js` file in a text editor. (Notepad works, but I recommend downloading VS Code to make it easier to read and edit the file.)
+   - Replace `OAUTHTOKEN` with the access token you copied.
+   - Replace `CHANNEL` with your Twitch channel name.
+   - Replace `USERNAME` with your Twitch main username or bot username.
+
+When you are done, it should look something like this:
+
+```js
+twitch_oauth = "138kjl2a0r3dpaf93as4d1fz",
+twitch_channel = "jujoco_dev",
+twitch_username = "jujoco_bot",
+```
+
+### Setup in OBS
+
+1. **Setup a Browser Source in OBS** - Open OBS and add a new `Browser Source` to your scene. Name it `TaskList overlay` or something you can easily remember.
+
+2. **Select the Local file checkbox** - In the Browser Source settings, select `Local file` and then `Browse` to the location where you unzipped the downloaded files. Select the `index.html` file and click `Open`.
+
+3. **Set the Width and Height** - Next, in the Browser Source, set the width and height. I recommend 660px Width and 1600px Height. Adjust as needed.
+
+4. **Done!** - Select OK to save!. Read the [Customization settings](#customization-settings) section to customize the MultiTask list widget and connect it to your Twitch chat.
 
 <img width="500px" src="./images/obs-source-example.png"/>
 
 ## Customization settings
 
-Open the `configs.js` file and modify the following settings to customized the TaskList widget Behavior & Appearance.
-
-> IMPORTANT! — Any changes you make to the `configs.js` file will require you to click the `Refresh Cache of Current Page` button in Browser Source you just created to see the style changes you make. (see image above, #5.)
-
-### Twitch oAuth - Required
-
-1. Get auth token from <https://twitchapps.com/tmi> (<- no longer working)
-2. open `configs.js` file
-3. Replace `OAUTHTOKEN` with your token
-4. Replace `CHANNEL` with your channel name
-5. Replace `USERNAME` with your username — in most cases it is the same as your channel name.
-
-```js
-twitch_oauth = "OAUTHTOKEN",
-twitch_channel = "CHANNEL",
-twitch_username = "USERNAME",
-```
-
-When you are done, it should look something like this:
-
-```js
-twitch_oauth = "oauth:138kjl2a0r3dpaf93asdf",
-twitch_channel = "jujococs",
-twitch_username = "jujococs",
-```
+> IMPORTANT! — Any changes you make to the `_auth.js, _settings.js, _styles.js, _configAdmin.js, or _configUser.js` will require you to click the `Refresh Cache of Current Page` button in the Browser Source you just created to apply the changes. (see image above, #6.)
 
 ### Behavior Settings
+
+Open the `_settings.js` file and modify the following settings to customized the TaskList behavior. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
 
 `languageCode`: Default = **"EN"**
 
@@ -139,21 +171,21 @@ Use this to test the TaskList without affecting the real task list and visually 
 
 ### Styles Settings
 
-The following settings are for styling the TaskList. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
+Open the `_styles.js` file and modify the following settings to customized the TaskList appearance. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
 
-**Font Family** - selection available @ https://fonts.google.com
+#### Font Family - more available @ <https://fonts.google.com>
 
 - headerFontFamily: "Roboto Mono"
 - cardFontFamily: "Roboto Mono"
 
-**App Styles**
+#### App Styles
 
 - appBorderRadius: Default = **"5px"**
 - appPadding: Default = **"8px"**
 - appBackgroundImage: Default = **"url(../images/transparent-image.png)"**
 - appBackgroundColor: Default = **"rgba(0, 0, 0, 0)"**
 
-**Header Styles**
+#### Header Styles
 
 - headerDisplay: Default = **"flex"**
 - headerBorderRadius: Default = **"6px"**
@@ -163,26 +195,26 @@ The following settings are for styling the TaskList. Default values are provided
 - headerFontColor: Default = **"#FFFFFF"**
 - headerFontWeight: Default = **"normal"**
 
-**Card Styles**
+#### Card Styles
 
 - cardGapBetween: Default = **"6px"**
 - cardBorderRadius: Default = **"6px"**
 - cardBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
 
-**Username Styles**
+#### Username Styles
 
 - usernameFontSize: Default = **"18px"**
 - usernameColor: Default = **"#FFFFFF"**
 - usernameFontWeight: Default = **"normal"**
 
-**Task Styles**
+#### Task Styles
 
 - taskFontSize: Default = **"16px"**
 - taskFontColor: Default = **"#FFFFFF"**
 - taskFontWeight: Default = **"normal"**
 - taskDoneFontColor: Default = **"#aaaaaa"**
 - taskDoneFontStyle: Default = **"#italic"**
-- taskDoneTextDecoration: Default = **"none"**
+- taskDoneTextDecoration: Default = **"line-through"**
 
 ## Commands
 

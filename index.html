@@ -60,22 +60,24 @@
 			</div>
 
 			<div class="task-wrapper">
-				<div class="task-container primary">
-					<!-- TASK TEMPLATE START --
-
-					<div class="card" data-user="Username23" >
-						<div class="username">Username23</div>
-						<ol class="tasks">
-							<li class="task done" data-task-id="1234">cooking food</li>
-							<li class="task" data-task-id="6789">wash clothes</li>
-						</ol>
-					</div> 
-
-				 	-- TASK TEMPLATE END -->
-				</div>
+				<div class="task-container primary"></div>
 				<div class="task-container secondary"></div>
 			</div>
 			<audio id="audioSample" src="./media/breakTime.mp3"></audio>
 		</main>
+
+		<div id="modal"	class="modal hidden justify-center items-center absolute">
+			<div class="modal-content">
+				<h2 class="modal-header">Invalid oAuth access token</h2>
+				<div class="modal-body">
+					<p>Possible Reasons:</p>	
+					<ul class="modal-list">
+						<li>Token entered incorrectly.</li>
+						<li>Token could have expired. Generate a new access token.</li>
+					</ul>
+				</div>
+			</div>	
+		</div>
+
 	</body>
 </html>

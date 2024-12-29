@@ -43,7 +43,7 @@ describe("TwitchChat", () => {
 			"ws://test-url:80",
 			{
 				username: "UserName",
-				authToken: "auth:1a2b3c4d5e6f",
+				authToken: "1a2b3c4d5e6f",
 				channel: "CHANNEL",
 			},
 			mockWebSocket
@@ -62,7 +62,7 @@ describe("TwitchChat", () => {
 			expect(twitchChat.url).toBe("ws://test-url:80");
 			expect(twitchChat.username).toBe("username");
 			expect(twitchChat.channel).toBe("#channel");
-			expect(twitchChat.authToken).toBe("auth:1a2b3c4d5e6f");
+			expect(twitchChat.authToken).toBe("oauth:1a2b3c4d5e6f");
 			expect(twitchChat.WebSocketService).toBe(mockWebSocket);
 		});
 	});
@@ -87,7 +87,7 @@ describe("TwitchChat", () => {
 			expect(send).toHaveBeenCalledWith(
 				"CAP REQ :twitch.tv/tags twitch.tv/commands"
 			);
-			expect(send).toHaveBeenCalledWith("PASS auth:1a2b3c4d5e6f");
+			expect(send).toHaveBeenCalledWith("PASS oauth:1a2b3c4d5e6f");
 			expect(send).toHaveBeenCalledWith("NICK username");
 		});
 

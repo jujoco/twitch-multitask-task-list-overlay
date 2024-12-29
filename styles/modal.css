@@ -1,0 +1,39 @@
+.modal {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  font-family: monospace, Courier;
+}
+
+.modal-content {
+  width: 72%;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 22px;
+}
+
+.modal-header {
+  font-size: 24px;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: rgb(0, 0, 0, 0.8);
+  color: white;
+}
+
+.modal-body {
+  font-size: 24px;
+  background-color: white;
+  color: black;
+}
+
+.modal-body>* {
+  margin-top: 12px;
+}
+
+.modal-list {
+  padding-left: 22px;
+}

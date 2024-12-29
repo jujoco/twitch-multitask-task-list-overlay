@@ -1,11 +1,9 @@
 // ========================================
-// Authentication and channel - Required
-// Before you start modifying these settings,
-// get your oauth token from https://twitchapps.com/tmi
+// oAuth access token and channel info - Required
 // ========================================
 /** @type {AuthConfig} */
 const _authConfig = {
-  twitch_oauth: "OAUTHTOKEN", // Replace OAUTHTOKEN with your Twitch oauth token
-  twitch_channel: "CHANNEL", // Replace CHANNEL with a Twitch channel name
-  twitch_username: "USERNAME", // Replace USERNAME with your Twitch username
+  twitch_oauth: "OAUTHTOKEN",
+  twitch_channel: "CHANNEL",
+  twitch_username: "USERNAME",
 };

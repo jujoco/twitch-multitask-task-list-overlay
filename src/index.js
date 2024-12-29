@@ -1,4 +1,5 @@
 import App from "./app.js";
+import { closeModal, openModal } from "./modal.js";
 import TwitchChat from "./twitch/TwitchChat.js";
 import { loadTestUsers } from "./twitch/loadTestUsers.js";
 
@@ -31,6 +32,14 @@ window.addEventListener("load", () => {
 			// error logs also are added to OBS logs
 			console.error(response.message);
 		}
+	});
+
+	client.on("oauthError", () => {
+		openModal();
+	});
+
+	client.on("oauthSuccess", () => {
+		closeModal();
 	});
 
 	client.connect();

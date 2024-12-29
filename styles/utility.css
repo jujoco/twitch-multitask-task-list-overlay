@@ -13,3 +13,15 @@
 .hidden {
 	display: none;
 }
+
+.justify-center {
+	justify-content: center;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.absolute {
+	position: absolute;
+}
