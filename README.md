@@ -1,15 +1,16 @@
-# Twitch Chatbot Multitask Task List Overlay
 
-## 💚 UPDATED Installation instructions 💚 Dec. 29th 2024
-
+<div align="center">
 <img src="./images/live-sample.png" style="max-width: 800px;">
 <br >
 <img src="./images/customize-sample.png" style="max-width: 800px;">
+</div>
+
+# Twitch Chatbot Multitask Task List Overlay
 
 ## What and Why?
 
-A TaskList Widget for Twitch TV which allows users to interact with the broadcaster's stream.
-Viewers can create, edit, mark as done, and delete tasks from the list. This TaskList widget is designed to help streamers and their viewers to keep track of tasks, goals, or objectives during a stream. It is easy to use, and fast to setup. The TaskList widget is designed to be used in OBS or other streaming software as a Browser Source.
+A TaskList widget for Twitch TV which allows users to interact with the broadcaster's stream.
+Viewers can create, edit, mark as done, and delete tasks from the list. This TaskList widget is designed to help streamers and their viewers to keep track of tasks, goals, or objectives during a stream. It is easy to use, and fast to setup. The TaskList widget is designed to be used in OBS or other streaming software.
 
 ## App Features ✨
 
