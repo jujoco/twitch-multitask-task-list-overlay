@@ -18,7 +18,7 @@ const _styles = {
   headerBorderRadius: "6px", // px value
   headerMarginBottom: "6px", // px value
   headerPadding: "12px", // px value
-  headerBackgroundColor: "rgba(0, 0, 0, 0.8)", // rgba value https://rgbcolorpicker.com/
+  headerBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
   headerFontSize: "18px", // px value
   headerFontColor: "#FFFFFF", // hex value
   headerFontWeight: "normal", // "normal", "lighter", "bold"
@@ -27,7 +27,7 @@ const _styles = {
   cardGapBetween: "6px", // px value
   cardBorderRadius: "6px", // px value
   cardPadding: "12px", // px value
-  cardBackgroundColor: "rgba(0, 0, 0, 0.8)", // rgba value https://rgbcolorpicker.com/
+  cardBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
 
   // Username Styles
   usernameFontSize: "18px", // px value
