@@ -44,25 +44,18 @@
 }
 
 .task-wrapper {
-	display: flex;
-	flex-direction: column;
-	gap: calc(var(--card-gap-between) * 2);
 	overflow: hidden;
 	height: 100%;
 	border-radius: var(--card-border-radius);
 }
 
-.task-container {
-	display: flex;
-	flex-direction: column;
-	gap: calc(var(--card-gap-between) * 2);
-}
+.task-container {}
 
 .card {
 	border-left: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--card-border-radius);
 	background-color: var(--card-background-color);
-	margin: 0 1px;
+	margin-bottom: calc(var(--card-gap-between) * 2);
 	padding: calc(var(--card-padding, 10px) * 2);
 	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.2);
 	font-family: var(--card-font-family, "arial");

@@ -4,6 +4,10 @@ let primaryAnimation;
 let secondaryAnimation;
 let isScrolling = false;
 
+const gapSize = getComputedStyle(document.documentElement)
+	.getPropertyValue("--card-gap-between")
+	.slice(0, -2);
+
 /**
  * Animates the scroll of the task list
  * @returns {void}
@@ -21,20 +25,17 @@ export function animateScroll() {
 	);
 
 	if (containerHeight > wrapperHeight && !isScrolling) {
-		containerSecondary.style.display = "flex";
+		containerSecondary.style.display = "block";
 		const scrollSpeed = _settings.scrollSpeed.toString();
 		let parsedSpeed = parseInt(scrollSpeed, 10);
-		let duration = (containerHeight / parsedSpeed) * 1000;
+		let adjustedHight = containerHeight + (parseInt(gapSize, 10) * 2);
+		let duration = (adjustedHight / parsedSpeed) * 1000;
 		let animationOptions = {
 			duration: duration,
 			iterations: 1,
 			easing: "linear",
 		};
 
-		const gapSize = getComputedStyle(document.documentElement)
-			.getPropertyValue("--card-gap-between")
-			.slice(0, -2);
-		let adjustedHight = containerHeight + parseInt(gapSize, 10);
 		let primaryKeyFrames = [
 			{ transform: "translateY(0)" },
 			{ transform: `translateY(-${adjustedHight}px)` },

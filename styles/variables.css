@@ -4,14 +4,14 @@
 	--card-font-family: Roboto Mono;
 
 	/* App Styles */
-	--app-border-radius: 5px;
+	--app-border-radius: 8px;
 	--app-padding: 8px;
 	--app-background-image: url(../images/transparent-image.png);
 	--app-background-color: rgba(130, 130, 130, 0);
 
 	/* Header */
 	--header-display: flex;
-	--header-border-radius: 6px;
+	--header-border-radius: 8px;
 	--header-margin-bottom: 6px;
 	--header-padding: 16px;
 	--header-background-color: rgba(45, 45, 45, 0.7);
@@ -21,7 +21,7 @@
 
 	/* Card */
 	--card-gap-between: 6px;
-	--card-border-radius: 6px;
+	--card-border-radius: 8px;
 	--card-background-color: rgba(100, 100, 100, 0.6);
 	--card-padding: 16px;
 
@@ -37,5 +37,5 @@
 
 	--task-done-font-color: #aaaaaa;
 	--task-done-font-style: italic;
-	--task-done-text-decoration: none;
+	--task-done-text-decoration: line-through;
 }

@@ -8,14 +8,14 @@ const _styles = {
   cardFontFamily: "Roboto Mono",
 
   // App Styles
-  appBorderRadius: "5px", // px value
+  appBorderRadius: "8px", // px value
   appPadding: "6px", // px value
   appBackgroundImage: "url(../images/transparent-image.png)", // image must go in images folder
   appBackgroundColor: "rgba(0, 0, 0, 0)", // rgba value https://rgbcolorpicker.com
 
   //  Header Styles
   headerDisplay: "flex", // "none" to hide header or "flex" to show header
-  headerBorderRadius: "6px", // px value
+  headerBorderRadius: "8px", // px value
   headerMarginBottom: "6px", // px value
   headerPadding: "12px", // px value
   headerBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
@@ -25,7 +25,7 @@ const _styles = {
 
   // Card Styles
   cardGapBetween: "6px", // px value
-  cardBorderRadius: "6px", // px value
+  cardBorderRadius: "8px", // px value
   cardPadding: "12px", // px value
   cardBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
 
