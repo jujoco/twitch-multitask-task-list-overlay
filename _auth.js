@@ -3,7 +3,7 @@
 // ========================================
 /** @type {AuthConfig} */
 const _authConfig = {
-  twitch_oauth: "OAUTHTOKEN",
-  twitch_channel: "CHANNEL",
+  twitch_oauth: "OAUTHTOKEN", 
   twitch_username: "USERNAME",
+  twitch_channel: "CHANNEL",
 };

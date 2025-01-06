@@ -13,6 +13,7 @@
  * @property {boolean} showUsernameColor - The show username color
  * @property {string} headerFeature - The header display
  * @property {string} headerCustomText - The header text
+ * @property {string} botResponsePrefix - The bot response prefix
  * @property {boolean} testMode - The test mode
  */
 

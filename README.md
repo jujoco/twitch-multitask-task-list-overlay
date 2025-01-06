@@ -92,15 +92,15 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
    - Navigate to the location where you unzipped the downloaded files.
    - Open the `_auth.js` file in a text editor. (Notepad works, but I recommend downloading VS Code to make it easier to read and edit the file.)
    - Replace `OAUTHTOKEN` with the access token you copied.
-   - Replace `CHANNEL` with your Twitch channel name.
    - Replace `USERNAME` with your Twitch main username or bot username.
+   - Replace `CHANNEL` with your Twitch channel name.
 
 When you are done, it should look something like this:
 
 ```js
 twitch_oauth = "138kjl2a0r3dpaf93as4d1fz",
-twitch_channel = "jujoco_dev",
-twitch_username = "jujoco_bot",
+twitch_username = "JujocoBot",
+twitch_channel = "Jujoco_Dev",
 ```
 
 ### Setup in OBS
@@ -131,13 +131,13 @@ Open the `_settings.js` file and modify the following settings to customized the
 - **"JP"**: Japanese translation
 - **"UA"**: Ukrainian translation
 
-`maxTasksPerUser`: Default = **5**
+`maxTasksPerUser`: Default = **10**
 
-- **number**: A value between 1 - 10.
+- **number**: A value between 1 - 20.
 
-`scrollSpeed`: Default = **40**
+`scrollSpeed`: Default = **20**
 
-- **number**: A value between 1 - 100.
+- **number**: A value between 1 - 50.
 
 `showUsernameColor`: Default = **true**
 
@@ -156,6 +156,10 @@ Enable one will disable the others.
 `headerCustomText`: Default = "Custom Text"
 
 HeaderFeature above must be set to "Text"
+
+`botResponsePrefix`: Default = "🤖💬 "
+
+The prefix that the bot will use to respond to the user in the chat.
 
 `testMode`: Default = **false**
 

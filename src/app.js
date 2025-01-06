@@ -14,6 +14,11 @@ import { timerAudioEl } from "./Timer.js";
  */
 export default class App {
 	#timerIntervalId = null;
+	#languageCode;
+	#maxTasksPerUser;
+	#headerFeature;
+	#headerCustomText;
+
 	/**
 	 * @constructor
 	 * @param {string} storeName - The store name
@@ -21,6 +26,10 @@ export default class App {
 	constructor(storeName) {
 		this.userList = new UserList(storeName);
 		loadStyles(_styles);
+		this.#languageCode = _settings.languageCode;
+		this.#maxTasksPerUser = _settings.maxTasksPerUser;
+		this.#headerFeature = _settings.headerFeature;
+		this.#headerCustomText = _settings.headerCustomText;
 	}
 
 	/**
@@ -79,13 +88,14 @@ export default class App {
 	 */
 	renderTaskHeader() {
 		this.renderTaskCount();
-		const { headerFeature, headerCustomText } = _settings;
-		if (headerFeature.toLowerCase() === "timer") {
+		if (this.#headerFeature.toLowerCase() === "timer") {
 			this.renderTimer();
-		} else if (headerFeature.toLowerCase() === "commands") {
+		}
+		else if (this.#headerFeature.toLowerCase() === "commands") {
 			this.renderCommandTips();
-		} else if (headerFeature.toLowerCase() === "text") {
-			this.renderCustomText(headerCustomText);
+		}
+		else if (this.#headerFeature.toLowerCase() === "text") {
+			this.renderCustomText(this.#headerCustomText);
 		}
 	}
 
@@ -141,7 +151,8 @@ export default class App {
 					this.#timerIntervalId = setInterval(updateTimer, 1000);
 					firstPass = false;
 				}
-			} else {
+			}
+			else {
 				timer--;
 			}
 		};
@@ -186,8 +197,6 @@ export default class App {
 	 */
 	chatHandler(username, command, message, flags, extra) {
 		command = `!${command.toLowerCase()}`;
-		const { languageCode, maxTasksPerUser, headerFeature } = _settings;	
-
 		let template = "";
 		let responseDetail = "";
 
@@ -195,7 +204,7 @@ export default class App {
 			// ADMIN COMMANDS
 			if (isMod(flags)) {
 				if (
-					headerFeature.toLowerCase() === "timer" &&
+					this.#headerFeature.toLowerCase() === "timer" &&
 					_adminConfig.commands.timer.includes(command) &&
 					flags.broadcaster
 				) {
@@ -211,26 +220,29 @@ export default class App {
 						throw new Error("Invalid timer duration");
 					}
 					this.startTimer(focusDuration, breakDuration);
-					template = _adminConfig.responseTo[languageCode].timer;
+					template = _adminConfig.responseTo[this.#languageCode].timer;
 					responseDetail = focusTime;
 					return respondMessage(template, username, responseDetail);
-				} else if (_adminConfig.commands.clearList.includes(command)) {
+				}
+				else if (_adminConfig.commands.clearList.includes(command)) {
 					this.userList.clearUserList();
 					this.clearListFromDOM();
-					template = _adminConfig.responseTo[languageCode].clearList;
+					template = _adminConfig.responseTo[this.#languageCode].clearList;
 					return respondMessage(template, username, responseDetail);
-				} else if (_adminConfig.commands.clearDone.includes(command)) {
+				}
+				else if (_adminConfig.commands.clearDone.includes(command)) {
 					const tasks = this.userList.clearDoneTasks();
 					tasks.forEach(({ id }) => {
 						this.deleteTaskFromDOM(id);
 					});
-					template = _adminConfig.responseTo[languageCode].clearDone;
+					template = _adminConfig.responseTo[this.#languageCode].clearDone;
 					return respondMessage(template, username, responseDetail);
-				} else if (_adminConfig.commands.clearUser.includes(command)) {
+				}
+				else if (_adminConfig.commands.clearUser.includes(command)) {
 					const user = this.userList.deleteUser(message);
 					this.deleteUserFromDOM(user);
 					responseDetail = user.username;
-					template = _adminConfig.responseTo[languageCode].clearUser;
+					template = _adminConfig.responseTo[this.#languageCode].clearUser;
 					return respondMessage(template, username, responseDetail);
 				}
 			}
@@ -250,11 +262,12 @@ export default class App {
 				const taskDescriptions = message.split(", ");
 				if (
 					user.getTasks().length + taskDescriptions.length >
-					parseInt(maxTasksPerUser.toString(), 10)
+					parseInt(this.#maxTasksPerUser.toString(), 10)
 				) {
 					template =
-						_userConfig.responseTo[languageCode].maxTasksAdded;
-				} else {
+						_userConfig.responseTo[this.#languageCode].maxTasksAdded;
+				}
+				else {
 					const tasks = this.userList.addUserTasks(
 						username,
 						taskDescriptions
@@ -263,9 +276,10 @@ export default class App {
 						this.addTaskToDOM(user, task);
 					});
 					responseDetail = message;
-					template = _userConfig.responseTo[languageCode].addTask;
+					template = _userConfig.responseTo[this.#languageCode].addTask;
 				}
-			} else if (_userConfig.commands.editTask.includes(command)) {
+			}
+			else if (_userConfig.commands.editTask.includes(command)) {
 				// EDIT TASK
 				const whiteSpaceIdx = message.search(/(?<=\d)\s/); // number followed by space
 				if (whiteSpaceIdx === -1) {
@@ -282,8 +296,9 @@ export default class App {
 				);
 				this.editTaskFromDOM(task);
 				responseDetail = taskNumber;
-				template = _userConfig.responseTo[languageCode].editTask;
-			} else if (_userConfig.commands.finishTask.includes(command)) {
+				template = _userConfig.responseTo[this.#languageCode].editTask;
+			}
+			else if (_userConfig.commands.finishTask.includes(command)) {
 				// COMPLETE/DONE TASK
 				const indices = message.split(",").reduce((acc, i) => {
 					if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
@@ -297,29 +312,32 @@ export default class App {
 					this.completeTaskFromDOM(id);
 				});
 				if (tasks.length === 0) {
-					template = _userConfig.responseTo[languageCode].noTaskFound;
-				} else {
+					template = _userConfig.responseTo[this.#languageCode].noTaskFound;
+				}
+				else {
 					responseDetail = tasks.reduce((acc, task, i, list) => {
 						let taskDesc =
 							i === list.length - 1
 								? task.description
 								: i === list.length - 2
-								? `${task.description}, & `
-								: `${task.description}, `;
+									? `${task.description}, & `
+									: `${task.description}, `;
 						acc = acc.concat(taskDesc);
 						return acc;
 					}, "");
 
-					template = _userConfig.responseTo[languageCode].finishTask;
+					template = _userConfig.responseTo[this.#languageCode].finishTask;
 				}
-			} else if (_userConfig.commands.deleteTask.includes(command)) {
+			}
+			else if (_userConfig.commands.deleteTask.includes(command)) {
 				// DELETE/REMOVE TASK
 				responseDetail = message;
 				if (message.toLowerCase() === "all") {
 					const user = this.userList.deleteUser(username);
 					this.deleteUserFromDOM(user);
-					template = _userConfig.responseTo[languageCode].deleteAll;
-				} else {
+					template = _userConfig.responseTo[this.#languageCode].deleteAll;
+				}
+				else {
 					const indices = message.split(",").reduce((acc, i) => {
 						if (parseTaskIndex(i) >= 0) acc.push(parseTaskIndex(i));
 						return acc;
@@ -333,13 +351,15 @@ export default class App {
 					});
 					if (tasks.length === 0) {
 						template =
-							_userConfig.responseTo[languageCode].noTaskFound;
-					} else {
+							_userConfig.responseTo[this.#languageCode].noTaskFound;
+					}
+					else {
 						template =
-							_userConfig.responseTo[languageCode].deleteTask;
+							_userConfig.responseTo[this.#languageCode].deleteTask;
 					}
 				}
-			} else if (_userConfig.commands.check.includes(command)) {
+			}
+			else if (_userConfig.commands.check.includes(command)) {
 				// CHECK TASKS
 				const taskMap = this.userList.checkUserTasks(username);
 				const list = [];
@@ -348,17 +368,21 @@ export default class App {
 				}
 				responseDetail = list.join(" | ");
 				if (responseDetail === "") {
-					template = _userConfig.responseTo[languageCode].noTaskFound;
-				} else {
-					template = _userConfig.responseTo[languageCode].check;
+					template = _userConfig.responseTo[this.#languageCode].noTaskFound;
 				}
-			} else if (_userConfig.commands.help.includes(command)) {
+				else {
+					template = _userConfig.responseTo[this.#languageCode].check;
+				}
+			}
+			else if (_userConfig.commands.help.includes(command)) {
 				// HELP COMMAND
-				template = _userConfig.responseTo[languageCode].help;
-			} else if (_userConfig.commands.additional.includes(command)) {
+				template = _userConfig.responseTo[this.#languageCode].help;
+			}
+			else if (_userConfig.commands.additional.includes(command)) {
 				// ADDITIONAL COMMANDS
-				template = _userConfig.responseTo[languageCode].additional;
-			} else {
+				template = _userConfig.responseTo[this.#languageCode].additional;
+			}
+			else {
 				// INVALID COMMAND
 				throw new Error("command not found");
 			}
@@ -366,7 +390,7 @@ export default class App {
 			return respondMessage(template, username, responseDetail);
 		} catch (error) {
 			return respondMessage(
-				_userConfig.responseTo[languageCode].invalidCommand,
+				_userConfig.responseTo[this.#languageCode].invalidCommand,
 				username,
 				error.message,
 				true
@@ -468,7 +492,8 @@ export default class App {
 			if (taskElement.parentElement.children.length === 1) {
 				// remove the user card if there is only one task
 				taskElement.parentElement.parentElement.remove();
-			} else {
+			}
+			else {
 				taskElement.remove();
 			}
 		}
@@ -502,13 +527,10 @@ export default class App {
  * @returns {{message: string, error: boolean}}
  */
 function respondMessage(template, username, message, error = false) {
-	const response = {
-		message: template
-			.replace("{user}", username)
-			.replace("{message}", message),
+	return {
+		message: _settings.botResponsePrefix + template.replace("{user}", username).replace("{message}", message),
 		error,
 	};
-	return response;
 }
 
 /**
