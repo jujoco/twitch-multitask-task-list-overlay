@@ -220,7 +220,7 @@ export default class App {
 						throw new Error("Invalid timer duration");
 					}
 					this.startTimer(focusDuration, breakDuration);
-					template = _adminConfig.responseTo[this.#languageCode].timer;
+					template = _adminConfig.responseTo[this.#languageCode].timer + " ⏲️";
 					responseDetail = focusTime;
 					return respondMessage(template, username, responseDetail);
 				}
@@ -274,8 +274,11 @@ export default class App {
 					);
 					tasks.forEach((task) => {
 						this.addTaskToDOM(user, task);
-					});
-					responseDetail = message;
+					}); 
+					responseDetail = taskDescriptions
+						.map((task) => `📝 "${task}"`)
+						.join(", ")
+						.replace(/,([^,]*)$/, " &$1");;
 					template = _userConfig.responseTo[this.#languageCode].addTask;
 				}
 			}
@@ -315,16 +318,10 @@ export default class App {
 					template = _userConfig.responseTo[this.#languageCode].noTaskFound;
 				}
 				else {
-					responseDetail = tasks.reduce((acc, task, i, list) => {
-						let taskDesc =
-							i === list.length - 1
-								? task.description
-								: i === list.length - 2
-									? `${task.description}, & `
-									: `${task.description}, `;
-						acc = acc.concat(taskDesc);
-						return acc;
-					}, "");
+					responseDetail = tasks
+						.map((task) => `✅ "${task.description}"`)
+						.join(", ")
+						.replace(/,([^,]*)$/, " &$1");
 
 					template = _userConfig.responseTo[this.#languageCode].finishTask;
 				}
@@ -364,9 +361,9 @@ export default class App {
 				const taskMap = this.userList.checkUserTasks(username);
 				const list = [];
 				for (let [taskNumber, task] of taskMap) {
-					list.push(`${taskNumber + 1}. ${task.description}`);
+					list.push(`📝 ${taskNumber + 1}. ${task.description}`);
 				}
-				responseDetail = list.join(" | ");
+				responseDetail = list.join(" ");
 				if (responseDetail === "") {
 					template = _userConfig.responseTo[this.#languageCode].noTaskFound;
 				}

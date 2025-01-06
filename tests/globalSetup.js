@@ -31,12 +31,12 @@ const _userConfig = {
 	},
 	responseTo: {
 		EN: {
-			addTask: 'Task(s) "{message}" added!',
-			editTask: 'Task "{message}" updated!',
-			finishTask: 'Good job on completing task(s) "{message}"!',
-			deleteTask: 'Task(s) "{message}" has been deleted!',
+			addTask: 'Task(s) {message} added!',
+			editTask: 'Task {message} updated!',
+			finishTask: 'Good job on completing task(s) {message}!',
+			deleteTask: 'Task(s) {message} has been deleted!',
 			deleteAll: "All of your tasks have been deleted!",
-			check: 'Your current task(s) are: "{message}"',
+			check: 'Your current task(s) are: {message}',
 			help: "Try using these commands - !task !edit !done !delete, !check",
 			additional:
 				"Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/Jujoco_Dev",

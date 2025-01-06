@@ -14,13 +14,13 @@ const _userConfig = {
   },
   responseTo: {
     EN: {
-      addTask: 'Task(s) "{message}" added!',
-      editTask: 'Task "{message}" updated!',
-      finishTask: 'Good job on completing task(s) "{message}"!',
-      deleteTask: 'Task(s) "{message}" has been deleted!',
+      addTask: 'Task(s) {message} added!',
+      editTask: 'Task {message} updated!',
+      finishTask: 'Good job on completing task(s) {message}!',
+      deleteTask: 'Task(s) {message} has been deleted!',
       deleteAll: "All of your tasks have been deleted!",
-      check: 'Your current task(s) are: "{message}"',
-      help: "Try using these commands - !task !edit !done !delete, !check",
+      check: 'Your current task(s) are: {message}',
+      help: "Try these commands - !task !edit !done !delete !check",
       additional:
         "Jujoco is the creator of this bot, check out his Twitch at: https://www.twitch.tv/Jujoco_Dev",
       maxTasksAdded:
@@ -29,13 +29,13 @@ const _userConfig = {
       invalidCommand: "Invalid command: {message}. Try !help",
     },
     ES: {
-      addTask: 'Tarea(s) "{message}" añadida(s)!',
-      editTask: 'Tarea "{message}" actualizada!',
-      finishTask: '¡Buen trabajo completando la(s) tarea(s) "{message}"!',
-      deleteTask: 'La(s) tarea(s) "{message}" ha sido eliminada(s)!',
+      addTask: 'Tarea(s) {message} añadida(s)!',
+      editTask: 'Tarea {message} actualizada!',
+      finishTask: '¡Buen trabajo completando la(s) tarea(s) {message}!',
+      deleteTask: 'La(s) tarea(s) {message} ha sido eliminada(s)!',
       deleteAll: "Todas tus tareas han sido eliminadas!",
-      check: 'Tus tareas actuales son: "{message}"',
-      help: "Prueba a usar estos comandos - !añadir !editar !hecho !eliminar, !comprobar",
+      check: 'Tus tareas actuales son: {message}',
+      help: "Prueba a usar estos comandos - !añadir !editar !hecho !eliminar !comprobar",
       additional:
         "Jujoco es el creador de este bot, visita su Twitch en: https://www.twitch.tv/Jujoco_Dev",
       maxTasksAdded:
@@ -44,13 +44,13 @@ const _userConfig = {
       invalidCommand: "Comando inválido: {message}. Prueba !help",
     },
     FR: {
-      addTask: 'Tâche(s) "{message}" ajoutée(s)!',
-      editTask: 'Tâche "{message}" mise à jour!',
-      finishTask: 'Bon travail pour avoir terminé la tâche "{message}"!',
-      deleteTask: 'La tâche "{message}" a été supprimée!',
+      addTask: 'Tâche(s) {message} ajoutée(s)!',
+      editTask: 'Tâche {message} mise à jour!',
+      finishTask: 'Bon travail pour avoir terminé la tâche {message}!',
+      deleteTask: 'La tâche {message} a été supprimée!',
       deleteAll: "Toutes vos tâches ont été supprimées!",
-      check: 'Vos tâches actuelles sont: "{message}"',
-      help: "Essayez d'utiliser ces commandes - !ajouter !modifier !terminé !supprimer, !vérifier",
+      check: 'Vos tâches actuelles sont: {message}',
+      help: "Essayez d'utiliser ces commandes - !ajouter !modifier !terminé !supprimer !vérifier",
       additional:
         "Jujoco est le créateur de ce bot, consultez son Twitch sur: https://www.twitch.tv/Jujoco_Dev",
       maxTasksAdded:
@@ -60,13 +60,13 @@ const _userConfig = {
       invalidCommand: "Commande invalide: {message}. Essayez !help",
     },
     JP: {
-      addTask: 'タスク "{message}" が追加されました!',
-      editTask: 'タスク "{message}" が更新されました!',
-      finishTask: 'タスク "{message}" を完了しました!',
-      deleteTask: 'タスク "{message}" が削除されました!',
+      addTask: 'タスク {message} が追加されました!',
+      editTask: 'タスク {message} が更新されました!',
+      finishTask: 'タスク {message} を完了しました!',
+      deleteTask: 'タスク {message} が削除されました!',
       deleteAll: "すべてのタスクが削除されました!",
-      check: '現在のタスクは "{message}" です',
-      help: "これらのコマンドを試してみてください - !追加 !編集 !完了 !削除, !チェック",
+      check: '現在のタスクは {message} です',
+      help: "これらのコマンドを試してみてください - !追加 !編集 !完了 !削除 !チェック",
       additional:
         "Jujoco はこのボットの作成者です、彼の Twitch をチェックしてください: https://www.twitch.tv/Jujoco_Dev",
       maxTasksAdded:
@@ -75,12 +75,12 @@ const _userConfig = {
       invalidCommand: "無効なコマンド: {message}。!help を試してみてください",
     },
     UA: {
-      addTask: 'Завдання "{message}" додано!',
-      editTask: 'Завдання "{message}" змінено!',
-      finishTask: 'Вітаю з виконанням завдання "{message}"!',
-      deleteTask: 'Завдання "{message}" видалено!',
+      addTask: 'Завдання {message} додано!',
+      editTask: 'Завдання {message} змінено!',
+      finishTask: 'Вітаю з виконанням завдання {message}!',
+      deleteTask: 'Завдання {message} видалено!',
       deleteAll: "Всі твої завдання видалено!",
-      check: 'Твої завдання наразі : "{message}"',
+      check: 'Твої завдання наразі : {message}',
       help: "Спробуй такі команди -!додати !редагувати !готово !видалити !перевірити",
       additional:
         "Jujoco створив цей бот, глянь його стрім : https://www.twitch.tv/Jujoco_Dev",

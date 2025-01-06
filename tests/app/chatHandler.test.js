@@ -72,7 +72,7 @@ describe("App.chatHandler", () => {
 						adminUser.extra
 					);
 					expect(response.message).toBe(
-						botResponsePrefix + "Timer has been reset to 60 minutes"
+						botResponsePrefix + "Timer has been reset to 60 minutes ⏲️"
 					);
 				});
 			});
@@ -179,7 +179,7 @@ describe("App.chatHandler", () => {
 
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Task(s) "newTask" added!'
+						botResponsePrefix + 'Task(s) 📝 "newTask" added!'
 					);
 				});
 
@@ -193,7 +193,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Task(s) "newTask" added!'
+						botResponsePrefix + 'Task(s) 📝 "newTask" added!'
 					);
 				});
 
@@ -207,7 +207,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Task(s) "newTask, newTask2" added!'
+						botResponsePrefix + 'Task(s) 📝 "newTask" & 📝 "newTask2" added!'
 					);
 				});
 
@@ -251,7 +251,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Task "2" updated!'
+						botResponsePrefix + 'Task 2 updated!'
 					);
 				});
 
@@ -308,7 +308,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Good job on completing task(s) "task1"!'
+						botResponsePrefix + 'Good job on completing task(s) ✅ "task1"!'
 					);
 				});
 
@@ -322,7 +322,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Good job on completing task(s) "task1, & task2"!'
+						botResponsePrefix + 'Good job on completing task(s) ✅ "task1" & ✅ "task2"!'
 					);
 				});
 
@@ -354,7 +354,7 @@ describe("App.chatHandler", () => {
 
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Task(s) "1" has been deleted!'
+						botResponsePrefix + 'Task(s) 1 has been deleted!'
 					);
 				});
 
@@ -397,7 +397,7 @@ describe("App.chatHandler", () => {
 					);
 					expect(response.error).toBe(false);
 					expect(response.message).toBe(
-						botResponsePrefix + 'Your current task(s) are: "1. task1 | 3. task3"'
+						botResponsePrefix + 'Your current task(s) are: 📝 1. task1 📝 3. task3'
 					);
 				});
 
