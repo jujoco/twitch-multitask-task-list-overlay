@@ -61,6 +61,9 @@ export default class App {
 				if (task.isComplete()) {
 					listItem.classList.add("done");
 				}
+				if (task.isFocused()) {
+					listItem.classList.add("focus");
+				}
 				list.appendChild(listItem);
 			});
 			fragment.appendChild(cardEl);
@@ -301,6 +304,14 @@ export default class App {
 				responseDetail = taskNumber;
 				template = _userConfig.responseTo[this.#languageCode].editTask;
 			}
+			else if (_userConfig.commands.focusTask.includes(command)) {
+				// FOCUS TASK
+				const taskIndex = parseTaskIndex(message);
+				const task = this.userList.focusUserTask(username, taskIndex);
+				this.focusTaskFromDOM(username, task.id);
+				responseDetail = (taskIndex + 1).toString();
+				template = _userConfig.responseTo[this.#languageCode].focusTask;
+			}
 			else if (_userConfig.commands.finishTask.includes(command)) {
 				// COMPLETE/DONE TASK
 				const indices = message.split(",").reduce((acc, i) => {
@@ -474,6 +485,22 @@ export default class App {
 			taskElement.classList.add("done");
 		}
 		this.renderTaskCount();
+	}
+
+	/**
+	 * Mark task as focused in the DOM. 
+	 * @param {string} username
+	 * @param {string} taskId
+	 * @returns {void}
+	 */
+	focusTaskFromDOM(username, taskId) {
+		document.querySelectorAll(`[data-user="${username}"] .task`).forEach(task => {
+			task.classList.remove("focus");
+		});
+
+		document.querySelectorAll(`[data-task-id="${taskId}"]`).forEach(task => {
+			task.classList.add("focus");
+		});
 	}
 
 	/**

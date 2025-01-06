@@ -12,6 +12,7 @@ import Task from "./Task.js";
  * @method addUserTasks - Add a tasks to the specified user
  * @method editUserTask - Edit the task at the specified index
  * @method completeUserTasks - Mark specified tasks as complete
+ * @method focusUserTasks - Mark specified tasks as focused
  * @method deleteUserTasks - Delete tasks at specified indices
  * @method checkUserTasks - Get remaining tasks
  * @method clearUserList - Clear user list
@@ -51,6 +52,9 @@ export default class UserList {
 					if (task.completionStatus) {
 						newTask.setCompletionStatus(task.completionStatus);
 						this.tasksCompleted++;
+					}
+					if (task.focusStatus) {
+						newTask.setFocusStatus(task.focusStatus);
 					}
 				});
 				userList.push(user);
@@ -141,6 +145,26 @@ export default class UserList {
 			throw new Error(`${username} has no tasks`);
 		}
 		const task = user.editTask(taskIndex, taskDescription);
+		if (!task) {
+			throw new Error(`Task ${taskIndex} not found`);
+		}
+		this.#commitToLocalStorage();
+		return task;
+	}
+
+	/**
+	 * Mark user task as focused
+	 * @param {string} username - The username of the user
+	 * @param {number} taskIndex - The index of the task to focus
+	 * @throws {Error} User not found
+	 * @returns {Task} The focused task
+	 */
+	focusUserTask(username, taskIndex) {
+		const user = this.getUser(username);
+		if (!user) {
+			throw new Error(`User ${username} not found`);
+		}
+		const task = user.setFocusedTask(taskIndex);
 		if (!task) {
 			throw new Error(`Task ${taskIndex} not found`);
 		}

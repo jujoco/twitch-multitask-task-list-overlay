@@ -25,6 +25,7 @@ const _userConfig = {
 		editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати"],
 		finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
 		deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити"],
+		focusTask: ["!focus", "!focalizar", "!concentrer", "!集中", "!зосередитись"],
 		check: ["!check", "!comprobar", "!vérifier", "!チェック", "!перевірити"],
 		help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
 		additional: ["!credit", "!crédito", "!crédit", "!クレジット", "!кредит"],
@@ -36,6 +37,7 @@ const _userConfig = {
 			finishTask: 'Good job on completing task(s) {message}!',
 			deleteTask: 'Task(s) {message} has been deleted!',
 			deleteAll: "All of your tasks have been deleted!",
+			focusTask: 'Prioritizing your focus on task {message}!',
 			check: 'Your current task(s) are: {message}',
 			help: "Try using these commands - !task !edit !done !delete, !check",
 			additional:

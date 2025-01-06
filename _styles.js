@@ -42,4 +42,8 @@ const _styles = {
   taskDoneFontColor: "#b0b0b0", // hex value
   taskDoneFontStyle: "italic", // "italic" or "normal"
   taskDoneTextDecoration: "line-through", // "line-through" or "none"
+
+  taskFocusFontColor: "#111111", // hex value
+  taskFocusBackgroundColor: "rgba(255, 255, 255, 0.7)", // rgba value https://rgbcolorpicker.com/
+  taskFocusBorderRadius: "8px", // hex value
 };

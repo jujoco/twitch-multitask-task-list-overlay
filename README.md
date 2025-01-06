@@ -189,7 +189,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - headerDisplay: Default = **"flex"**
 - headerBorderRadius: Default = **"6px"**
 - headerMarginBottom: Default = **"6px"**
-- headerBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
+- headerBackgroundColor: Default = **"rgba(0, 0, 0, 0.7)"**
 - headerFontSize: Default = **"20px"**
 - headerFontColor: Default = **"#FFFFFF"**
 - headerFontWeight: Default = **"normal"**
@@ -198,7 +198,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
 - cardGapBetween: Default = **"6px"**
 - cardBorderRadius: Default = **"6px"**
-- cardBackgroundColor: Default = **"rgba(45, 45, 45, 0.7)"**
+- cardBackgroundColor: Default = **"rgba(0, 0, 0, 0.7)"**
 
 #### Username Styles
 
@@ -214,6 +214,9 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - taskDoneFontColor: Default = **"#aaaaaa"**
 - taskDoneFontStyle: Default = **"#italic"**
 - taskDoneTextDecoration: Default = **"line-through"**
+- taskFocusFontColor: Default = **"#111111"**
+- taskFocusBackgroundColor: Default = **"rgba(255, 255, 255, 0.7)"**
+- taskFocusBorderRadius: Default = **"8px"**
 
 ## Commands
 

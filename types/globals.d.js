@@ -46,6 +46,9 @@
  * @property {string} taskDoneFontColor - The task done font color
  * @property {string} taskDoneFontStyle - The task done font style
  * @property {string} taskDoneTextDecoration - The task done text decoration
+ * @property {string} taskFocusFontColor - The focus task font color
+ * @property {string} taskFocusBackgroundColor - The focus task background color
+ * @property {string} taskFocusBorderRadius - The focus task border radius
  */
 
 /**

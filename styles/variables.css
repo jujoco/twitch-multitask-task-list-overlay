@@ -38,4 +38,7 @@
 	--task-done-font-color: #aaaaaa;
 	--task-done-font-style: italic;
 	--task-done-text-decoration: line-through;
+	--task-focus-font-color: #111111;
+	--task-focus-background-color: rgba(255, 255, 255, 0.7);
+	--task-focus-border-radius: 8px;
 }

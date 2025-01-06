@@ -72,6 +72,20 @@ describe("User", () => {
 		});
 	});
 
+	describe("setFocusedTask", () => {
+		test("should mark the task at the specified index as focused", () => {
+			user.addTask(new Task("test task 1"));
+			user.setFocusedTask(0);
+			expect(user.getTasks()[0].isFocused()).toBe(true);
+		});
+
+		test("should return null if the task index is out of bounds", () => {
+			user.addTask(new Task("test task 1"));
+			const task = user.setFocusedTask(3);
+			expect(task).toBeNull();
+		});
+	});
+
 	describe("deleteTask", () => {
 		test("should be able to delete a single task given a single index number", () => {
 			user.addTask(new Task("test task 0"));

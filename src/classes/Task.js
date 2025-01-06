@@ -3,10 +3,13 @@
  * @property {string} description - The description of the task.
  * @property {number} id - The id of the task.
  * @property {boolean} completionStatus - Indicates whether the task is complete or not.
+ * @property {boolean} focusStatus - Indicates whether the task is focused or not.
  * @method validateDescription - Validate the description of the task.
  * @method setDescription - Set the description of the task.
  * @method isComplete - Get the completion status of the task.
  * @method setCompletionStatus - Set the status of the task.
+ * @method isFocused - Get the focus status of the task.
+ * @method setFocusStatus - Set the focus status of the task.
  * @returns {Task}
  */
 export default class Task {
@@ -18,6 +21,7 @@ export default class Task {
 		this.description = this.validateDescription(description);
 		this.id = this.#assignId();
 		this.completionStatus = false;
+		this.focusStatus = false;
 	}
 
 	/**
@@ -79,5 +83,24 @@ export default class Task {
 			throw new Error("Completion status must be of type boolean");
 		}
 		this.completionStatus = status;
+	}
+
+	/**
+	 * Get the focus status of the task.
+	 * @returns {boolean} The focus status of the task.
+	 */
+	isFocused() {
+		return this.focusStatus;
+	}
+
+	/**
+	 * Set the focus status of the task.
+	 * @param {boolean} status - The new focus status of the task.
+	 */
+	setFocusStatus(status) {
+		if (typeof status !== "boolean") {
+			throw new Error("Focus status must be of type boolean");
+		}
+		this.focusStatus = status;
 	}
 }

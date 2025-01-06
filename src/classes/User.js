@@ -8,6 +8,7 @@
  * @method addTask - Add tasks to the user
  * @method editTask - Edit the task at the specified index
  * @method completeTask - Mark the task at index as complete
+ * @method setFocusedTask - Mark the task at index as focused
  * @method deleteTask - Delete the task at the specified index
  * @method removeCompletedTasks - Remove all completed tasks
  * @method getTask - Get the task at the specified index
@@ -77,6 +78,23 @@ export default class User {
 		let task = this.getTask(index);
 		if (task) {
 			task.setCompletionStatus(true);
+			return task;
+		}
+		return null;
+	}
+
+	/**
+	 * Mark the task at the specified index as focused
+	 * @param {number} index - The index of the task to focus
+	 * @returns {Task | null} The task that was focused
+	 */
+	setFocusedTask(index) {
+		let task = this.getTask(index);
+		if (task) {
+			this.tasks.forEach((t) => {
+				t.setFocusStatus(false);
+			});
+			task.setFocusStatus(true);
 			return task;
 		}
 		return null;

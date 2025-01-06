@@ -79,4 +79,25 @@ describe("Task", () => {
 			);
 		});
 	});
+
+	describe("isFocused", () => {
+		it("should return the focus status of the task", () => {
+			expect(task.isFocused()).toBe(false);
+		});
+	});
+
+	describe("setFocusStatus", () => {
+		it("should set the focus status of the task", () => {
+			task.setFocusStatus(true);
+			expect(task.isFocused()).toBe(true);
+			task.setFocusStatus(false);
+			expect(task.isFocused()).toBe(false);
+		});
+
+		it("should return Error if status is not a boolean", () => {
+			expect(() => task.setFocusStatus("true")).toThrow(
+				"Focus status must be of type boolean"
+			);
+		});
+	});
 });
