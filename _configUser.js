@@ -4,14 +4,14 @@
 /** @type {UserConfig} */
 const _userConfig = {
   commands: {
-    addTask: ["!task", "!add", "!añadir", "!ajouter", "!追加", "!додати"],
-    editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати"],
-    finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово"],
-    deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити"],
-    focusTask: ["!focus", "!focalizar", "!concentrer", "!集中", "!зосередитись"],
-    check: ["!check", "!comprobar", "!vérifier", "!チェック", "!перевірити"],
-    help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога"],
-    additional: ["!credit", "!crédito", "!crédit", "!クレジット", "!кредит"],
+    addTask: ["!task", "!add", "!añadir", "!ajouter", "!追加", "!додати", "!aufgabe"],
+    editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати", "!bearbeiten"],
+    finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово", "!erledigt"],
+    deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити", "löschen"],
+    focusTask: ["!focus", "!focalizar", "!concentrer", "!集中", "!зосередитись", "!fokus"],
+    check: ["!check", "!comprobar", "!vérifier", "!チェック", "!перевірити", "!prüfen"],
+    help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога", "!hilfe"],
+    additional: ["!credit", "!crédito", "!crédit", "!クレジット", "!кредит", "!kontakt"],
   },
   responseTo: {
     EN: {
@@ -94,6 +94,22 @@ const _userConfig = {
         "Додано максимальну кількість завдань. Спробуй видалити щось старе.",
       noTaskFound: "Це завдання не існує, спробуй додати нове!",
       invalidCommand: "Неправильна команда: {message}. Переглянь !команди",
+    },
+    DE: {
+      addTask: 'Aufgabe(n) {message} hinzugefügt!',
+      editTask: 'Aufgabe {message} aktualisiert!',
+      finishTask: 'Gut gemacht beim Abschluss der Aufgabe(n) {message}!',
+      deleteTask: 'Aufgabe(n) {message} wurde(n) gelöscht!',
+      deleteAll: "Alle deine Aufgaben wurden gelöscht!",
+      focusTask: 'Priorisiere deine Aufmerksamkeit auf die Aufgabe {message}!',
+      check: 'Deine aktuellen Aufgaben sind: {message}',
+      help: "Versuche diese Befehle - !task !edit !done !delete !check",
+      additional:
+        "Jujoco ist der Ersteller dieses Bots, schau dir seinen Twitch-Kanal an: https://www.twitch.tv/Jujoco_Dev",
+      maxTasksAdded:
+        "Maximale Anzahl an Aufgaben erreicht, versuche alte Aufgaben zu erledigen/löschen.",
+      noTaskFound: "Diese Aufgabe scheint nicht zu existieren, versuche eine hinzuzufügen!",
+      invalidCommand: "Ungültiger Befehl: {message}. Versuche !help",
     },
   },
 };
