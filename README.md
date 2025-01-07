@@ -131,6 +131,7 @@ Open the `_settings.js` file and modify the following settings to customized the
 - **"FR"**: French translation
 - **"JP"**: Japanese translation
 - **"UA"**: Ukrainian translation
+- **"DE"**: German translation
 
 `maxTasksPerUser`: Default = **10**
 
@@ -281,6 +282,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!ajouter` (French)
 - `!追加` (Japanese)
 - `!додати` (Ukrainian)
+- `!aufgabe` (German)
 
 **edit task commands:**
 
@@ -289,6 +291,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!modifier` (French)
 - `!編集` (Japanese)
 - `!редагувати` (Ukrainian)
+- `!bearbeiten` (German)
 
 **complete task commands:**
 
@@ -297,6 +300,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!terminé` (French)
 - `!完了` (Japanese)
 - `!готово` (Ukrainian)
+- `!erledigt` (German)
 
 **delete task commands:**
 
@@ -305,6 +309,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!supprimer` (French)
 - `!削除` (Japanese)
 - `!видалити` (Ukrainian)
+- `"löschen` (German)
 
 **check commands:**
 
@@ -313,6 +318,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!vérifier` (French)
 - `!チェック` (Japanese)
 - `!перевірити` (Ukrainian)
+- `!prüfen` (German)
 
 **help commands:**
 
@@ -321,6 +327,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!aide` (French)
 - `!ヘルプ` (Japanese)
 - `!допомога` (Ukrainian)
+- `!hilfe` (German)
 
 **extra commands:**
 
@@ -329,6 +336,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!crédit` (French)
 - `!クレジット` (Japanese)
 - `!кредит` (Ukrainian)
+- `!kontakt` (German)
 
 ## Credits
 
