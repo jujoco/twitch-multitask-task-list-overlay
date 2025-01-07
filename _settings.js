@@ -3,7 +3,7 @@
 // ===========================
 /** @type {SettingsConfig} */
 const _settings = {
-  languageCode: "EN", // "EN", "ES", "FR", "JP", "UA", etc.
+  languageCode: "EN", // "EN", "ES", "FR", "JP", "UA", "DE", etc.
   maxTasksPerUser: 10, // default number 10
   scrollSpeed: 20, // default number 20
   showUsernameColor: true, // true or false
