@@ -32,6 +32,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
   - FR - française
   - JP - 日本語
   - UA - українська
+  - DE - German
 
 ## Table of Contents
 

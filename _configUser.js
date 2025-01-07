@@ -7,7 +7,7 @@ const _userConfig = {
     addTask: ["!task", "!add", "!añadir", "!ajouter", "!追加", "!додати", "!aufgabe"],
     editTask: ["!edit", "!editar", "!modifier", "!編集", "!редагувати", "!bearbeiten"],
     finishTask: ["!done", "!hecho", "!terminé", "!完了", "!готово", "!erledigt"],
-    deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити", "löschen"],
+    deleteTask: ["!delete", "!eliminar", "!supprimer", "!削除", "!видалити", "!löschen"],
     focusTask: ["!focus", "!focalizar", "!concentrer", "!集中", "!зосередитись", "!fokus"],
     check: ["!check", "!comprobar", "!vérifier", "!チェック", "!перевірити", "!prüfen"],
     help: ["!help", "!ayuda", "!aide", "!ヘルプ", "!допомога", "!hilfe"],
