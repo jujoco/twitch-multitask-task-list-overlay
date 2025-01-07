@@ -309,7 +309,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!supprimer` (French)
 - `!削除` (Japanese)
 - `!видалити` (Ukrainian)
-- `"löschen` (German)
+- `!löschen` (German)
 
 **check commands:**
 
