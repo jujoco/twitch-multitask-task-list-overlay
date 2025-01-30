@@ -188,6 +188,14 @@ describe("UserList", () => {
 				userList.completeUserTasks("nonExistentUser", 0)
 			).toThrow("User nonExistentUser not found");
 		});
+
+		test("should unfocus a task when marked done", () => {
+			userList.createUser("user1", { userColor: "#ff0000" });
+			userList.addUserTasks("user1", "Task 1");
+			userList.focusUserTask("user1", 0);
+			const tasks = userList.completeUserTasks("user1", 0);
+			expect(tasks[0].isFocused()).toBe(false);
+		});
 	});
 
 	describe("deleteUserTask", () => {

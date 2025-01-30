@@ -483,6 +483,7 @@ export default class App {
 		);
 		for (const taskElement of taskElements) {
 			taskElement.classList.add("done");
+			taskElement.classList.remove("focus");
 		}
 		this.renderTaskCount();
 	}

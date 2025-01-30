@@ -70,6 +70,13 @@ describe("User", () => {
 			const task = user.completeTask(3);
 			expect(task).toBeNull();
 		});
+
+		test("should unfocus a task when it's completed", () => {
+			user.addTask(new Task("test task 1"))
+			user.setFocusedTask(0)
+			user.completeTask(0)
+			expect(user.getTask(0).isFocused()).toBe(false);
+		});
 	});
 
 	describe("setFocusedTask", () => {

@@ -78,6 +78,9 @@ export default class User {
 		let task = this.getTask(index);
 		if (task) {
 			task.setCompletionStatus(true);
+			if (task.isFocused) {
+				task.setFocusStatus(false);
+			}
 			return task;
 		}
 		return null;
