@@ -1,4 +1,3 @@
-
 <div align="center">
 <img src="./images/live-sample.png" style="max-width: 800px;">
 <br >
@@ -83,7 +82,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
     ```
 
    - Open your browser and enter the URL containing your **Client ID** into the address bar. See [Twitch Authorize page Example](./images/twitch-authorize.png)
-   - After granting Authorization, you’ll be redirected to a blank page which will show an error message. This is normal.
+   - After granting Authorization, you'll be redirected to a blank page which will show an error message. This is normal.
    - The blank page will contain a URL in the address bar. This URL contains the access token you need. See [Access Token Example](./images/access-token-page.png)
    - Copy the token from the URL (it follows `#access_token=` and ends just before `&scope`).
    - Save this token in a safe place for the next step.
@@ -229,6 +228,11 @@ Open the `_styles.js` file and modify the following settings to customized the T
   - example: `!task read ch. 3`
   - example: `!task prep for exam, walk dog`
 
+- `!focus` - Focus on a specific task
+
+  - example: `!focus 1`
+  - example: `!focus 3`
+
 - `!edit` - Edit a single task
 
   - example: `!edit 1 read ch. 4`
@@ -283,6 +287,14 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!追加` (Japanese)
 - `!додати` (Ukrainian)
 - `!aufgabe` (German)
+
+**focus commands:**
+- `!focus`
+- `!enfocar` (Spanish)
+- `!concentrer` (French)
+- `!集中` (Japanese)
+- `!фокус` (Ukrainian)
+- `!fokus` (German)
 
 **edit task commands:**
 
