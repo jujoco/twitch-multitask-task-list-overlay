@@ -103,11 +103,11 @@ const _userConfig = {
       deleteAll: "Alle deine Aufgaben wurden gelöscht!",
       focusTask: 'Priorisiere deine Aufmerksamkeit auf die Aufgabe {message}!',
       check: 'Deine aktuellen Aufgaben sind: {message}',
-      help: "Versuche diese Befehle - !task !edit !done !delete !check",
+      help: "Versuche diese Befehle - !aufgabe !bearbeiten !erledigt !löschen !prüfen",
       additional:
         "Jujoco ist der Ersteller dieses Bots, schau dir seinen Twitch-Kanal an: https://www.twitch.tv/Jujoco_Dev",
       maxTasksAdded:
-        "Maximale Anzahl an Aufgaben erreicht, versuche alte Aufgaben zu erledigen/löschen.",
+        "Maximale Anzahl an Aufgaben erreicht, versuche alte Aufgaben zu löschen.",
       noTaskFound: "Diese Aufgabe scheint nicht zu existieren, versuche eine hinzuzufügen!",
       invalidCommand: "Ungültiger Befehl: {message}. Versuche !help",
     },
