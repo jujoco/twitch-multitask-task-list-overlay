@@ -40,5 +40,11 @@ const _adminConfig = {
       clearDone: "Усі виконані завдання видалено",
       clearUser: "Усі завдання {message} видалено",
     },
+    DE: {
+      timer: "Fokus-Timer auf {message} Minuten eingestellt",
+      clearList: "Alle Aufgaben wurden gelöscht",
+      clearDone: "Alle erledigten Aufgaben wurden gelöscht",
+      clearUser: "Alle Aufgaben von {message} wurden gelöscht",
+    },
   },
 };
