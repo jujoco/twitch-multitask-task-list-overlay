@@ -83,6 +83,10 @@ export default class Task {
 			throw new Error("Completion status must be of type boolean");
 		}
 		this.completionStatus = status;
+
+		if (this.isFocused()) {
+			this.setFocusStatus(false);
+		}
 	}
 
 	/**

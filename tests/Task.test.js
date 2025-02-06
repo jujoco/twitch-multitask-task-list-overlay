@@ -78,6 +78,12 @@ describe("Task", () => {
 				"Completion status must be of type boolean"
 			);
 		});
+
+		it("should unfocus a task when it's completed", () => {
+			task.setFocusStatus(true)
+			task.setCompletionStatus(true)
+			expect(task.isFocused()).toBe(false);
+		});
 	});
 
 	describe("isFocused", () => {

@@ -191,9 +191,6 @@ export default class UserList {
 				task.setCompletionStatus(true);
 				this.tasksCompleted++;
 			}
-			if (task.isFocused()) {
-				task.setFocusStatus(false);
-			}
 			acc.push(task);
 			return acc;
 		}, []);
