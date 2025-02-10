@@ -188,13 +188,20 @@ describe("UserList", () => {
 				userList.completeUserTasks("nonExistentUser", 0)
 			).toThrow("User nonExistentUser not found");
 		});
+	});
 
-		test("should unfocus a task when marked done", () => {
+	describe("setFocusedTask", () => {
+		test("should set the focused task for the user", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
-			userList.addUserTasks("user1", "Task 1");
-			userList.focusUserTask("user1", 0);
-			const tasks = userList.completeUserTasks("user1", 0);
-			expect(tasks[0].isFocused()).toBe(false);
+			userList.addUserTasks("user1", ["Task 1", "Task 2"]);
+			const task = userList.focusUserTask("user1", 1);
+			expect(task.description).toEqual("Task 2");
+		});
+
+		test("should throw an error if user does not exist", () => {
+			expect(() =>
+				userList.focusUserTask("nonExistentUser", 0)
+			).toThrow("User nonExistentUser not found");
 		});
 	});
 

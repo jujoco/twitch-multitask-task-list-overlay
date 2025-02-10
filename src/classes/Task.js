@@ -84,7 +84,7 @@ export default class Task {
 		}
 		this.completionStatus = status;
 
-		if (this.isFocused()) {
+		if (this.isFocused() && this.isComplete()) {
 			this.setFocusStatus(false);
 		}
 	}
