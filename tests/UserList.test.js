@@ -190,6 +190,21 @@ describe("UserList", () => {
 		});
 	});
 
+	describe("setFocusedTask", () => {
+		test("should set the focused task for the user", () => {
+			userList.createUser("user1", { userColor: "#ff0000" });
+			userList.addUserTasks("user1", ["Task 1", "Task 2"]);
+			const task = userList.focusUserTask("user1", 1);
+			expect(task.description).toEqual("Task 2");
+		});
+
+		test("should throw an error if user does not exist", () => {
+			expect(() =>
+				userList.focusUserTask("nonExistentUser", 0)
+			).toThrow("User nonExistentUser not found");
+		});
+	});
+
 	describe("deleteUserTask", () => {
 		test("should delete a task if given a single index", () => {
 			userList.createUser("user1", { userColor: "#ff0000" });
