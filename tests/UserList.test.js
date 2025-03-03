@@ -283,8 +283,8 @@ describe("UserList", () => {
 			userList.completeUserTasks("user2", 0);
 
 			userList.clearDoneTasks();
-			expect(user1.tasks.length).toEqual(2);
-			expect(user2.tasks.length).toEqual(0);
+			expect(userList.getUser("user1").tasks).toHaveLength(2);
+			expect(userList.getAllUsers().length).toEqual(1);
 		});
 	});
 

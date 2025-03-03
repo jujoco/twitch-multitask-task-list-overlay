@@ -260,11 +260,18 @@ export default class UserList {
 	 */
 	clearDoneTasks() {
 		let tasks = [];
-		this.users.forEach((user) => {
-			let removedTasks = user.removeCompletedTasks();
-			this.decreaseTaskCount(removedTasks);
+		// loop over in reverse to avoid index shifting
+		for (let i = this.users.length - 1; i >= 0; i--) {
+			const user = this.users[i];
+			const removedTasks = user.removeCompletedTasks();
 			tasks = tasks.concat(removedTasks);
-		});
+
+			// remove user if no tasks left
+			if (user.getTasks().length === 0) {
+				this.users.splice(i, 1);
+			}
+		}
+		this.decreaseTaskCount(tasks);
 		this.#commitToLocalStorage();
 		return tasks;
 	}
