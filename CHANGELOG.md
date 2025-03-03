@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.0.0...v2.1.0) (2025-03-03)
+
+
+### Features
+
+* **command:** add !focus command ([2334025](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/233402500cfcbd8c542a6215881e29986139bf6a))
+* **focus:** unfocus a task after it has been completed ([#38](https://github.com/jujoco/twitch-multitask-task-list-overlay/issues/38)) ([134685c](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/134685ccfd01d77b05da9cdd7b74f802cee2bf43))
+
+
+### Bug Fixes
+
+* **#39:** !clearDone - remove users with no task from LS ([2f266df](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/2f266dfc02ee226832944fb38881e548d5450224)), closes [#39](https://github.com/jujoco/twitch-multitask-task-list-overlay/issues/39)
+
 ## [2.0.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v1.1.0...v2.0.0) (2024-12-29)
 
 ## 1.1.0 (2024-12-23)
