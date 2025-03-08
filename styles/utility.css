@@ -1,11 +1,3 @@
-.transition-opacity {
-	transition-property: opacity;
-}
-
-.duration-600 {
-	transition-duration: 600ms;
-}
-
 .flex {
 	display: flex;
 }
