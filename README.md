@@ -32,6 +32,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
   - JP - 日本語
   - UA - українська
   - DE - German
+  - PT_BR - Portuguese (Brazilian)
 
 ## Table of Contents
 
@@ -46,6 +47,8 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
   - [Commands for Everyone](#commands-for-everyone)
   - [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
 - [Aliases](#aliases)
+  - [User Commands](#user-commands)
+  - [Moderator Commands](#moderator-commands)
 - [Credits](#credits)
 
 ## Installation Instructions
@@ -131,7 +134,7 @@ Open the `_settings.js` file and modify the following settings to customized the
 - **"JP"**: Japanese translation
 - **"UA"**: Ukrainian translation
 - **"DE"**: German translation
-
+- **"PT_BR"**: Brazilian Portuguese translation
 `maxTasksPerUser`: Default = **10**
 
 - **number**: A value between 1 - 20.
@@ -287,6 +290,8 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!追加` (Japanese)
 - `!додати` (Ukrainian)
 - `!aufgabe` (German)
+- `!tarefa` (Brazilian Portuguese)
+
 
 **focus commands:**
 - `!focus`
@@ -295,6 +300,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!集中` (Japanese)
 - `!фокус` (Ukrainian)
 - `!fokus` (German)
+- `!focar` (Brazilian Portuguese)
 
 **edit task commands:**
 
@@ -304,6 +310,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!編集` (Japanese)
 - `!редагувати` (Ukrainian)
 - `!bearbeiten` (German)
+- `!editar` (Brazilian Portuguese)
 
 **complete task commands:**
 
@@ -313,6 +320,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!完了` (Japanese)
 - `!готово` (Ukrainian)
 - `!erledigt` (German)
+- `!completo` (Brazilian Portuguese)
 
 **delete task commands:**
 
@@ -322,6 +330,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!削除` (Japanese)
 - `!видалити` (Ukrainian)
 - `!löschen` (German)
+- `!deletar` (Brazilian Portuguese)
 
 **check commands:**
 
@@ -331,6 +340,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!チェック` (Japanese)
 - `!перевірити` (Ukrainian)
 - `!prüfen` (German)
+- `!verificar` (Brazilian Portuguese)
 
 **help commands:**
 
@@ -340,6 +350,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!ヘルプ` (Japanese)
 - `!допомога` (Ukrainian)
 - `!hilfe` (German)
+- `!ajuda` (Brazilian Portuguese)
 
 **extra commands:**
 
@@ -349,6 +360,25 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!クレジット` (Japanese)
 - `!кредит` (Ukrainian)
 - `!kontakt` (German)
+- `!crédito` (Brazilian Portuguese)
+
+### Moderator Commands
+
+**timer commands:**
+- `!timer`
+- `!tempo` (Brazilian Portuguese)
+
+**clear list commands:**
+- `!clearlist`
+- `!limpartarefas` (Brazilian Portuguese)
+
+**clear done commands:**
+- `!cleardone`
+- `!limparfeitas` (Brazilian Portuguese)
+
+**clear user commands:**
+- `!clearuser`
+- `!limparusuario` (Brazilian Portuguese)
 
 ## Credits
 

@@ -4,10 +4,10 @@
 /** @type {AdminConfig} */
 const _adminConfig = {
   commands: {
-    timer: ["!timer"],
-    clearList: ["!clearlist"],
-    clearDone: ["!cleardone"],
-    clearUser: ["!clearuser"],
+    timer: ["!timer", "!tempo"],
+    clearList: ["!clearlist", "!limpartarefas"],
+    clearDone: ["!cleardone", "!limparfeitas"],
+    clearUser: ["!clearuser", "!limparusuario"],
   },
   responseTo: {
     EN: {
@@ -46,5 +46,11 @@ const _adminConfig = {
       clearDone: "Alle erledigten Aufgaben wurden gelöscht",
       clearUser: "Alle Aufgaben von {message} wurden gelöscht",
     },
+    PT_BR: {
+      timer: "Temporizador de foco definido para {message} minutos",
+      clearList: "Todas as tarefas foram removidas",
+      clearDone: "Todas as tarefas concluídas foram removidas",
+      clearUser: "Todas as tarefas de {message} foram removidas",
+    }
   },
 };
