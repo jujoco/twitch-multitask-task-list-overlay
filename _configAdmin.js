@@ -4,10 +4,10 @@
 /** @type {AdminConfig} */
 const _adminConfig = {
   commands: {
-    timer: ["!timer", "!tempo"],
-    clearList: ["!clearlist", "!limpartarefas"],
-    clearDone: ["!cleardone", "!limparfeitas"],
-    clearUser: ["!clearuser", "!limparusuario"],
+    timer: ["!timer"],
+    clearList: ["!clearlist"],
+    clearDone: ["!cleardone"],
+    clearUser: ["!clearuser"],
   },
   responseTo: {
     EN: {

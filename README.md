@@ -48,7 +48,6 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
   - [Commands for Broadcasters and Moderators](#commands-for-broadcasters-and-moderators)
 - [Aliases](#aliases)
   - [User Commands](#user-commands)
-  - [Moderator Commands](#moderator-commands)
 - [Credits](#credits)
 
 ## Installation Instructions
@@ -292,8 +291,8 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!aufgabe` (German)
 - `!tarefa` (Brazilian Portuguese)
 
-
 **focus commands:**
+
 - `!focus`
 - `!enfocar` (Spanish)
 - `!concentrer` (French)
@@ -361,24 +360,6 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!кредит` (Ukrainian)
 - `!kontakt` (German)
 - `!crédito` (Brazilian Portuguese)
-
-### Moderator Commands
-
-**timer commands:**
-- `!timer`
-- `!tempo` (Brazilian Portuguese)
-
-**clear list commands:**
-- `!clearlist`
-- `!limpartarefas` (Brazilian Portuguese)
-
-**clear done commands:**
-- `!cleardone`
-- `!limparfeitas` (Brazilian Portuguese)
-
-**clear user commands:**
-- `!clearuser`
-- `!limparusuario` (Brazilian Portuguese)
 
 ## Credits
 
