@@ -22,6 +22,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 - No third-party database required
 - User features
   - user can create multiple tasks
+  - user can focus on a task
   - user can edit tasks
   - user can mark tasks as done
   - user can delete tasks from their list
@@ -227,8 +228,8 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
 - `!task` or `!add` - Add task(s) (multiple tasks must be separated by a comma)
 
-  - example: `!task read ch. 3`
-  - example: `!task prep for exam, walk dog`
+  - example: `!task read ch 3`
+  - example: `!task prep for exam, walk cat, clean room`
 
 - `!focus` - Focus on a specific task
 
@@ -238,17 +239,18 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - `!edit` - Edit a single task
 
   - example: `!edit 1 read ch. 4`
-  - example: `!edit 2 walk cat`
+  - example: `!edit 2 walk bella`
 
 - `!done` - Mark task(s) as done (multiple tasks must be separated by a comma)
 
   - example: `!done 1`
   - example: `!done 2, 3`
 
-- `!delete` - Delete task(s) (multiple tasks must be separated by a comma)
+- `!delete` - Delete task(s) (multiple tasks must be separated by a comma or use `all` to delete all tasks)
 
   - example: `!delete 1`
   - example: `!delete 2, 3`
+  - example: `!delete all`
 
 - `!check` - Check your remaining tasks
 
@@ -273,7 +275,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
   - example: `!cleardone`
 
-- `!clearuser` - Remove all tasks from a User (username case insensitive)
+- `!clearuser` - Remove all tasks from a User (the username is not case sensitive)
 
   - example: `!clearuser jujoco_dev` or `Jujoco_Dev`
 
@@ -364,3 +366,5 @@ Open the `_styles.js` file and modify the following settings to customized the T
 ## Credits
 
 **Author:** [**@Jujoco_Dev**](https://twitch.tv/Jujoco_Dev)
+
+**Contributors:** [**Thank you to all the Contributors!**](https://github.com/jujoco/twitch-multitask-task-list-overlay/graphs/contributors)
