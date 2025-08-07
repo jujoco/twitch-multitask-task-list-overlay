@@ -206,11 +206,7 @@ export default class App {
 		try {
 			// ADMIN COMMANDS
 			if (isMod(flags)) {
-				if (
-					this.#headerFeature.toLowerCase() === "timer" &&
-					_adminConfig.commands.timer.includes(command) &&
-					flags.broadcaster
-				) {
+				if (this.#headerFeature.toLowerCase() === "timer" && _adminConfig.commands.timer.includes(command)) {
 					const [focusTime, breakTime] = message.split("/");
 					const focusDuration = parseInt(focusTime, 10);
 					const breakDuration = parseInt(breakTime, 10) || 10;
@@ -277,7 +273,7 @@ export default class App {
 					);
 					tasks.forEach((task) => {
 						this.addTaskToDOM(user, task);
-					}); 
+					});
 					responseDetail = taskDescriptions
 						.map((task) => `📝 "${task}"`)
 						.join(", ")
@@ -489,7 +485,7 @@ export default class App {
 	}
 
 	/**
-	 * Mark task as focused in the DOM. 
+	 * Mark task as focused in the DOM.
 	 * @param {string} username
 	 * @param {string} taskId
 	 * @returns {void}
