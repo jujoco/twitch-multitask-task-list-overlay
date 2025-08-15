@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.2.0...v2.3.0) (2025-08-15)
+
+
+### Features
+
+* **mods:** allow your mods to set your focus timer on stream ([4e44b01](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/4e44b010bba9bcfb754f81263ecdf857f8cb75f1))
+* **translation:** add Brazilian Portuguese translation for the app ([#40](https://github.com/jujoco/twitch-multitask-task-list-overlay/issues/40)) ([54f9484](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/54f9484fbe7fb03487f2850f420d0a4a506807b8))
+* **WS:** Update WS connection to comply with new Twitch API standards ([0fbc105](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/0fbc10584ccbcf89696f6a70d12538a6ed1857c6))
+
 ## [2.2.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.1.0...v2.2.0) (2025-03-08)
 
 ## [2.1.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.0.0...v2.1.0) (2025-03-03)
