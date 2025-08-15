@@ -7,7 +7,7 @@ const {
 	twitch_channel, twitch_oauth, twitch_username
 } = _authConfig;
 
-const twitchIRC = "ws://irc-ws.chat.twitch.tv:80";
+const twitchIRC = "wss://irc-ws.chat.twitch.tv:443";
 const client = new TwitchChat(twitchIRC, {
 	username: twitch_username,
 	authToken: twitch_oauth,
