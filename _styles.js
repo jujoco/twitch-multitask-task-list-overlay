@@ -18,26 +18,26 @@ const _styles = {
   headerBorderRadius: "8px", // px value
   headerMarginBottom: "6px", // px value
   headerPadding: "12px", // px value
-  headerBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
+  headerBackgroundColor: "rgba(0, 0, 0, 0.8)", // rgba value https://rgbcolorpicker.com/
   headerFontSize: "18px", // px value
   headerFontColor: "#FFFFFF", // hex value
-  headerFontWeight: "normal", // "normal", "lighter", "bold"
+  headerFontWeight: "300", // "200", "300", "400", "700"
 
   // Card Styles
   cardGapBetween: "6px", // px value
   cardBorderRadius: "8px", // px value
   cardPadding: "12px", // px value
-  cardBackgroundColor: "rgba(0, 0, 0, 0.7)", // rgba value https://rgbcolorpicker.com/
+  cardBackgroundColor: "rgba(0, 0, 0, 0.8)", // rgba value https://rgbcolorpicker.com/
 
   // Username Styles
   usernameFontSize: "18px", // px value
   usernameColor: "#FFFFFF", // hex value
-  usernameFontWeight: "normal", // "normal", "lighter", "bold"
+  usernameFontWeight: "300", // "200", "300", "400", "700"
 
   // Task Styles
   taskFontSize: "16px", // px value
   taskFontColor: "#FFFFFF", // hex value
-  taskFontWeight: "normal", // "normal", "lighter", "bold"
+  taskFontWeight: "300", // "200", "300", "400", "700"
 
   taskDoneFontColor: "#b0b0b0", // hex value
   taskDoneFontStyle: "italic", // "italic" or "normal"

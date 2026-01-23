@@ -135,9 +135,10 @@ Open the `_settings.js` file and modify the following settings to customized the
 - **"UA"**: Ukrainian translation
 - **"DE"**: German translation
 - **"PT_BR"**: Brazilian Portuguese translation
-`maxTasksPerUser`: Default = **10**
 
-- **number**: A value between 1 - 20.
+`maxTasksPerUser`: Default = **20**
+
+- **number**: A value between 1 - 50.
 
 `scrollSpeed`: Default = **20**
 
@@ -196,7 +197,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - headerBackgroundColor: Default = **"rgba(0, 0, 0, 0.7)"**
 - headerFontSize: Default = **"20px"**
 - headerFontColor: Default = **"#FFFFFF"**
-- headerFontWeight: Default = **"normal"**
+- headerFontWeight: Default = **"300"**
 
 #### Card Styles
 
@@ -208,13 +209,13 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
 - usernameFontSize: Default = **"18px"**
 - usernameColor: Default = **"#FFFFFF"**
-- usernameFontWeight: Default = **"normal"**
+- usernameFontWeight: Default = **"300"**
 
 #### Task Styles
 
 - taskFontSize: Default = **"16px"**
 - taskFontColor: Default = **"#FFFFFF"**
-- taskFontWeight: Default = **"normal"**
+- taskFontWeight: Default = **"300"**
 - taskDoneFontColor: Default = **"#aaaaaa"**
 - taskDoneFontStyle: Default = **"#italic"**
 - taskDoneTextDecoration: Default = **"line-through"**

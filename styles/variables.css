@@ -7,33 +7,33 @@
 	--app-border-radius: 8px;
 	--app-padding: 8px;
 	--app-background-image: url(../images/transparent-image.png);
-	--app-background-color: rgba(130, 130, 130, 0);
+	--app-background-color: rgba(0, 0, 0, 0);
 
 	/* Header */
 	--header-display: flex;
 	--header-border-radius: 8px;
 	--header-margin-bottom: 6px;
-	--header-padding: 16px;
-	--header-background-color: rgba(45, 45, 45, 0.7);
+	--header-padding: 12px;
+	--header-background-color: rgba(0, 0, 0, 0.8);
 	--header-font-size: 18px;
 	--header-font-color: white;
-	--header-font-weight: normal;
+	--header-font-weight: 300;
 
 	/* Card */
 	--card-gap-between: 6px;
 	--card-border-radius: 8px;
-	--card-background-color: rgba(100, 100, 100, 0.6);
-	--card-padding: 16px;
+	--card-background-color: rgba(0, 0, 0, 0.8);
+	--card-padding: 12px;
 
 	/* User Name */
 	--username-font-size: 18px;
 	--username-color: #ffffff;
-	--username-font-weight: normal;
+	--username-font-weight: 300;
 
 	/* User Task */
 	--task-font-size: 16px;
 	--task-font-color: #ffffff;
-	--task-font-weight: normal;
+	--task-font-weight: 300;
 
 	--task-done-font-color: #aaaaaa;
 	--task-done-font-style: italic;

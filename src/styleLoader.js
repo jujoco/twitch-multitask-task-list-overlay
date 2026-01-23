@@ -21,7 +21,7 @@ export function loadStyles(styles) {
 function loadGoogleFont(font) {
 	window.WebFont.load({
 		google: {
-			families: [`${font}:100,400,700`],
+			families: [`${font}:200,300,400,700`],
 		},
 	});
 }

@@ -4,7 +4,7 @@
 /** @type {SettingsConfig} */
 const _settings = {
   languageCode: "EN", // "EN", "ES", "FR", "JP", "UA", "DE", "PT_BR"
-  maxTasksPerUser: 10, // default number 10
+  maxTasksPerUser: 20, // default number 20
   scrollSpeed: 20, // default number 20
   showUsernameColor: true, // true or false
   headerFeature: "timer", // "timer", "commands", "text", "tasks-only"
