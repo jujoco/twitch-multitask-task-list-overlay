@@ -2,17 +2,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import TwitchChat from "../../src/twitch/TwitchChat";
 
 describe("TwitchChat", () => {
+	/** @type {any} */
 	let mockWebSocket;
+	/** @type {any} */
 	let mockWsInstance;
 	/** @type {TwitchChat} */
 	let twitchChat;
+	/** @type {any} */
 	let chatEvent;
 
 	beforeEach(() => {
 		chatEvent = vi.fn((data) => {
-			const { user, command, message, flags, extra } = data;
-			return command + " " + message;
+			const { command, message } = data;
+			return `${command} ${message}`;
 		});
+
 		mockWsInstance = {
 			send: vi.fn(),
 			close: vi.fn().mockImplementation(() => {
@@ -26,7 +30,7 @@ describe("TwitchChat", () => {
 							code: 1000,
 							reason: "normal close event",
 						});
-						res();
+						res(undefined);
 					} else {
 						rej(new Error("onclose not defined"));
 					}
@@ -38,7 +42,12 @@ describe("TwitchChat", () => {
 			onmessage: null,
 			readyState: WebSocket.CONNECTING,
 		};
-		mockWebSocket = vi.fn(() => mockWsInstance);
+
+		// biome-ignore lint/complexity/useArrowFunction: arrow functions are not constructable
+		mockWebSocket = vi.fn(function () {
+			return mockWsInstance;
+		});
+
 		twitchChat = new TwitchChat(
 			"ws://test-url:80",
 			{
@@ -48,11 +57,11 @@ describe("TwitchChat", () => {
 			},
 			mockWebSocket
 		);
+
 		twitchChat.on("command", chatEvent);
 	});
 
 	afterEach(() => {
-		twitchChat = null;
 		vi.resetAllMocks();
 	});
 
