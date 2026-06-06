@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.3.0...v2.4.0) (2026-06-06)
+
+
+### Bug Fixes
+
+* **deps:** upgrade Vite to v8 to patch security vulnerabilities ([5a7f1f9](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/5a7f1f9a23789e14911890244cf1b19d533d4e1e))
+* **error:** fix false error NOTICE messages ([9475a95](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/9475a9576a3d32d34732f4a9b5f078135a287958))
+* **html:** correct span tag for command tips and update task title icon ([5c237f4](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/5c237f4e49e28b153f64eb165bdcb61a52e5906b))
+* **phone:** Twitch rejects the bot's chat messages until the account has a verified phone number ([6d98df9](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/6d98df90e31ceee111dde5a296efa4d12e0f06f6))
+
 ## [2.3.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.2.0...v2.3.0) (2025-08-15)
 
 
