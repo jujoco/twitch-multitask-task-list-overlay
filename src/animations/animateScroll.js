@@ -1,15 +1,18 @@
-/** @type {Animation} */
-let primaryAnimation;
-/** @type {Animation} */
-let secondaryAnimation;
-let isScrolling = false;
+/** @type {Animation | null} */
+let primaryAnimation = null;
+/** @type {Animation | null} */
+let secondaryAnimation = null;
 
-const gapSize = getComputedStyle(document.documentElement)
-	.getPropertyValue("--card-gap-between")
-	.slice(0, -2);
+const gapSize =
+	parseInt(
+		getComputedStyle(document.documentElement).getPropertyValue(
+			"--card-gap-between"
+		),
+		10
+	) || 0;
 
 /**
- * Animates the scroll of the task list
+ * Animates the task list as a seamless, GPU-composited infinite scroll.
  * @returns {void}
  */
 export function animateScroll() {
@@ -24,62 +27,52 @@ export function animateScroll() {
 		".task-container.secondary"
 	);
 
-	if (containerHeight > wrapperHeight && !isScrolling) {
-		containerSecondary.style.display = "block";
-		const scrollSpeed = _settings.scrollSpeed.toString();
-		let parsedSpeed = parseInt(scrollSpeed, 10);
-		let adjustedHight = containerHeight + (parseInt(gapSize, 10) * 2);
-		let duration = (adjustedHight / parsedSpeed) * 1000;
-		let animationOptions = {
-			duration: duration,
-			iterations: 1,
-			easing: "linear",
-		};
-
-		let primaryKeyFrames = [
-			{ transform: "translateY(0)" },
-			{ transform: `translateY(-${adjustedHight}px)` },
-		];
-		let secondaryKeyFrames = [
-			{ transform: "translateY(0)" },
-			{ transform: `translateY(-${adjustedHight}px)` },
-		];
-		// store and apply animations
-		primaryAnimation = containerPrimary.animate(
-			primaryKeyFrames,
-			animationOptions
-		);
-		secondaryAnimation = containerSecondary.animate(
-			secondaryKeyFrames,
-			animationOptions
-		);
-
-		isScrolling = true;
-		addAnimationListeners();
-	} else if (containerHeight <= wrapperHeight) {
+	// Content fits the viewport: nothing to scroll. Stop and hide the clone.
+	if (containerHeight <= wrapperHeight) {
 		containerSecondary.style.display = "none";
 		cancelAnimation();
+		return;
 	}
+
+	containerSecondary.style.display = "block";
+
+	const speed = parseInt(_settings.scrollSpeed.toString(), 10) || 25;
+	const scrollDistance = containerHeight + gapSize * 2;
+	const duration = (scrollDistance / speed) * 1000;
+	const previousTime =
+		primaryAnimation && primaryAnimation.currentTime != null
+			? Number(primaryAnimation.currentTime) % duration
+			: 0;
+
+	cancelAnimation();
+
+	const keyframes = [
+		{ transform: "translateY(0)" },
+		{ transform: `translateY(-${scrollDistance}px)` },
+	];
+	const options = {
+		duration: duration,
+		iterations: Infinity,
+		easing: "linear",
+	};
+
+	primaryAnimation = containerPrimary.animate(keyframes, options);
+	secondaryAnimation = containerSecondary.animate(keyframes, options);
+	primaryAnimation.currentTime = previousTime;
+	secondaryAnimation.currentTime = previousTime;
 }
 
+/**
+ * Cancels both animations and clears the references.
+ * @returns {void}
+ */
 function cancelAnimation() {
 	if (primaryAnimation) {
 		primaryAnimation.cancel();
+		primaryAnimation = null;
 	}
 	if (secondaryAnimation) {
 		secondaryAnimation.cancel();
+		secondaryAnimation = null;
 	}
-	isScrolling = false;
-}
-
-function addAnimationListeners() {
-	if (primaryAnimation) {
-		primaryAnimation.addEventListener("finish", animationFinished);
-		primaryAnimation.addEventListener("cancel", animationFinished);
-	}
-}
-
-function animationFinished() {
-	isScrolling = false;
-	animateScroll();
 }

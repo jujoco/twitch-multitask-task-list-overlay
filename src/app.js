@@ -412,6 +412,7 @@ export default class App {
 		primaryContainer.innerHTML = "";
 		secondaryContainer.innerHTML = "";
 		this.renderTaskCount();
+		animateScroll();
 	}
 
 	/**
@@ -519,6 +520,7 @@ export default class App {
 			}
 		}
 		this.renderTaskCount();
+		animateScroll();
 	}
 
 	/**
@@ -536,6 +538,7 @@ export default class App {
 			card.remove();
 		}
 		this.renderTaskCount();
+		animateScroll();
 	}
 }
 
