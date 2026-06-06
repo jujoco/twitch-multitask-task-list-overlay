@@ -117,6 +117,30 @@ describe("TwitchChat", () => {
 		});
 	});
 
+	describe("NOTICE handling", () => {
+		it("should emit oauthError and PART on a genuine auth-failure NOTICE (channel '*')", () => {
+			twitchChat.connect();
+			const oauthError = vi.fn();
+			twitchChat.on("oauthError", oauthError);
+			mockWsInstance.onmessage({
+				data: ":tmi.twitch.tv NOTICE * :Login authentication failed",
+			});
+			expect(oauthError).toHaveBeenCalledTimes(1);
+			expect(mockWsInstance.send).toHaveBeenCalledWith("PART #channel");
+		});
+
+		it("should NOT emit oauthError on an operational NOTICE scoped to the channel", () => {
+			twitchChat.connect();
+			const oauthError = vi.fn();
+			twitchChat.on("oauthError", oauthError);
+			mockWsInstance.onmessage({
+				data: "@msg-id=msg_duplicate :tmi.twitch.tv NOTICE #channel :Your message was not sent because it is identical to the previous one you sent, less than 30 seconds ago.",
+			});
+			expect(oauthError).not.toHaveBeenCalled();
+			expect(mockWsInstance.send).not.toHaveBeenCalledWith("PART #channel");
+		});
+	});
+
 	describe("say method", () => {
 		it("should send a message to the Twitch channel via the say() method", () => {
 			twitchChat.connect();

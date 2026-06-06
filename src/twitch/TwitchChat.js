@@ -93,11 +93,20 @@ export default class TwitchChat extends EventEmitter {
 							this.#ws.close();
 							break;
 						case "NOTICE":
-							// If the authentication failed, leave the channel.
-							// The server will close the connection.
-							console.error(`${parsedMessage.parameters}; left ${this.channel}`);
-							this.emit("oauthError");
-							this.#ws.send(`PART ${this.channel}`);
+							// Twitch sends NOTICE for many benign reasons (rate limits,
+							// slow/sub/emote-only mode, duplicate messages, etc.), not just
+							// auth failures. Genuine login/auth failures arrive on the "*"
+							// channel before joining; anything scoped to the real channel is
+							// operational and must NOT trigger the oauth error (doing so falsely
+							// showed the "Invalid oAuth" modal and parted the channel right
+							// after a command succeeded).
+							if (parsedMessage.command.channel === "*") {
+								console.error(`${parsedMessage.parameters}; left ${this.channel}`);
+								this.emit("oauthError");
+								this.#ws.send(`PART ${this.channel}`);
+							} else {
+								console.warn(`Twitch NOTICE: ${parsedMessage.parameters}`);
+							}
 							break;
 						default: // Ignore all other IRC messages.
 					}
