@@ -139,6 +139,19 @@ describe("TwitchChat", () => {
 			expect(oauthError).not.toHaveBeenCalled();
 			expect(mockWsInstance.send).not.toHaveBeenCalledWith("PART #channel");
 		});
+
+		it("should emit phoneVerificationRequired on the phone-verification NOTICE", () => {
+			twitchChat.connect();
+			const phoneVerification = vi.fn();
+			const oauthError = vi.fn();
+			twitchChat.on("phoneVerificationRequired", phoneVerification);
+			twitchChat.on("oauthError", oauthError);
+			mockWsInstance.onmessage({
+				data: "@msg-id=msg_requires_verified_phone_number :tmi.twitch.tv NOTICE #channel :A verified phone number is required to chat in this channel. Please visit https://www.twitch.tv/settings/security to verify your phone number.",
+			});
+			expect(phoneVerification).toHaveBeenCalledTimes(1);
+			expect(oauthError).not.toHaveBeenCalled();
+		});
 	});
 
 	describe("say method", () => {

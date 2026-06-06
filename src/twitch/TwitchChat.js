@@ -93,19 +93,23 @@ export default class TwitchChat extends EventEmitter {
 							this.#ws.close();
 							break;
 						case "NOTICE":
-							// Twitch sends NOTICE for many benign reasons (rate limits,
-							// slow/sub/emote-only mode, duplicate messages, etc.), not just
-							// auth failures. Genuine login/auth failures arrive on the "*"
-							// channel before joining; anything scoped to the real channel is
-							// operational and must NOT trigger the oauth error (doing so falsely
-							// showed the "Invalid oAuth" modal and parted the channel right
-							// after a command succeeded).
+							// Genuine auth failures arrive on the "*" channel; notices scoped to
+							// the real channel are operational (rate limits, duplicates, etc.).
 							if (parsedMessage.command.channel === "*") {
 								console.error(`${parsedMessage.parameters}; left ${this.channel}`);
 								this.emit("oauthError");
 								this.#ws.send(`PART ${this.channel}`);
 							} else {
 								console.warn(`Twitch NOTICE: ${parsedMessage.parameters}`);
+								// Twitch blocks chat until the account verifies a phone number;
+								// surface it in the UI since users forget the bot account.
+								const msgId = parsedMessage.tags?.["msg-id"];
+								if (
+									msgId === "msg_requires_verified_phone_number" ||
+									/verified phone number/i.test(parsedMessage.parameters || "")
+								) {
+									this.emit("phoneVerificationRequired");
+								}
 							}
 							break;
 						default: // Ignore all other IRC messages.

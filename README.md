@@ -61,12 +61,18 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
 
 ### Get Twitch oAuth
 
-1. **Log in to Twitch Developer Console**
+1. **Verify Your Phone Number (Required by Twitch)**
+
+   - Twitch requires a verified phone number before an account can send chat messages. Without it, the bot will connect but its messages will be silently blocked.
+   - Add and verify a phone number at [twitch.tv/settings/security](https://www.twitch.tv/settings/security).
+   - Do this on **every** account you'll use with the bot — both your main account **and** your bot account, if they're separate. It's easy to forget the bot account.
+
+2. **Log in to Twitch Developer Console**
 
    - Open and log into [https://dev.twitch.tv/console](https://dev.twitch.tv/console) using your web browser.
    - Log in using your bot account or your main Twitch account.
 
-2. **Register The App with Twitch**
+3. **Register The App with Twitch**
 
    - Once logged in, Click the **"Register Your Application"** button.
    - Enter a unique name for your application in the **Name** field. (e.g., "TaskListBot123")
@@ -76,7 +82,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
    - Click the **"Create"** button to complete the registration.
    - Once the App is registered, you will see a **Client ID**. Copy this ID and save it for later. (do not share this ID with anyone)
 
-3. **Generate an OAuth Access Token**
+4. **Generate an OAuth Access Token**
 
    - Copy the following URL and replace the `YOUR-APP-CLIENT-ID` with the **Client ID** from your registered app you had made in the previous step.
 
@@ -90,7 +96,7 @@ Viewers can create, edit, mark as done, and delete tasks from the list. This Tas
    - Copy the token from the URL (it follows `#access_token=` and ends just before `&scope`).
    - Save this token in a safe place for the next step.
 
-4. **Update Your \_auth.js File**
+5. **Update Your \_auth.js File**
 
    - Navigate to the location where you unzipped the downloaded files.
    - Open the `_auth.js` file in a text editor. (Notepad works, but I recommend downloading VS Code to make it easier to read and edit the file.)

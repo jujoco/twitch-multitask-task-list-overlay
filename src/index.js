@@ -42,6 +42,10 @@ window.addEventListener("load", () => {
 		closeModal();
 	});
 
+	client.on("phoneVerificationRequired", () => {
+		openModal("phone-modal");
+	});
+
 	client.connect();
 	if (_settings.testMode) loadTestUsers(client);
 });

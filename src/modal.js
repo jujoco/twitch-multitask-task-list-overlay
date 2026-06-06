@@ -1,9 +1,9 @@
-export function openModal() {
-  document.getElementById("modal").classList.remove("hidden");
-  document.getElementById("modal").classList.add("flex");
+export function openModal(id = "modal") {
+  document.getElementById(id).classList.remove("hidden");
+  document.getElementById(id).classList.add("flex");
 }
 
-export function closeModal() {
-  document.getElementById("modal").classList.remove("flex");
-  document.getElementById("modal").classList.add("hidden");
+export function closeModal(id = "modal") {
+  document.getElementById(id).classList.remove("flex");
+  document.getElementById(id).classList.add("hidden");
 }
