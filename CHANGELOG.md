@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.4.0...v2.5.0) (2026-06-07)
+
+
+### Features
+
+* **animation:** improve scroll animation smoothness ([8040c7a](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/8040c7a5300e4da8c915f7627662f913222d6a24))
+* **ts:** migrate to ts, clean lint errors ([80c8374](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/80c8374646facd82ece2f06df24a8c80aa5c1171))
+
 ## [2.4.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.3.0...v2.4.0) (2026-06-06)
 
 
