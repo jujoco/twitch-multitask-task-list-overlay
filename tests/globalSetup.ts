@@ -2,14 +2,21 @@ import { vi } from 'vitest';
 
 const _adminConfig = {
 	commands: {
-		timer: ['!timer'],
+		timer: ['!timer', '!pomo'],
 		clearList: ['!clearlist'],
 		clearDone: ['!cleardone'],
 		clearUser: ['!clearuser'],
+		pause: ['!pause'],
+		resume: ['!resume'],
 	},
 	responseTo: {
 		EN: {
 			timer: 'Timer has been reset to {message} minutes',
+			pomo: 'Pomodoro session {session}/{total} started! Focus for {duration} minutes 🍅',
+			pomoBreak: 'Session {session}/{total} complete! Time for a {break} minute break ☕',
+			pomoComplete: 'All {total} Pomodoro sessions complete! Great work! 🎉',
+			pause: 'Timer paused ⏸️',
+			resume: 'Timer resumed ▶️',
 			clearList: 'All tasks have been cleared',
 			clearDone: 'All done tasks have been cleared',
 			clearUser: 'All tasks for {message} have been cleared',
@@ -55,6 +62,11 @@ const _settings = {
 	headerFeature: 'timer', // "timer", "commands", "text", "tasks-only"
 	headerCustomText: 'Custom Text', // HeaderFeature above must be "text"
 	botResponsePrefix: '🤖💬 ', // default "🤖💬 "
+	pomodoro: {
+		sessionLength: 60,
+		breakLength: 10,
+		sessions: 1,
+	},
 	testMode: false, // true or false - for testing purposes
 };
 

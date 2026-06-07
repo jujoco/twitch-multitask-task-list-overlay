@@ -269,22 +269,34 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
 ### Commands for Broadcasters and Moderators
 
-- `!timer` - Set the focus and break timer for a session (in minutes)
+- `!pomo` / `!timer` - Set the time, break, and Pomodoro sessions, as `<time> <break> <pomo>`
 
-  - example: `!timer 60/10`
-  - example: `!timer 90/15`
+    Values can be separated by spaces ` ` or slashes `/`. `!pomo` and `!timer` function the same way.
 
-- `!clearlist` - Clear all tasks from the list
+  - example: `!timer 60/10/3` or `!pomo 60 10 3` - start a Pomodoro sessions
+  - example: `!pomo 30` - one-time timer with no break
+  - example: `!timer 60/10` or `!timer 60 10` - one-time timer with 1 break
+  - example: `!pomo` - no values starts a single `pomodoro` using defaults in `_settings.js`
+
+- `!pause` - Pause the active timer countdown.
+
+  - example: `!pause`
+
+- `!resume` - Resume a paused timer countdown.
+
+  - example: `!resume`
+
+- `!clearlist` - Clear all tasks from the list.
 
   - example: `!clearlist`
 
-- `!cleardone` - Clear all done tasks
+- `!cleardone` - Clear all done tasks.
 
   - example: `!cleardone`
 
 - `!clearuser` - Remove all tasks from a User (the username is not case sensitive)
 
-  - example: `!clearuser jujoco_dev` or `Jujoco_Dev`
+  - example: `!clearuser jujoco_dev`
 
 ## Aliases
 

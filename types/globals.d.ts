@@ -9,6 +9,12 @@ interface AuthConfig {
 	twitch_username: string;
 }
 
+interface PomodoroConfig {
+	sessions: number;
+	sessionLength: number;
+	breakLength: number;
+}
+
 interface SettingsConfig {
 	languageCode: string;
 	maxTasksPerUser: number;
@@ -17,6 +23,7 @@ interface SettingsConfig {
 	headerFeature: string;
 	headerCustomText: string;
 	botResponsePrefix: string;
+	pomodoro: PomodoroConfig;
 	testMode: boolean;
 }
 
@@ -28,6 +35,8 @@ interface AdminCommands {
 	clearList: string[];
 	clearDone: string[];
 	clearUser: string[];
+	pause: string[];
+	resume: string[];
 }
 
 interface AdminResponse {
@@ -35,6 +44,11 @@ interface AdminResponse {
 	clearList: string;
 	clearDone: string;
 	clearUser: string;
+	pomo: string;
+	pomoBreak: string;
+	pomoComplete: string;
+	pause: string;
+	resume: string;
 }
 
 interface AdminConfig {

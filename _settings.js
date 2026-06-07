@@ -10,5 +10,11 @@ const _settings = {
 	headerFeature: 'timer', // "timer", "commands", "text", "tasks-only"
 	headerCustomText: 'Custom Text', // headerFeature above must be "text"
 	botResponsePrefix: '🤖💬 ', // default bot message prefix
+	pomodoro: {
+		// defaults are used by the timer.
+		sessionLength: 60, // minutes per focus session
+		breakLength: 10, // minutes per break
+		sessions: 1, // number of focus sessions (when running as a Pomodoro)
+	},
 	testMode: false, // true or false - for testing purposes
 };

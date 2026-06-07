@@ -1,4 +1,6 @@
 import App from './app.js';
+import TaskCommandHandler from './classes/TaskCommandHandler.js';
+import TimerCommandHandler from './classes/TimerCommandHandler.js';
 import { closeModal, openModal } from './modal.js';
 import { loadTestUsers } from './twitch/loadTestUsers.js';
 import TwitchChat from './twitch/TwitchChat.js';
@@ -21,14 +23,19 @@ window.addEventListener('load', () => {
 	}
 	const app = new App(storeName);
 	app.render();
+	app.setSayCallback((message: string) => client.say(message));
+
+	const taskCommandHandler = new TaskCommandHandler(app.userList, app);
+	const timerCommandHandler = new TimerCommandHandler(app);
 
 	client.on('command', (data: CommandData) => {
 		const { user, command, message, flags, extra } = data;
-		const response = app.chatHandler(user, command, message, flags, extra);
+		const response =
+			timerCommandHandler.handle(user, command, message, flags) ??
+			taskCommandHandler.handle(user, command, message, flags, extra);
 		if (!response.error) {
 			client.say(response.message, extra.messageId);
 		} else {
-			// error logs also are added to OBS logs
 			console.error(response.message);
 		}
 	});
