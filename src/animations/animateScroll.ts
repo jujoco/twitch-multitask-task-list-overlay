@@ -1,40 +1,27 @@
-/** @type {Animation | null} */
-let primaryAnimation = null;
-/** @type {Animation | null} */
-let secondaryAnimation = null;
+let primaryAnimation: Animation | null = null;
+let secondaryAnimation: Animation | null = null;
 
 const gapSize =
-	parseInt(
-		getComputedStyle(document.documentElement).getPropertyValue(
-			"--card-gap-between"
-		),
-		10
-	) || 0;
+	parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-gap-between'), 10) ||
+	0;
 
-/**
- * Animates the task list as a seamless, GPU-composited infinite scroll.
- * @returns {void}
- */
-export function animateScroll() {
-	const wrapper = document.querySelector(".task-wrapper");
+export function animateScroll(): void {
+	const wrapper = document.querySelector('.task-wrapper');
+	const containerPrimary = document.querySelector('.task-container.primary');
+	const containerSecondary = document.querySelector<HTMLElement>('.task-container.secondary');
+	if (!wrapper || !containerPrimary || !containerSecondary) return;
+
 	const wrapperHeight = wrapper.clientHeight;
-
-	const containerPrimary = document.querySelector(".task-container.primary");
 	const containerHeight = containerPrimary.scrollHeight;
-
-	/** @type {HTMLElement} */
-	const containerSecondary = document.querySelector(
-		".task-container.secondary"
-	);
 
 	// Content fits the viewport: nothing to scroll. Stop and hide the clone.
 	if (containerHeight <= wrapperHeight) {
-		containerSecondary.style.display = "none";
+		containerSecondary.style.display = 'none';
 		cancelAnimation();
 		return;
 	}
 
-	containerSecondary.style.display = "block";
+	containerSecondary.style.display = 'block';
 
 	const speed = parseInt(_settings.scrollSpeed.toString(), 10) || 25;
 	const scrollDistance = containerHeight + gapSize * 2;
@@ -47,13 +34,13 @@ export function animateScroll() {
 	cancelAnimation();
 
 	const keyframes = [
-		{ transform: "translateY(0)" },
+		{ transform: 'translateY(0)' },
 		{ transform: `translateY(-${scrollDistance}px)` },
 	];
-	const options = {
+	const options: KeyframeAnimationOptions = {
 		duration: duration,
 		iterations: Infinity,
-		easing: "linear",
+		easing: 'linear',
 	};
 
 	primaryAnimation = containerPrimary.animate(keyframes, options);
@@ -62,11 +49,7 @@ export function animateScroll() {
 	secondaryAnimation.currentTime = previousTime;
 }
 
-/**
- * Cancels both animations and clears the references.
- * @returns {void}
- */
-function cancelAnimation() {
+function cancelAnimation(): void {
 	if (primaryAnimation) {
 		primaryAnimation.cancel();
 		primaryAnimation = null;

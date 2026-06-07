@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"allowJs": true,
+		"checkJs": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"]
+	},
+	"include": [
+		"src",
+		"types",
+		"tests",
+		"_auth.js",
+		"_configAdmin.js",
+		"_configUser.js",
+		"_settings.js",
+		"_styles.js"
+	],
+	"exclude": ["node_modules", "dist"]
+}
