@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.1](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.6.0...v2.6.1) (2026-06-27)
+
+
+### Features
+
+* **font:** increase base font sizes ([5c8655c](https://github.com/jujoco/twitch-multitask-task-list-overlay/commit/5c8655c29f180d5e2f25c47a858f8ce63fc12e28))
+
 ## [2.6.0](https://github.com/jujoco/twitch-multitask-task-list-overlay/compare/v2.5.0...v2.6.0) (2026-06-07)
 
 
