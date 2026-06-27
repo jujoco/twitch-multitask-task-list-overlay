@@ -201,7 +201,7 @@ Open the `_styles.js` file and modify the following settings to customized the T
 - headerBorderRadius: Default = **"6px"**
 - headerMarginBottom: Default = **"6px"**
 - headerBackgroundColor: Default = **"rgba(0, 0, 0, 0.7)"**
-- headerFontSize: Default = **"20px"**
+- headerFontSize: Default = **"22px"**
 - headerFontColor: Default = **"#FFFFFF"**
 - headerFontWeight: Default = **"300"**
 
@@ -213,13 +213,13 @@ Open the `_styles.js` file and modify the following settings to customized the T
 
 #### Username Styles
 
-- usernameFontSize: Default = **"18px"**
+- usernameFontSize: Default = **"22px"**
 - usernameColor: Default = **"#FFFFFF"**
 - usernameFontWeight: Default = **"300"**
 
 #### Task Styles
 
-- taskFontSize: Default = **"16px"**
+- taskFontSize: Default = **"20px"**
 - taskFontColor: Default = **"#FFFFFF"**
 - taskFontWeight: Default = **"300"**
 - taskDoneFontColor: Default = **"#aaaaaa"**

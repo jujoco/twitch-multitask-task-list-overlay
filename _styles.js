@@ -18,8 +18,8 @@ const _styles = {
 	headerBorderRadius: '8px', // px value
 	headerMarginBottom: '6px', // px value
 	headerPadding: '12px', // px value
-	headerBackgroundColor: 'rgba(0, 0, 0, 0.8)', // rgba value https://rgbcolorpicker.com/
-	headerFontSize: '18px', // px value
+	headerBackgroundColor: 'rgba(0, 0, 0, 0.6)', // rgba value https://rgbcolorpicker.com/
+	headerFontSize: '22px', // px value
 	headerFontColor: '#FFFFFF', // hex value
 	headerFontWeight: '300', // "200", "300", "400", "700"
 
@@ -27,15 +27,15 @@ const _styles = {
 	cardGapBetween: '6px', // px value
 	cardBorderRadius: '8px', // px value
 	cardPadding: '12px', // px value
-	cardBackgroundColor: 'rgba(0, 0, 0, 0.8)', // rgba value https://rgbcolorpicker.com/
+	cardBackgroundColor: 'rgba(0, 0, 0, 0.6)', // rgba value https://rgbcolorpicker.com/
 
 	// Username Styles
-	usernameFontSize: '18px', // px value
+	usernameFontSize: '22px', // px value
 	usernameColor: '#FFFFFF', // hex value
 	usernameFontWeight: '300', // "200", "300", "400", "700"
 
 	// Task Styles
-	taskFontSize: '16px', // px value
+	taskFontSize: '20px', // px value
 	taskFontColor: '#FFFFFF', // hex value
 	taskFontWeight: '300', // "200", "300", "400", "700"
 
@@ -44,6 +44,6 @@ const _styles = {
 	taskDoneTextDecoration: 'line-through', // "line-through" or "none"
 
 	taskFocusFontColor: '#111111', // hex value
-	taskFocusBackgroundColor: 'rgba(255, 255, 255, 0.7)', // rgba value https://rgbcolorpicker.com/
+	taskFocusBackgroundColor: 'rgba(255, 255, 255, 0.6)', // rgba value https://rgbcolorpicker.com/
 	taskFocusBorderRadius: '8px', // hex value
 };
