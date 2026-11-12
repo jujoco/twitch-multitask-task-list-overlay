@@ -191,6 +191,7 @@ More available @ <https://fonts.google.com>
 - `cardFontFamily`: "Roboto Mono"
 
 **If you wish to use local font files (`.woff2`, `.ttf`, etc.):**
+
 - Put your font file in the `styles` directory
 - Add these lines to the end of `styles/index.css`:
 
