@@ -183,10 +183,26 @@ Use this to test the TaskList without affecting the real task list and visually 
 
 Open the `_styles.js` file and modify the following settings to customized the TaskList appearance. Default values are provided below. If at any point you want to reset the styles to the default values you can find the default values below next to each style name.
 
-#### Font Family - more available @ <https://fonts.google.com>
+#### Font Family
+
+More available @ <https://fonts.google.com>
 
 - headerFontFamily: "Roboto Mono"
 - cardFontFamily: "Roboto Mono"
+
+If you wish to use local font files (`.woff2`, `.ttf`, etc.):
+- Put your font file in the `styles` directory
+- Add these lines to the end of `styles/index.css`:
+
+``` css
+@font-face {
+    font-family: "FontName"; // replace with your name
+    src: url("font.woff2"); // replace with the filename
+    font-weight: 100 900;
+}
+```
+
+You can proceed to edit `headerFontFamily` and `cardFontFamily`. 
 
 #### App Styles
 
